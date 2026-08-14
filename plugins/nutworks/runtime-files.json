@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "files": [
+    ".claude-plugin/plugin.json",
+    ".codex-plugin/plugin.json",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "runtime-files.json",
+    "skills/nuts/SKILL.md",
+    "skills/nuts/references/audit.md",
+    "skills/nuts/references/auditors/concerns.md",
+    "skills/nuts/references/auditors/triage.md",
+    "skills/nuts/references/auditors/verification.md",
+    "skills/nuts/references/compound.md",
+    "skills/nuts/references/evidence-and-claims.md",
+    "skills/nuts/references/plan.md",
+    "skills/nuts/references/review.md",
+    "skills/nuts/references/reviewers/change-risk.md",
+    "skills/nuts/references/reviewers/coherence.md",
+    "skills/nuts/references/reviewers/correctness.md",
+    "skills/nuts/references/reviewers/feasibility.md",
+    "skills/nuts/references/reviewers/simplicity.md",
+    "skills/nuts/references/reviewers/testing.md",
+    "skills/nuts/references/schemas/finding.schema.json",
+    "third_party/compound-engineering/LICENSE",
+    "third_party/compound-engineering/provenance.json"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "nutworks",
+  "version": "0.1.0",
+  "description": "Run NUTS, a rigorous evidence-backed engineering workflow",
+  "author": {
+    "name": "Andrew Gomel",
+    "url": "https://github.com/AndrewMGomel"
+  },
+  "homepage": "https://github.com/AndrewMGomel/nutworks",
+  "repository": "https://github.com/AndrewMGomel/nutworks",
+  "license": "MIT",
+  "keywords": [
+    "engineering-workflow",
+    "planning",
+    "review",
+    "audit"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Nutworks",
+    "shortDescription": "Run the NUTS engineering workflow",
+    "longDescription": "Nutworks provides NUTS, a structured engineering workflow with planning, independent review, audits, implementation, learning, and evidence-backed closeout.",
+    "developerName": "Andrew Gomel",
+    "category": "Coding",
+    "websiteURL": "https://github.com/AndrewMGomel/nutworks",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use NUTS to complete this engineering task"
+    ]
+  }
+}

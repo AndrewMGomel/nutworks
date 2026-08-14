@@ -1,0 +1,47 @@
+[
+  {
+    "name": "new-durable-lesson",
+    "declared_store": true,
+    "overlap": false,
+    "warranted": true,
+    "project_writes": 1,
+    "outcome": "created",
+    "requires_review": true
+  },
+  {
+    "name": "overlapping-learning",
+    "declared_store": true,
+    "overlap": true,
+    "warranted": true,
+    "project_writes": 1,
+    "outcome": "updated",
+    "requires_review": true
+  },
+  {
+    "name": "no-declared-store",
+    "declared_store": false,
+    "overlap": false,
+    "warranted": true,
+    "project_writes": 0,
+    "outcome": "candidate",
+    "requires_review": false
+  },
+  {
+    "name": "no-reusable-lesson",
+    "declared_store": true,
+    "overlap": false,
+    "warranted": false,
+    "project_writes": 0,
+    "outcome": "no_op",
+    "requires_review": false
+  },
+  {
+    "name": "contradictory-evidence",
+    "declared_store": true,
+    "overlap": false,
+    "warranted": true,
+    "project_writes": 0,
+    "outcome": "blocked",
+    "requires_review": false
+  }
+]

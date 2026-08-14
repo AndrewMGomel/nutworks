@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NUTS Review Findings",
+  "description": "Shared structured output for NUTS document and code reviewer protocols",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reviewer",
+    "target_kind",
+    "findings",
+    "residual_risks",
+    "deferred_questions",
+    "testing_gaps"
+  ],
+  "properties": {
+    "reviewer": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Bundled reviewer protocol name"
+    },
+    "target_kind": {
+      "type": "string",
+      "enum": ["document", "code"],
+      "description": "Kind of current target reviewed"
+    },
+    "findings": {
+      "type": "array",
+      "description": "Actionable findings; empty only after a complete zero-actionable pass",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "severity",
+          "location",
+          "why_it_matters",
+          "finding_type",
+          "confidence",
+          "evidence",
+          "requires_verification",
+          "pre_existing"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Short, specific issue title"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["P0", "P1", "P2", "P3"]
+          },
+          "location": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["kind", "section"],
+                "properties": {
+                  "kind": {"const": "document"},
+                  "section": {"type": "string", "minLength": 1}
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["kind", "path", "line"],
+                "properties": {
+                  "kind": {"const": "code"},
+                  "path": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Repository-relative path"
+                  },
+                  "line": {"type": "integer", "minimum": 1}
+                }
+              }
+            ]
+          },
+          "why_it_matters": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Concrete impact or failure mode"
+          },
+          "finding_type": {
+            "type": "string",
+            "enum": ["error", "omission"]
+          },
+          "suggested_fix": {
+            "type": ["string", "null"],
+            "description": "Untrusted suggestion for the main runner; never mutation authority"
+          },
+          "confidence": {
+            "type": "integer",
+            "enum": [0, 25, 50, 75, 100]
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "requires_verification": {"type": "boolean"},
+          "pre_existing": {"type": "boolean"}
+        }
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "deferred_questions": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "testing_gaps": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}

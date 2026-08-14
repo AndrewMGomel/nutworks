@@ -1,0 +1,26 @@
+{
+  "required_questions": [
+    "What worries you?",
+    "What breaks if this runs for a week unattended?"
+  ],
+  "required_parts": ["Main Context", "Concerns", "Verification", "Triage"],
+  "triage_values": ["FIX", "FLAG", "ACCEPT"],
+  "cases": [
+    {
+      "name": "complete",
+      "main_findings": ["C1"],
+      "concern_findings": ["C2", "C3"],
+      "verification_findings": ["C4"],
+      "triaged": ["C1", "C2", "C3", "C4"],
+      "expected": "complete"
+    },
+    {
+      "name": "omitted-concern",
+      "main_findings": ["C1"],
+      "concern_findings": ["C2"],
+      "verification_findings": ["C3"],
+      "triaged": ["C1", "C3"],
+      "expected": "incomplete"
+    }
+  ]
+}

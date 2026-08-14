@@ -1,0 +1,16 @@
+{
+  "mode": "light",
+  "events": [
+    "Plan",
+    "Critique zero",
+    "Implement",
+    "Review zero",
+    "Compound updated",
+    "Review zero after learning",
+    "Log Debt zero undisposed",
+    "Summary"
+  ],
+  "workers_running_at_summary": 0,
+  "verification": "green",
+  "expected_claim": "Light"
+}

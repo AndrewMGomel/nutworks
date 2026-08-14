@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nutworks Claude Code pilot smoke receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "host",
+    "surface",
+    "build",
+    "operation",
+    "attempted",
+    "status",
+    "observed",
+    "claims"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "host": {"const": "claude-code"},
+    "surface": {"type": "string", "minLength": 1},
+    "build": {"type": "string", "minLength": 1},
+    "operation": {
+      "enum": ["install", "load", "discovery", "reload", "activation"]
+    },
+    "attempted": {"type": "boolean"},
+    "status": {"enum": ["passed", "failed", "not-tested"]},
+    "observed": {"type": "string", "minLength": 1},
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic", "privacy_isolation", "cache_custody", "cross_host_parity"],
+      "properties": {
+        "semantic": {"const": false},
+        "privacy_isolation": {"const": false},
+        "cache_custody": {"const": false},
+        "cross_host_parity": {"const": false}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"attempted": {"const": false}}},
+      "then": {"properties": {"status": {"const": "not-tested"}}}
+    },
+    {
+      "if": {"properties": {"attempted": {"const": true}}},
+      "then": {"properties": {"status": {"enum": ["passed", "failed"]}}}
+    }
+  ]
+}

@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "upstream": {
+    "name": "Compound Engineering",
+    "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+    "version": "3.20.0",
+    "commit": "5c7cb347d0686663743b87cd7227246ba24f7fa7",
+    "license_path": "third_party/compound-engineering/LICENSE",
+    "license_sha256": "61d89de7646effdaba2d0a4ab7bd0eba60b4094b83efe5bc73c7940e43e93fc6"
+  },
+  "sources": [
+    {
+      "path": "skills/ce-plan/references/plan-sections.md",
+      "sha256": "082219787c4df38138cae1da57dc763910a268dc59169065c9fa0242a49e0c42"
+    },
+    {
+      "path": "skills/ce-plan/references/settled-decisions.md",
+      "sha256": "e4fa8cecdccdb5d8a141b720c26a733fb143292a81671c21b144fac2584d5b22"
+    },
+    {
+      "path": "skills/ce-doc-review/references/personas/coherence-reviewer.md",
+      "sha256": "e84c8fa209e0b3f6126cb10c21c7e12fffb39952697e38fa14071303e2e14355"
+    },
+    {
+      "path": "skills/ce-doc-review/references/personas/feasibility-reviewer.md",
+      "sha256": "1e186dabf2b6cac325dbfe8466744f8f1b63cda0c15f69fa160e92c97810de36"
+    },
+    {
+      "path": "skills/ce-code-review/references/personas/correctness-reviewer.md",
+      "sha256": "36a5e5378753345688741a20faa3c19878a6a64e2b4d41c2c06695c15d6eaa81"
+    },
+    {
+      "path": "skills/ce-code-review/references/personas/testing-reviewer.md",
+      "sha256": "8b6e7fad8b4249bfdde96e89f6139b53ca08151407830bd0b2a8d3ed3c79b223"
+    },
+    {
+      "path": "skills/ce-doc-review/references/findings-schema.json",
+      "sha256": "d20a74985ed53841a717472783f44ded059aac0f4ceb78cedcf53437ed2fbfb7"
+    },
+    {
+      "path": "skills/ce-code-review/references/findings-schema.json",
+      "sha256": "14f484b5e32cfc51a432ffee4a89b38ee56fb4619d2604a6db3ed71567f43e76"
+    }
+  ],
+  "adapted": [
+    {
+      "destination": "skills/nuts/references/plan.md",
+      "destination_sha256": "df5f9c45c16aa72a0081736b44fdc32f78518872f52cf6e3010de636fadc83ae",
+      "treatment": "substantially_adapted",
+      "sources": [
+        "skills/ce-plan/references/plan-sections.md",
+        "skills/ce-plan/references/settled-decisions.md"
+      ],
+      "diff_review": {
+        "completed": true,
+        "result": "source_faithful_minimal_adaptation",
+        "style_only_rewrite": false,
+        "retained": [
+          "three-audience outcome and omit-padding rule",
+          "implementation-ready section floor and conditional sections",
+          "stable IDs, repo-relative paths, dependency ordering, and prose economy",
+          "settlement test, two provenance classes, annotation, and evidence override"
+        ],
+        "modifications": [
+          {
+            "change": "Removed CE artifact metadata, HTML rendering, deepening, issue, Proof, handoff, model-routing, and ce-work references.",
+            "reason": "host_neutrality"
+          },
+          {
+            "change": "Made a plan mandatory inside Full or Light NUTS and added truthful planning-only output labels.",
+            "reason": "nuts_authority"
+          },
+          {
+            "change": "Changed absolute-path and invented-command guidance into explicit discovery gates.",
+            "reason": "safety_boundary"
+          },
+          {
+            "change": "Condensed the section catalog into the NUTS R11 output floor and its requirement-to-unit verification trace.",
+            "reason": "shared_evidence_contract"
+          }
+        ]
+      }
+    },
+    {
+      "destination": "skills/nuts/references/reviewers/coherence.md",
+      "destination_sha256": "9ed120888e23bd5e88b964f8a5a3efb7b0a57e5e87a55a2d57de4ffd27163bd4",
+      "treatment": "substantially_adapted",
+      "sources": [
+        "skills/ce-doc-review/references/personas/coherence-reviewer.md"
+      ],
+      "diff_review": {
+        "completed": true,
+        "result": "source_faithful_minimal_adaptation",
+        "style_only_rewrite": false,
+        "retained": [
+          "internal-consistency-only scope",
+          "document-kind adaptation",
+          "contradiction, terminology, structure, ambiguity, reference, and dependency checks",
+          "mechanically grounded patterns, confidence anchors, and exclusions"
+        ],
+        "modifications": [
+          {
+            "change": "Replaced CE review-context and synthesis routing with the bounded NUTS target supplied by the main runner.",
+            "reason": "nuts_authority"
+          },
+          {
+            "change": "Replaced CE safe_auto handling with evidence-only output; the NUTS main runner owns every fix.",
+            "reason": "safety_boundary"
+          },
+          {
+            "change": "Changed the output instruction to the shared NUTS finding schema.",
+            "reason": "shared_evidence_contract"
+          }
+        ]
+      }
+    },
+    {
+      "destination": "skills/nuts/references/reviewers/feasibility.md",
+      "destination_sha256": "dbd190af5c172fd23abee78cbb9f1bce2c9d383d48bf6019d30ee08234600c82",
+      "treatment": "substantially_adapted",
+      "sources": [
+        "skills/ce-doc-review/references/personas/feasibility-reviewer.md"
+      ],
+      "diff_review": {
+        "completed": true,
+        "result": "source_faithful_minimal_adaptation",
+        "style_only_rewrite": false,
+        "retained": [
+          "requirements-versus-plan calibration",
+          "existing-capability, architecture, shadow-path, dependency, performance, migration, and implementability checks",
+          "confidence anchors and false-positive exclusions"
+        ],
+        "modifications": [
+          {
+            "change": "Replaced CE orchestrator classification with the target kind supplied by the NUTS main runner.",
+            "reason": "nuts_authority"
+          },
+          {
+            "change": "Removed CE subagent-template and synthesis references while preserving their substantive confidence boundary.",
+            "reason": "host_neutrality"
+          },
+          {
+            "change": "Changed the output instruction to the shared NUTS finding schema and prohibited mutation.",
+            "reason": "shared_evidence_contract"
+          }
+        ]
+      }
+    },
+    {
+      "destination": "skills/nuts/references/reviewers/correctness.md",
+      "destination_sha256": "7697314e5e1acc4bd4b4aa0957320e0cca8fda730d52c5af07ffceca15234f74",
+      "treatment": "substantially_adapted",
+      "sources": [
+        "skills/ce-code-review/references/personas/correctness-reviewer.md"
+      ],
+      "diff_review": {
+        "completed": true,
+        "result": "source_faithful_minimal_adaptation",
+        "style_only_rewrite": false,
+        "retained": [
+          "mental-execution lens",
+          "boundary, null, sentinel, tooling, race, state, lifecycle, and error-propagation checks",
+          "confidence anchors and non-finding exclusions"
+        ],
+        "modifications": [
+          {
+            "change": "Generalized React-specific lifecycle wording to any resource lifecycle while retaining setup/cleanup and early-return checks.",
+            "reason": "host_neutrality"
+          },
+          {
+            "change": "Replaced CE schema and downstream-resolver routing with evidence-only NUTS output and main-runner ownership.",
+            "reason": "nuts_authority"
+          },
+          {
+            "change": "Required repository-relative code locations and quote-the-line evidence in the shared finding shape.",
+            "reason": "shared_evidence_contract"
+          }
+        ]
+      }
+    },
+    {
+      "destination": "skills/nuts/references/reviewers/testing.md",
+      "destination_sha256": "ba3d61592d16c1d579503e6f133f836b44436b8bdd55eb01f97ec801b6a79ea2",
+      "treatment": "substantially_adapted",
+      "sources": [
+        "skills/ce-code-review/references/personas/testing-reviewer.md"
+      ],
+      "diff_review": {
+        "completed": true,
+        "result": "source_faithful_minimal_adaptation",
+        "style_only_rewrite": false,
+        "retained": [
+          "behavior-proof rather than test-presence lens",
+          "branch, lifecycle, sentinel, source-of-truth, assertion, coupling, error, and no-test checks",
+          "confidence anchors and non-finding exclusions"
+        ],
+        "modifications": [
+          {
+            "change": "Generalized browser-specific lifecycle examples to all resource effects without changing the branch-coverage requirement.",
+            "reason": "host_neutrality"
+          },
+          {
+            "change": "Changed the output instruction to the shared NUTS schema and its testing_gaps channel.",
+            "reason": "shared_evidence_contract"
+          },
+          {
+            "change": "Made mutation prohibition explicit because only the NUTS main runner applies fixes.",
+            "reason": "nuts_authority"
+          }
+        ]
+      }
+    },
+    {
+      "destination": "skills/nuts/references/schemas/finding.schema.json",
+      "destination_sha256": "390b29a211ca1411a96d8f9493fa4463eb7a37e0f7ba26af699e05e536d0888b",
+      "treatment": "substantially_adapted",
+      "sources": [
+        "skills/ce-doc-review/references/findings-schema.json",
+        "skills/ce-code-review/references/findings-schema.json"
+      ],
+      "diff_review": {
+        "completed": true,
+        "result": "source_faithful_minimal_adaptation",
+        "style_only_rewrite": false,
+        "retained": [
+          "reviewer, findings, residual-risk, deferred-question, and testing-gap channels",
+          "severity, finding type, suggested fix, anchored confidence, evidence, verification, and pre-existing fields",
+          "document section and code path/line location semantics"
+        ],
+        "modifications": [
+          {
+            "change": "Merged document and code schemas into one strict document/code location union.",
+            "reason": "shared_evidence_contract"
+          },
+          {
+            "change": "Removed autofix and owner routing fields because reviewer suggestions are untrusted and only the NUTS main runner fixes.",
+            "reason": "nuts_authority"
+          },
+          {
+            "change": "Required all bounded top-level evidence channels and rejected unknown properties.",
+            "reason": "safety_boundary"
+          }
+        ]
+      }
+    }
+  ],
+  "informed_by": [
+    {
+      "destination": "skills/nuts/references/compound.md",
+      "destination_sha256": "e3dc34b93ae69d62fdbf60a11d69a9754988f0a17c27236a5b661717e78de169",
+      "treatment": "original_informed_by",
+      "sources": [
+        {
+          "path": "skills/ce-compound/references/grounding-validation.md",
+          "sha256": "0295ee3be2f19b22b95568cbf17b846d20ff75e358331077fd477da95aa5ad19"
+        }
+      ],
+      "influence": "Verify durable-learning claims against current repository evidence and soften, attribute, or block claims that cannot be grounded.",
+      "classification_review": "The destination uses a NUTS-original one-learning disposition and invalidation contract. It does not copy or substantially adapt CE phase structure, templates, scripts, remote-truth workflow, session-history behavior, or wording."
+    }
+  ],
+  "original": [
+    {
+      "destination": "skills/nuts/references/reviewers/change-risk.md",
+      "destination_sha256": "fb9909f2924f90f8292005b83a93f93daad0246d1dfc6d670ee648250d6e58b8",
+      "treatment": "original",
+      "basis": "Authored from NUTS R16 as a bounded domain-risk lens; no CE source text was copied or substantially adapted."
+    },
+    {
+      "destination": "skills/nuts/references/reviewers/simplicity.md",
+      "destination_sha256": "f7f69a6cc89cd433a50d904cca9de0e91f014ce124db31f3a4a89967319167c0",
+      "treatment": "original",
+      "basis": "Authored from the explicit NUTS v0.1 unnecessary-complexity signals; no generic or historical CE simplicity persona text was copied or substantially adapted."
+    }
+  ]
+}

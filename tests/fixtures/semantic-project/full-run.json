@@ -1,0 +1,17 @@
+{
+  "mode": "full",
+  "events": [
+    "Plan",
+    "Critique zero",
+    "Audit pre clear",
+    "Implement",
+    "Review zero",
+    "Audit post clear",
+    "Compound no_op",
+    "Log Debt zero undisposed",
+    "Summary"
+  ],
+  "workers_running_at_summary": 0,
+  "verification": "green",
+  "expected_claim": "Full"
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "earned-full",
+    "selected_mode": "full",
+    "completed_obligations": 9,
+    "expected_obligations": 9,
+    "current_zero_passes": true,
+    "audits_current": true,
+    "verification_green": true,
+    "workers_running": false,
+    "undisposed_flags": 0,
+    "expected_claim": "Full"
+  },
+  {
+    "name": "full-missing-reviewer-independence",
+    "selected_mode": "full",
+    "completed_obligations": 8,
+    "expected_obligations": 9,
+    "current_zero_passes": false,
+    "audits_current": true,
+    "verification_green": true,
+    "workers_running": false,
+    "undisposed_flags": 0,
+    "expected_claim": "incomplete"
+  },
+  {
+    "name": "failed-full-never-light",
+    "selected_mode": "full",
+    "completed_obligations": 6,
+    "expected_obligations": 9,
+    "current_zero_passes": false,
+    "audits_current": false,
+    "verification_green": false,
+    "workers_running": false,
+    "undisposed_flags": 1,
+    "expected_claim": "incomplete"
+  },
+  {
+    "name": "earned-light",
+    "selected_mode": "light",
+    "completed_obligations": 7,
+    "expected_obligations": 7,
+    "current_zero_passes": true,
+    "audits_current": false,
+    "verification_green": true,
+    "workers_running": false,
+    "undisposed_flags": 0,
+    "expected_claim": "Light"
+  },
+  {
+    "name": "worker-still-running",
+    "selected_mode": "light",
+    "completed_obligations": 7,
+    "expected_obligations": 7,
+    "current_zero_passes": true,
+    "audits_current": false,
+    "verification_green": true,
+    "workers_running": true,
+    "undisposed_flags": 0,
+    "expected_claim": "incomplete"
+  }
+]
