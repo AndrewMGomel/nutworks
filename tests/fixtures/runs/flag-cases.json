@@ -1,0 +1,20 @@
+[
+  {
+    "name": "repeat-reuses-id",
+    "mentions": ["same decision", "same decision"],
+    "canonical_ids": ["F1"],
+    "undisposed": 0
+  },
+  {
+    "name": "distinct-boundaries-split",
+    "mentions": ["privacy choice", "publication choice"],
+    "canonical_ids": ["F1", "F2"],
+    "undisposed": 0
+  },
+  {
+    "name": "undisposed-blocks-summary",
+    "mentions": ["architecture choice"],
+    "canonical_ids": ["F1"],
+    "undisposed": 1
+  }
+]

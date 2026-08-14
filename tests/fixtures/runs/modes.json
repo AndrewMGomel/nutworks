@@ -1,0 +1,44 @@
+[
+  {
+    "name": "full",
+    "declaration": "NUTS: full",
+    "phases": [
+      "Plan",
+      "Critique until convergence",
+      "Audit (pre-implement)",
+      "Implement or Build",
+      "Review until convergence",
+      "Audit (post-implement)",
+      "Compound",
+      "Log Debt",
+      "Summary"
+    ],
+    "nuts_completion_mode": true
+  },
+  {
+    "name": "light",
+    "declaration": "NUTS: light",
+    "phases": [
+      "Plan",
+      "Critique until convergence",
+      "Implement or Build",
+      "Review until convergence",
+      "Compound",
+      "Log Debt",
+      "Summary"
+    ],
+    "nuts_completion_mode": true
+  },
+  {
+    "name": "minimal",
+    "declaration": "Rigor: minimal",
+    "phases": [],
+    "nuts_completion_mode": false
+  },
+  {
+    "name": "not-needed",
+    "declaration": "Rigor: not needed",
+    "phases": [],
+    "nuts_completion_mode": false
+  }
+]

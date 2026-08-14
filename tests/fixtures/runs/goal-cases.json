@@ -1,0 +1,30 @@
+[
+  {
+    "name": "safe-host-goal",
+    "host_surface": "available",
+    "unrelated_goal": false,
+    "expected": "attempt_before_plan",
+    "goal_is_evidence": false
+  },
+  {
+    "name": "unrelated-goal",
+    "host_surface": "available",
+    "unrelated_goal": true,
+    "expected": "preserve_unrelated",
+    "goal_is_evidence": false
+  },
+  {
+    "name": "goal-unavailable",
+    "host_surface": "unavailable",
+    "unrelated_goal": false,
+    "expected": "report_limitation",
+    "goal_is_evidence": false
+  },
+  {
+    "name": "blocked-no-reactivation",
+    "host_surface": "blocked_no_reactivation",
+    "unrelated_goal": false,
+    "expected": "use_current_evidence",
+    "goal_is_evidence": false
+  }
+]

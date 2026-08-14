@@ -1,0 +1,18 @@
+{
+  "name": "nutworks",
+  "version": "0.1.0",
+  "description": "Run NUTS, a rigorous evidence-backed engineering workflow",
+  "author": {
+    "name": "Andrew Gomel",
+    "url": "https://github.com/AndrewMGomel"
+  },
+  "homepage": "https://github.com/AndrewMGomel/nutworks",
+  "repository": "https://github.com/AndrewMGomel/nutworks",
+  "license": "MIT",
+  "keywords": [
+    "engineering-workflow",
+    "planning",
+    "review",
+    "audit"
+  ]
+}

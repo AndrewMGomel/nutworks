@@ -1,0 +1,15 @@
+{
+  "allowed": [
+    "Copyright (c) 2026 Andrew Gomel",
+    "Use a private workspace chosen by the host."
+  ],
+  "private": [
+    "/Users/example/.codex/skills/NUTS/SKILL.md",
+    "Recovered from nuts-field-report-2026-08-13.zip",
+    "Send this to Matt"
+  ],
+  "secrets": [
+    "AKIAABCDEFGHIJKLMNOP",
+    "api_key=abcdefghijklmnop"
+  ]
+}

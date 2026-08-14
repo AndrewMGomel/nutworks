@@ -1,0 +1,87 @@
+[
+  {
+    "name": "valid-code-finding",
+    "valid": true,
+    "packet": {
+      "reviewer": "correctness",
+      "target_kind": "code",
+      "findings": [
+        {
+          "title": "Empty input becomes success",
+          "severity": "P1",
+          "location": {"kind": "code", "path": "src/runner.py", "line": 18},
+          "why_it_matters": "The caller records work that never ran.",
+          "finding_type": "error",
+          "suggested_fix": "Preserve the empty-input distinction.",
+          "confidence": 100,
+          "evidence": ["src/runner.py:18 returns success for an empty list"],
+          "requires_verification": true,
+          "pre_existing": false
+        }
+      ],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "valid-zero-document-pass",
+    "valid": true,
+    "packet": {
+      "reviewer": "coherence",
+      "target_kind": "document",
+      "findings": [],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "absolute-location",
+    "valid": false,
+    "packet": {
+      "reviewer": "correctness",
+      "target_kind": "code",
+      "findings": [
+        {
+          "title": "Escaping path",
+          "severity": "P1",
+          "location": {"kind": "code", "path": "/tmp/target.py", "line": 1},
+          "why_it_matters": "The location is not part of the reviewed repository.",
+          "finding_type": "error",
+          "confidence": 100,
+          "evidence": ["absolute path"],
+          "requires_verification": false,
+          "pre_existing": false
+        }
+      ],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "missing-evidence",
+    "valid": false,
+    "packet": {
+      "reviewer": "testing",
+      "target_kind": "code",
+      "findings": [
+        {
+          "title": "No assertion",
+          "severity": "P2",
+          "location": {"kind": "code", "path": "tests/test_runner.py", "line": 12},
+          "why_it_matters": "The test cannot prove the result.",
+          "finding_type": "omission",
+          "confidence": 75,
+          "evidence": [],
+          "requires_verification": true,
+          "pre_existing": false
+        }
+      ],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  }
+]

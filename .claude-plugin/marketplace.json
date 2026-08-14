@@ -1,0 +1,26 @@
+{
+  "name": "nutworks",
+  "owner": {
+    "name": "Andrew Gomel"
+  },
+  "metadata": {
+    "description": "Native Nutworks plugin marketplace",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "nutworks",
+      "description": "Run NUTS, a rigorous evidence-backed engineering workflow",
+      "author": {
+        "name": "Andrew Gomel"
+      },
+      "tags": [
+        "engineering-workflow",
+        "planning",
+        "review",
+        "audit"
+      ],
+      "source": "./plugins/nutworks"
+    }
+  ]
+}
