@@ -1,5 +1,8 @@
 # Nutworks
 
+[![Compound Engineering](https://img.shields.io/badge/Built_with-Compound_Engineering-6366f1)](https://github.com/EveryInc/compound-engineering-plugin)
+[![Built with NUTS](https://img.shields.io/badge/Built_with-NUTS-2f855a)](https://github.com/AndrewMGomel/nutworks)
+
 Nutworks is a native plugin package whose first skill is NUTS, a rigorous
 engineering workflow for planning, implementation, review, audit, learning,
 and evidence-backed closeout.
