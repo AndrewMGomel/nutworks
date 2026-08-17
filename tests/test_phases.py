@@ -290,6 +290,31 @@ class ReviewContractTests(unittest.TestCase):
                 with self.subTest(phase=phase, case=case["name"]):
                     self.assertEqual(pass_result(case, packets), case["expected"])
 
+    def test_derived_summary_is_not_a_reviewer_packet_or_pass_receipt(self):
+        fixture = load_json("review/pass-cases.json")
+        packet = fixture["packets"]["derived-summary-old-shape"]
+        case = next(
+            case
+            for case in fixture["cases"]
+            if case["name"] == "derived-summary-cannot-fill-seat"
+        )
+        coexistence_case = next(
+            case
+            for case in fixture["cases"]
+            if case["name"] == "derived-summary-cannot-invalidate-valid-original"
+        )
+        self.assertFalse(finding_packet_is_valid(packet))
+        self.assertEqual(pass_result(case, fixture["packets"]), "unfinished")
+        self.assertEqual(
+            coexistence_case["derived_artifacts"], ["derived-summary-old-shape"]
+        )
+        self.assertEqual(
+            pass_result(coexistence_case, fixture["packets"]), "complete_zero"
+        )
+        review = normalized(self.review)
+        self.assertIn("derived summary", review)
+        self.assertIn("explicitly labeled ineligible for pass accounting", review)
+
     def test_mutation_targeted_zero_and_fresh_complete_zero_trace(self):
         fixture = load_json("review/pass-cases.json")
         packets = fixture["packets"]

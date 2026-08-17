@@ -97,14 +97,17 @@ python3 -m venv .venv
 .venv/bin/python scripts/validate_official_codex.py
 ```
 
-The exact `0.1.1` release candidate passed its deterministic test suite,
+The published `v0.1.1` release candidate passed its deterministic test suite,
 source/stage closure, provenance validation, and the official Codex plugin
-validator against this exact changed generation. The pinned `PyYAML==6.0.2`
-dependency is maintainer-only validation tooling; it is not a Nutworks runtime
-or end-user installation dependency. The NUTS skill validator and Claude's
-strict plugin and marketplace validators were not rerun because this repository
-does not yet document a pinned invocation for them; they are not claimed for
-this changed generation.
+validator. Those receipts apply to the published tag, not to later working-tree
+changes. The current unreleased evidence-provenance correction has separately
+passed the same deterministic, package, provenance, and official Codex
+validation lanes. The pinned `PyYAML==6.0.2` dependency is maintainer-only
+validation tooling; it is not a Nutworks runtime or end-user installation
+dependency. The NUTS skill validator and Claude's strict plugin and marketplace
+validators were not rerun because this repository does not yet document a
+pinned invocation for them; they are not claimed for the current unreleased
+change.
 
 Ordinary reinstall/list smoke passed for the exact published `v0.1.1` tag on
 `codex-cli 0.148.0-alpha.9` and Claude Code `2.1.214`; a projectless Codex
