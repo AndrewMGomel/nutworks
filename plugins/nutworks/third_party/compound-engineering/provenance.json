@@ -212,7 +212,7 @@
     },
     {
       "destination": "skills/nuts/references/schemas/finding.schema.json",
-      "destination_sha256": "390b29a211ca1411a96d8f9493fa4463eb7a37e0f7ba26af699e05e536d0888b",
+      "destination_sha256": "31d4f6cdcfb375349d1ae9faf0da3dbf570a1e3fa17079a776b2b2b6f93ff63c",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-doc-review/references/findings-schema.json",
@@ -237,8 +237,12 @@
             "reason": "nuts_authority"
           },
           {
-            "change": "Required all bounded top-level evidence channels and rejected unknown properties.",
+            "change": "Required all bounded top-level evidence channels, constrained producers to the exact six-member review bench plus the two receipt-free Concerns and Verification audit identities, and rejected unknown properties.",
             "reason": "safety_boundary"
+          },
+          {
+            "change": "Added one closed bench-only assignment receipt for complete-protocol versus targeted-verification evidence while leaving target matching, pass-seat eligibility, and convergence under main-runner ownership.",
+            "reason": "shared_evidence_contract"
           }
         ]
       }

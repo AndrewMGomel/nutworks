@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "NUTS Review Findings",
-  "description": "Shared structured output for NUTS document and code reviewer protocols",
+  "description": "Shared structured output for NUTS Critique, Review, Concerns, and Verification evidence",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -15,8 +15,17 @@
   "properties": {
     "reviewer": {
       "type": "string",
-      "minLength": 1,
-      "description": "Bundled reviewer protocol name"
+      "enum": [
+        "coherence",
+        "feasibility",
+        "correctness",
+        "testing",
+        "change-risk",
+        "simplicity",
+        "audit-concerns",
+        "audit-verification"
+      ],
+      "description": "Exact bundled bench or audit producer identity"
     },
     "target_kind": {
       "type": "string",
@@ -25,7 +34,7 @@
     },
     "findings": {
       "type": "array",
-      "description": "Actionable findings; empty only after a complete zero-actionable pass",
+      "description": "Actionable findings in this return; an empty array alone does not satisfy a pass seat or establish convergence",
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -116,6 +125,70 @@
     "testing_gaps": {
       "type": "array",
       "items": {"type": "string"}
+    },
+    "review_receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "target_ref", "protocol_complete", "limitations"],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["complete_protocol", "targeted_verification"]
+        },
+        "target_ref": {"type": "string", "minLength": 1},
+        "protocol_complete": {"type": "boolean"},
+        "limitations": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"mode": {"const": "complete_protocol"}}},
+          "then": {
+            "properties": {
+              "protocol_complete": {"const": true},
+              "limitations": {"maxItems": 0}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"mode": {"const": "targeted_verification"}}},
+          "then": {
+            "properties": {
+              "protocol_complete": {"const": false},
+              "limitations": {"minItems": 1}
+            }
+          }
+        }
+      ]
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "reviewer": {
+            "enum": [
+              "coherence",
+              "feasibility",
+              "correctness",
+              "testing",
+              "change-risk",
+              "simplicity"
+            ]
+          }
+        }
+      },
+      "then": {"required": ["review_receipt"]}
+    },
+    {
+      "if": {
+        "properties": {
+          "reviewer": {"enum": ["audit-concerns", "audit-verification"]}
+        }
+      },
+      "then": {"not": {"required": ["review_receipt"]}}
+    }
+  ]
 }

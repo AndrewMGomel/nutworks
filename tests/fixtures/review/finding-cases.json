@@ -1,10 +1,16 @@
 [
   {
-    "name": "valid-code-finding",
+    "name": "valid-bench-code-finding",
     "valid": true,
     "packet": {
       "reviewer": "correctness",
       "target_kind": "code",
+      "review_receipt": {
+        "mode": "complete_protocol",
+        "target_ref": "code-r1",
+        "protocol_complete": true,
+        "limitations": []
+      },
       "findings": [
         {
           "title": "Empty input becomes success",
@@ -25,11 +31,174 @@
     }
   },
   {
-    "name": "valid-zero-document-pass",
+    "name": "valid-bench-complete-zero-with-adjacent-observation",
     "valid": true,
     "packet": {
       "reviewer": "coherence",
       "target_kind": "document",
+      "review_receipt": {
+        "mode": "complete_protocol",
+        "target_ref": "plan-r2",
+        "protocol_complete": true,
+        "limitations": []
+      },
+      "findings": [],
+      "residual_risks": ["A future enhancement could add more examples."],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "valid-bench-targeted-zero",
+    "valid": true,
+    "packet": {
+      "reviewer": "coherence",
+      "target_kind": "document",
+      "review_receipt": {
+        "mode": "targeted_verification",
+        "target_ref": "plan-r2",
+        "protocol_complete": false,
+        "limitations": ["Only the repaired dependency paragraph was checked."]
+      },
+      "findings": [],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "valid-audit-concerns-without-receipt",
+    "valid": true,
+    "packet": {
+      "reviewer": "audit-concerns",
+      "target_kind": "document",
+      "findings": [],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "valid-audit-verification-without-receipt",
+    "valid": true,
+    "packet": {
+      "reviewer": "audit-verification",
+      "target_kind": "code",
+      "findings": [],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "bench-missing-receipt",
+    "valid": false,
+    "packet": {
+      "reviewer": "testing",
+      "target_kind": "code",
+      "findings": [],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "audit-forbids-receipt",
+    "valid": false,
+    "packet": {
+      "reviewer": "audit-concerns",
+      "target_kind": "document",
+      "review_receipt": {
+        "mode": "complete_protocol",
+        "target_ref": "plan-r2",
+        "protocol_complete": true,
+        "limitations": []
+      },
+      "findings": [],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "unknown-producer",
+    "valid": false,
+    "packet": {
+      "reviewer": "security",
+      "target_kind": "code",
+      "findings": [],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "complete-receipt-cannot-be-limited",
+    "valid": false,
+    "packet": {
+      "reviewer": "feasibility",
+      "target_kind": "document",
+      "review_receipt": {
+        "mode": "complete_protocol",
+        "target_ref": "plan-r2",
+        "protocol_complete": true,
+        "limitations": ["Skipped portability checks."]
+      },
+      "findings": [],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "targeted-receipt-requires-incomplete-protocol",
+    "valid": false,
+    "packet": {
+      "reviewer": "feasibility",
+      "target_kind": "document",
+      "review_receipt": {
+        "mode": "targeted_verification",
+        "target_ref": "plan-r2",
+        "protocol_complete": true,
+        "limitations": ["Only the repaired dependency paragraph was checked."]
+      },
+      "findings": [],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "targeted-receipt-requires-nonempty-limitation",
+    "valid": false,
+    "packet": {
+      "reviewer": "feasibility",
+      "target_kind": "document",
+      "review_receipt": {
+        "mode": "targeted_verification",
+        "target_ref": "plan-r2",
+        "protocol_complete": false,
+        "limitations": []
+      },
+      "findings": [],
+      "residual_risks": [],
+      "deferred_questions": [],
+      "testing_gaps": []
+    }
+  },
+  {
+    "name": "receipt-is-closed",
+    "valid": false,
+    "packet": {
+      "reviewer": "coherence",
+      "target_kind": "document",
+      "review_receipt": {
+        "mode": "complete_protocol",
+        "target_ref": "plan-r2",
+        "protocol_complete": true,
+        "limitations": [],
+        "authority_id": "not-allowed"
+      },
       "findings": [],
       "residual_risks": [],
       "deferred_questions": [],
@@ -42,6 +211,12 @@
     "packet": {
       "reviewer": "correctness",
       "target_kind": "code",
+      "review_receipt": {
+        "mode": "complete_protocol",
+        "target_ref": "code-r1",
+        "protocol_complete": true,
+        "limitations": []
+      },
       "findings": [
         {
           "title": "Escaping path",
@@ -61,11 +236,17 @@
     }
   },
   {
-    "name": "missing-evidence",
+    "name": "missing-finding-evidence",
     "valid": false,
     "packet": {
       "reviewer": "testing",
       "target_kind": "code",
+      "review_receipt": {
+        "mode": "complete_protocol",
+        "target_ref": "code-r1",
+        "protocol_complete": true,
+        "limitations": []
+      },
       "findings": [
         {
           "title": "No assertion",

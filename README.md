@@ -7,32 +7,32 @@ Nutworks is a native plugin package whose first skill is NUTS, a rigorous
 engineering workflow for planning, implementation, review, audit, learning,
 and evidence-backed closeout.
 
-This public `0.1.0` prerelease is **pilot-unqualified**. Its deterministic
-package and workflow contracts are tested, and ordinary native installation
-has been smoke-tested on the exact builds listed below. Clean standalone
-semantics, cross-host parity, and broad Codex or Claude support have not been
-qualified. Nutworks is distributed from its
+This unreleased `0.1.1` candidate is **pilot-unqualified**. Its deterministic
+package and workflow contracts are tested, but exact-build host acceptance and
+publication are separate later gates. Clean standalone semantics, cross-host
+parity, and broad Codex or Claude support have not been qualified. Nutworks is
+distributed from its
 [GitHub repository](https://github.com/AndrewMGomel/nutworks); it has not been
 submitted to an official plugin directory.
 
 Nutworks has no runtime Compound Engineering dependency. It never installs,
 updates, repairs, or configures CE.
 
-## Install the `0.1.0` pilot
+## Install the `0.1.1` pilot after publication
 
 ### Codex
 
 ```bash
-codex plugin marketplace add AndrewMGomel/nutworks --ref v0.1.0
+codex plugin marketplace add AndrewMGomel/nutworks --ref v0.1.1
 codex plugin add nutworks@nutworks
 ```
 
-Start a fresh task and invoke `$nuts`.
+Start a fresh task and invoke `$nutworks:nuts`.
 
 ### Claude Code
 
 ```bash
-claude plugin marketplace add AndrewMGomel/nutworks@v0.1.0 --scope user
+claude plugin marketplace add AndrewMGomel/nutworks@v0.1.1 --scope user
 claude plugin install nutworks@nutworks --scope user
 ```
 
@@ -60,7 +60,8 @@ run a test plan, collect diagnostics, upload evidence, or repair plugin state.
 
 Maintainers working from a local checkout may substitute its absolute path for
 `AndrewMGomel/nutworks` in the marketplace-add command. Local installation is
-for development; the `v0.1.0` tag is the immutable public pilot identity.
+for development; `v0.1.0` remains the immutable public pilot identity, while
+`0.1.1` remains an unreleased candidate until separately published.
 
 ## Maintainer verification
 
@@ -81,12 +82,20 @@ python3 -m venv .venv
 .venv/bin/python scripts/validate_official_codex.py
 ```
 
-The current candidate passed its deterministic test suite, source/stage closure,
-provenance validation, the official Codex plugin validator, the NUTS skill
-validator, and Claude's strict plugin and marketplace validators. Ordinary
-install/list smoke passed on `codex-cli 0.147.0-alpha.6.5` and Claude Code
-`2.1.214`; those observations apply only to those exact builds and disposable
-plugin-state roots. They do not prove privacy isolation, model behavior,
+The current unreleased `0.1.1` candidate passed its deterministic test suite,
+source/stage closure, provenance validation, and the official Codex plugin
+validator against this exact changed generation. The pinned `PyYAML==6.0.2`
+dependency is maintainer-only validation tooling; it is not a Nutworks runtime
+or end-user installation dependency. The NUTS skill validator and Claude's
+strict plugin and marketplace validators were not rerun because this repository
+does not yet document a pinned invocation for them; they are not claimed for
+this changed generation.
+
+The published `0.1.0` candidate previously passed those packaging validators,
+and ordinary install/list smoke passed on `codex-cli 0.147.0-alpha.6.5` and
+Claude Code `2.1.214`. Those historical observations apply only to that exact
+candidate, those builds, and disposable plugin-state roots. They do not verify
+the current source transaction or prove privacy isolation, model behavior,
 semantic parity, cache custody, rollback, or general host support.
 
 Rollback is not supported in this pilot. Removal uses the host's native plugin

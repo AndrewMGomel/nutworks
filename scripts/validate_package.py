@@ -381,7 +381,7 @@ def validate_runtime_content(plugin_root: Path, files: list[str], errors: list[s
         try:
             text = path.read_text(encoding="utf-8")
         except UnicodeDecodeError:
-            errors.append(f"runtime file must be UTF-8 text in v0.1.0: {relative}")
+            errors.append(f"runtime file must be UTF-8 text: {relative}")
             continue
         except OSError:
             continue
