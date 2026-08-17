@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.1 — unreleased
+## 0.1.1 — 2026-08-17 public prerelease
 
 - Correct Critique and Review pass accounting so only complete selected
   protocols against the whole current target can converge; targeted fix checks
