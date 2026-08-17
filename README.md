@@ -106,12 +106,16 @@ strict plugin and marketplace validators were not rerun because this repository
 does not yet document a pinned invocation for them; they are not claimed for
 this changed generation.
 
-The published `0.1.0` candidate previously passed those packaging validators,
-and ordinary install/list smoke passed on `codex-cli 0.147.0-alpha.6.5` and
-Claude Code `2.1.214`. Those historical observations apply only to that exact
-candidate, those builds, and disposable plugin-state roots. They do not verify
-the current source transaction or prove privacy isolation, model behavior,
-semantic parity, cache custody, rollback, or general host support.
+Ordinary reinstall/list smoke passed for the exact published `v0.1.1` tag on
+`codex-cli 0.148.0-alpha.9` and Claude Code `2.1.214`; a projectless Codex
+updater also moved one installed profile from `0.1.0` to `0.1.1` while
+normalized before/after inventories showed every unrelated plugin and
+marketplace unchanged. The published `0.1.0` candidate previously passed its
+own packaging validators and install/list smoke on `codex-cli
+0.147.0-alpha.6.5` and Claude Code `2.1.214`. Each observation applies only to
+its exact release, build, and profile. They do not prove privacy isolation,
+model behavior, semantic parity, cache custody, rollback, or general host
+support.
 
 Rollback is not supported in this pilot. Removal uses the host's native plugin
 management rather than a Nutworks migration or repair path.
