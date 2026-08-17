@@ -225,6 +225,22 @@ class KernelContractTests(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, self.evidence)
 
+    def test_complete_review_scope_and_mutation_authority_remain_separate(self):
+        review = normalized(
+            (SKILL_ROOT / "references" / "review.md").read_text(encoding="utf-8")
+        )
+        for phrase in [
+            "entire selected named protocol against the whole current target",
+            "neither a whole-target assignment nor a finding grants",
+            "violation of the settled boundary is actionable",
+            "genuinely adjacent enhancement",
+            "preserve it outside `findings`",
+            "does not require a durable repository work item",
+            "only a fresh complete pass may later report zero actionable findings",
+        ]:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, review)
+
 
 if __name__ == "__main__":
     unittest.main()

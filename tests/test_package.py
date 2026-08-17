@@ -10,6 +10,7 @@ from scripts.validate_package import MIT_LICENSE, PackageValidationError, valida
 
 
 ROOT = Path(__file__).resolve().parents[1]
+EXPECTED_VERSION = "0.1.1"
 CONTENT_CASES = json.loads(
     (Path(__file__).parent / "fixtures" / "package" / "content-cases.json").read_text(
         encoding="utf-8"
@@ -38,7 +39,7 @@ def build_valid_repo(root: Path) -> list[str]:
     ]
     manifest = {
         "name": "nutworks",
-        "version": "0.1.0",
+        "version": EXPECTED_VERSION,
         "description": "NUTS test package",
         "author": {"name": "Andrew Gomel"},
         "license": "MIT",
@@ -79,7 +80,7 @@ def build_valid_repo(root: Path) -> list[str]:
         {
             "name": "nutworks",
             "owner": {"name": "Andrew Gomel"},
-            "metadata": {"description": "Nutworks", "version": "0.1.0"},
+            "metadata": {"description": "Nutworks", "version": EXPECTED_VERSION},
             "plugins": [
                 {
                     "name": "nutworks",
@@ -232,7 +233,7 @@ class PackageValidationTests(unittest.TestCase):
         manifest["version"] = "0.2.0"
         write_json(manifest_path, manifest)
         self.assert_invalid("host manifests disagree on version")
-        manifest["version"] = "0.1.0"
+        manifest["version"] = EXPECTED_VERSION
         write_json(manifest_path, manifest)
         catalog_path = self.root / ".claude-plugin/marketplace.json"
         catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
@@ -278,7 +279,7 @@ class CurrentRepositoryPackageTest(unittest.TestCase):
     def test_current_repository_package(self) -> None:
         self.assertEqual(validate_package(ROOT)["status"], "passed")
 
-    def test_public_pilot_identity_and_install_commands(self) -> None:
+    def test_candidate_identity_and_install_commands(self) -> None:
         repository = "https://github.com/AndrewMGomel/nutworks"
         codex = json.loads(
             (ROOT / "plugins/nutworks/.codex-plugin/plugin.json").read_text(
@@ -291,20 +292,27 @@ class CurrentRepositoryPackageTest(unittest.TestCase):
             )
         )
         for manifest in (codex, claude):
+            self.assertEqual(manifest["version"], EXPECTED_VERSION)
             self.assertEqual(manifest["homepage"], repository)
             self.assertEqual(manifest["repository"], repository)
             self.assertEqual(manifest["author"]["url"], "https://github.com/AndrewMGomel")
         self.assertEqual(codex["interface"]["websiteURL"], repository)
+        catalog = json.loads(
+            (ROOT / ".claude-plugin/marketplace.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(catalog["metadata"]["version"], EXPECTED_VERSION)
 
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn(
-            "codex plugin marketplace add AndrewMGomel/nutworks --ref v0.1.0",
+            f"codex plugin marketplace add AndrewMGomel/nutworks --ref v{EXPECTED_VERSION}",
             readme,
         )
         self.assertIn(
-            "claude plugin marketplace add AndrewMGomel/nutworks@v0.1.0 --scope user",
+            f"claude plugin marketplace add AndrewMGomel/nutworks@v{EXPECTED_VERSION} --scope user",
             readme,
         )
+        self.assertIn("invoke `$nutworks:nuts`", readme)
+        self.assertNotIn("invoke `$nuts`", readme)
         self.assertIn(f"{repository}/issues", readme)
         self.assertIn("pilot-unqualified", readme)
 

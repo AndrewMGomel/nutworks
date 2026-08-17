@@ -99,11 +99,17 @@ fix, and require current relevant green evidence before Review and closeout.
 ## Convergence And Invalidation
 
 Before every Critique and Review pass, freshly select the reviewers that fit
-the current target and record why. A coordinated round is one pass. A pass
-converges only when every selected protocol has returned valid current-target
-evidence and the complete pass reports zero actionable findings. Selecting the
-same protocols again is valid; selecting for novelty is not. An unresolved
-finding keeps its protocol selected until that protocol verifies the fix.
+the current target and record why. Dispatch every counted seat as a complete
+named protocol against the whole runner-identified current target under the
+shared assignment, receipt, and pass rules in `references/review.md`.
+Targeted fix verification is supplemental and never a pass or convergence
+zero. Whole-target inspection does not expand mutation authority.
+
+A coordinated round is one pass. It converges only when every selected
+protocol has returned eligible current-target evidence and the runner records
+`complete_zero`. Selecting the same protocols again is valid; selecting for
+novelty is not. An unresolved finding keeps its protocol selected until that
+protocol verifies the fix in a fresh complete pass.
 
 Never advance while a dispatched reviewer, auditor, or worker is still
 running. A target mutation invalidates the prior zero pass. Follow the return

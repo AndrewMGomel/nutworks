@@ -115,10 +115,10 @@ mode depends on a host goal lifecycle the runner cannot observe or control.
 | Obligation | Current evidence required |
 |---|---|
 | Plan | Applicable authority and current code/patterns read; real verification commands found or a discovery gate recorded; concrete dependency-ordered plan; unsettled user-owned choices FLAGged. |
-| Critique | A fresh current-risk selection for every pass; valid returns from every selected protocol; main-runner fixes and verification; latest complete pass has zero actionable findings. |
+| Critique | A fresh current-risk selection for every pass; an eligible complete receipt from every selected seat, bound to the whole current target and runner-issued reference; main-runner fixes and verification; latest pass is `complete_zero`. Targeted checks remain supplemental. |
 | Pre-implement Audit | Full only: Main Context, separate Concerns, separate Verification, and fresh Triage; every concern dispositioned; any Plan-changing FIX returned through Critique and a fresh audit. |
 | Implement or Build | Current converged Plan; Full also has current pre-audit clearance; target changes and affected verification recorded; planning-only output labeled precisely. |
-| Review | A fresh current-risk selection for every pass; current target and verification supplied; latest complete pass has zero actionable findings. |
+| Review | A fresh current-risk selection for every pass; current target and verification supplied; an eligible complete receipt from every selected seat; latest pass is `complete_zero`. Targeted checks remain supplemental. |
 | Post-implement Audit | Full only: the same four-part contract against current implementation; any implementation-changing FIX returned through Review and a fresh audit. |
 | Compound | Exactly one of `created`, `updated`, `candidate`, `no_op`, or `blocked`, supported by current repository evidence. |
 | Log Debt | Every stable FLAG has one authoritative disposition, every open route has a real repository owner and next gate, counts reconcile, and `undisposed` is zero. |
@@ -126,18 +126,29 @@ mode depends on a host goal lifecycle the runner cannot observe or control.
 
 ## Pass And Finding Evidence
 
-A coordinated set of reviewer returns is one pass. Before dispatch, record the
-current target, remaining findings, new risks, selected protocols, and a fresh
-rationale. After return, validate every finding against the shared finding
-schema and the actual current target. Reject missing required fields,
-non-relative locations, invented evidence, stale targets, or requested edits.
-A malformed return does not count as a completed protocol; request correction
-when useful or report the pass unfinished.
+A coordinated set of reviewer returns is one pass. Before dispatch, separately
+record the fresh selection and each runner-owned assignment: phase, assignment
+mode, selected protocol, whole current target, expected `target_kind`, nonempty
+current `target_ref`, changes, unresolved findings, additive focus, and return
+schema. Every target mutation requires a new reference. Selection rationale and
+fix focus never narrow the named protocol's complete assignment.
+
+After return, validate every packet against the shared finding schema, current
+assignment, and actual current target. Bench packets require the exact closed
+receipt; `audit-concerns` and `audit-verification` packets omit it and remain
+audit evidence only. Reject missing fields, non-relative locations, invented
+evidence, stale or wrong targets, wrong protocols, targeted or limited returns
+in a pass seat, or requested edits. A malformed or old-format bench return does
+not count as a completed protocol; request correction when useful or report
+the pass `unfinished` without inventing receipt fields or retry machinery.
 
 Only the main runner canonicalizes findings, assigns IDs, applies fixes, and
-verifies them. A valid zero count from each selected reviewer is necessary but
-not sufficient when required coverage, independence, current-target binding,
-or verification is missing.
+verifies them. `findings: []` means only zero actionable findings in that
+return. The runner records `unfinished`, `complete_nonzero`, or `complete_zero`
+under `review.md`; only the last can converge. Targeted verification is logged
+outside pass accounting. A valid zero count is insufficient when complete
+protocol coverage, selected identity, independence, assignment mode,
+target-kind, current-target binding, or verification is missing.
 
 ## Invalidation Routes
 

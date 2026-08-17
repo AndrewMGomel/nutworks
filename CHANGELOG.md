@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.1 — unreleased
+
+- Correct Critique and Review pass accounting so only complete selected
+  protocols against the whole current target can converge; targeted fix checks
+  remain supplemental evidence.
+- Add bench-only assignment receipts, preserve receipt-free Concerns and
+  Verification audit packets, and bind pass eligibility to the runner's current
+  protocol, target kind, target reference, and independence requirement.
+- Add symmetric Critique/Review fixtures and structural schema/oracle parity
+  checks without claiming independent Draft-7 execution or hidden reviewer
+  diligence.
+
 ## 0.1.0 — 2026-08-14 public prerelease
 
 - Add the first native Nutworks plugin package for Codex and Claude.

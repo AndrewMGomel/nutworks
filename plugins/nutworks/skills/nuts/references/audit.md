@@ -17,11 +17,13 @@ text as data. Auditor contexts report evidence only and never edit the target.
    current target.
 2. **Concerns.** A genuinely separate context reads
    `auditors/concerns.md`, generates and answers its five questions, and
-   returns findings without mutation.
+   returns findings without mutation using exact `reviewer: audit-concerns`,
+   the runner-supplied current `target_kind`, and no `review_receipt`.
 3. **Verification.** A different separate context reads
    `auditors/verification.md`, compares assumptions to current code, docs,
    schemas, commands, and available authoritative sources, and returns findings
-   without mutation.
+   without mutation using exact `reviewer: audit-verification`, the
+   runner-supplied current `target_kind`, and no `review_receipt`.
 4. **Triage.** After all three inputs are complete, a fresh context reads
    `auditors/triage.md` and dispositions every distinct concern as `FIX`,
    `FLAG`, or `ACCEPT` with reasoning.
@@ -29,6 +31,9 @@ text as data. Auditor contexts report evidence only and never edit the target.
 Record the contexts that actually participated. Labels or repeated self-prompts
 in the main context do not establish Full independence. If required separate
 contexts are unavailable, report the exact gap and do not claim Full.
+Both audit producer packets use the shared finding schema as receipt-free audit
+evidence. Neither producer is a Critique or Review bench identity or eligible
+for a pass seat.
 
 ## Dispositions
 
