@@ -135,6 +135,17 @@
       "deferred_questions": [],
       "testing_gaps": []
     },
+    "derived-summary-old-shape": {
+      "protocol": "coherence",
+      "assignment_mode": "complete_protocol",
+      "target_kind": "document",
+      "target_ref": "plan-r2",
+      "reviewed_ref": "plan-r2",
+      "coverage": ["requirements", "dependencies"],
+      "findings": [],
+      "residual_risks": [],
+      "complete_protocol": true
+    },
     "audit-concerns": {
       "reviewer": "audit-concerns",
       "target_kind": "document",
@@ -210,6 +221,7 @@
     "targeted-no-limitation": false,
     "coherence-old-format": false,
     "feasibility-old-format": false,
+    "derived-summary-old-shape": false,
     "audit-concerns": true,
     "audit-verification": true,
     "audit-concerns-with-receipt": false,
@@ -284,6 +296,8 @@
     {"name": "targeted-mode-protocol-true", "selected": ["coherence"], "target_kind": "document", "target_ref": "plan-r2", "returns": [{"seat": "coherence", "dispatch_mode": "targeted_verification", "packet": "targeted-protocol-true", "context": "reviewer-a"}], "expected": "unfinished"},
     {"name": "targeted-mode-without-limitation", "selected": ["coherence"], "target_kind": "document", "target_ref": "plan-r2", "returns": [{"seat": "coherence", "dispatch_mode": "targeted_verification", "packet": "targeted-no-limitation", "context": "reviewer-a"}], "expected": "unfinished"},
     {"name": "bench-packet-without-receipt", "selected": ["coherence"], "target_kind": "document", "target_ref": "plan-r2", "returns": [{"seat": "coherence", "dispatch_mode": "complete_protocol", "packet": "coherence-old-format", "context": "reviewer-a"}], "expected": "unfinished"},
+    {"name": "derived-summary-cannot-fill-seat", "selected": ["coherence"], "target_kind": "document", "target_ref": "plan-r2", "returns": [{"seat": "coherence", "dispatch_mode": "complete_protocol", "packet": "derived-summary-old-shape", "context": "reviewer-a"}], "expected": "unfinished"},
+    {"name": "derived-summary-cannot-invalidate-valid-original", "selected": ["coherence"], "target_kind": "document", "target_ref": "plan-r2", "returns": [{"seat": "coherence", "dispatch_mode": "complete_protocol", "packet": "coherence-complete-zero-r2", "context": "reviewer-a"}], "derived_artifacts": ["derived-summary-old-shape"], "expected": "complete_zero"},
     {"name": "audit-concerns-is-valid-but-seat-ineligible", "selected": ["coherence"], "target_kind": "document", "target_ref": "plan-r2", "returns": [{"seat": "coherence", "dispatch_mode": "complete_protocol", "packet": "audit-concerns", "context": "reviewer-a"}], "expected": "unfinished"},
     {"name": "audit-verification-is-valid-but-seat-ineligible", "selected": ["coherence"], "target_kind": "document", "target_ref": "plan-r2", "returns": [{"seat": "coherence", "dispatch_mode": "complete_protocol", "packet": "audit-verification", "context": "reviewer-a"}], "expected": "unfinished"},
     {"name": "audit-receipt-is-invalid", "selected": ["coherence"], "target_kind": "document", "target_ref": "plan-r2", "returns": [{"seat": "coherence", "dispatch_mode": "complete_protocol", "packet": "audit-concerns-with-receipt", "context": "reviewer-a"}], "expected": "unfinished"},

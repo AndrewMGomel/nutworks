@@ -43,8 +43,9 @@ conversation when accepted; otherwise record
 - `debt.md` — stable FLAG dispositions and reconciliation when FLAGS exist.
 - `summary.md` — a temporary working draft of closeout evidence, never the
   intentionally retained terminal record.
-- `agents/` — concise, redacted findings and auditor returns when separate
-  contexts are used.
+- `agents/` — exact schema-valid reviewer or auditor packets when safe to
+  retain, plus concise, redacted findings in explicitly labeled derived
+  summaries when transformation is required.
 
 Not every file must exist before its phase. Keep the tracker current at phase
 boundaries. These working files explain what happened; they do not cause phase
@@ -59,6 +60,14 @@ references sensitive evidence without reproducing its value. Host transcript
 retention, access, and deletion are host-controlled and may outlive that
 Summary. Keep the sidecar excluded from the target reviewed by Critique and
 Review so working-evidence writes do not masquerade as product changes.
+
+Pass accounting uses the original reviewer return observed and validated by
+the runner, or an exact byte-for-byte copy of that return. Any normalized,
+redacted, abbreviated, canonicalized, or otherwise rewritten artifact is a
+derived summary, not a reviewer packet or receipt. Label it explicitly as
+ineligible for pass accounting and retain a reference to the authoritative
+return when the host exposes one. Never infer receipt fields from a derived
+summary or use packet-like field names as evidence that it completed a seat.
 
 If a safe sidecar is unavailable, verification fails, or it later disappears,
 say:
@@ -141,6 +150,9 @@ evidence, stale or wrong targets, wrong protocols, targeted or limited returns
 in a pass seat, or requested edits. A malformed or old-format bench return does
 not count as a completed protocol; request correction when useful or report
 the pass `unfinished` without inventing receipt fields or retry machinery.
+Validation and the resulting seat decision must occur before any redaction,
+normalization, or summary transformation. A later derived artifact cannot
+replace, repair, invalidate, or retroactively establish the original return.
 
 Only the main runner canonicalizes findings, assigns IDs, applies fixes, and
 verifies them. `findings: []` means only zero actionable findings in that

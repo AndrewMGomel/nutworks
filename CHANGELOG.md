@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Distinguish authoritative reviewer returns from rewritten evidence summaries:
+  only an original validated packet or its exact copy can affect pass
+  accounting, while derived summaries must be labeled ineligible.
+- Add regression coverage proving that a packet-like derived summary cannot
+  fill a pass seat or invalidate a valid original return.
+
 ## 0.1.1 — 2026-08-17 public prerelease
 
 - Correct Critique and Review pass accounting so only complete selected

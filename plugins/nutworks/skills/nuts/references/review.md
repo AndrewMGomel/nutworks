@@ -146,6 +146,13 @@ an audit packet. An empty `findings` array means only zero actionable findings
 in that return; it does not assert complete protocol execution, satisfy a seat,
 or establish convergence.
 
+Validate and account from the original return observed in the dispatched
+context, or from an exact byte-for-byte copy. A rewritten, redacted,
+canonicalized, abbreviated, or normalized artifact is a derived summary even
+when it repeats the protocol, target, coverage, or completion claim. It must be
+explicitly labeled ineligible for pass accounting and cannot substitute for,
+repair, invalidate, or establish the authoritative return.
+
 A return satisfies a selected pass seat only when all are true:
 
 1. The packet is schema-valid.
