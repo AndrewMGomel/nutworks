@@ -90,9 +90,9 @@ This release is **pilot-unqualified**: tested, but not proven on every host buil
 The package and workflow contracts have passed their documented tests.
 Nutworks has not been qualified across every Codex and Claude build.
 
-Nutworks comes from its
-[GitHub repository](https://github.com/AndrewMGomel/nutworks). It is not yet in
-an official plugin directory.
+Nutworks is available from its
+[GitHub repository](https://github.com/AndrewMGomel/nutworks). It is not listed
+in the OpenAI-curated or Anthropic official plugin marketplaces.
 
 Nutworks has no runtime Compound Engineering dependency. It never installs,
 updates, repairs, or configures Compound Engineering.
