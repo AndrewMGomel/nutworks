@@ -3,22 +3,39 @@
 [![Compound Engineering](https://img.shields.io/badge/Built_with-Compound_Engineering-6366f1)](https://github.com/EveryInc/compound-engineering-plugin)
 [![Built with NUTS](https://img.shields.io/badge/Built_with-NUTS-8B5E3C)](https://github.com/AndrewMGomel/nutworks)
 
-Nutworks is a native plugin package whose first skill is NUTS, a rigorous
-engineering workflow for planning, implementation, review, audit, learning,
-and evidence-backed closeout.
+## Make your coding agent prove the work
 
-This `0.1.1` public prerelease is **pilot-unqualified**. Its deterministic
-package and workflow contracts are tested, but exact-build host acceptance
-remains a separate post-publication gate. Clean standalone semantics,
-cross-host parity, and broad Codex or Claude support have not been qualified.
-Nutworks is distributed from its
-[GitHub repository](https://github.com/AndrewMGomel/nutworks); it has not been
-submitted to an official plugin directory.
+Most coding agents can produce an answer. NUTS makes them defend it.
 
-Nutworks has no runtime Compound Engineering dependency. It never installs,
-updates, repairs, or configures CE.
+Nutworks is the plugin package. NUTS is its first skill: a rigorous workflow
+for complex work with AI coding agents.
 
-## Install the `0.1.1` pilot
+It stops “done” from meaning “the first answer looked plausible.” Instead,
+NUTS guides your agent through a complete engineering loop:
+
+1. **Plan** the work before changing anything.
+2. **Challenge** the plan by asking reviewers to question its assumptions.
+3. **Build** after reviewers have challenged the plan.
+4. **Review** the whole result from multiple angles.
+5. **Verify** the result with real evidence.
+6. **Learn** from the work and report what remains.
+
+Use NUTS when a task is too important for one confident first pass.
+
+It helps your agent:
+
+- put pressure on assumptions before implementation;
+- find risks that the original builder missed;
+- rerun reviews after meaningful changes;
+- back completion claims with tests and evidence; and
+- stop when a decision truly belongs to you.
+
+Choose **Light** for focused work needing serious review. Choose **Full** for
+broad, risky, or high-stakes work needing independent reviews and audits.
+
+## Install NUTS
+
+Version `0.1.1` is the current public pilot.
 
 ### Codex
 
@@ -35,7 +52,13 @@ codex plugin marketplace add AndrewMGomel/nutworks --ref v0.1.1
 codex plugin add nutworks@nutworks
 ```
 
-Start a fresh task and invoke `$nutworks:nuts`.
+Start a fresh task and invoke `$nutworks:nuts`. For example:
+
+```text
+Use $nutworks:nuts in Light mode to build [your task].
+```
+
+For bigger work, replace `Light` with `Full`.
 
 ### Claude Code
 
@@ -52,25 +75,34 @@ claude plugin marketplace add AndrewMGomel/nutworks@v0.1.1 --scope user
 claude plugin install nutworks@nutworks --scope user
 ```
 
-Start a fresh session and invoke `/nutworks:nuts`.
+Start a fresh session and invoke `/nutworks:nuts`. For example:
 
-Native installation does not copy NUTS into `AGENTS.md`, `CLAUDE.md`, or other
-project governance. A NUTS run creates no project-local evidence directory by
-default. When the host already permits a verified owner-private system-
-temporary directory without new approval or configuration, NUTS may use one
-temporary working sidecar outside the selected project and plugin source;
-otherwise it keeps evidence in the host conversation. At terminal closeout it
-emits one self-contained conversation Summary. Temporary cleanup and transcript
-retention remain host-controlled.
+```text
+Use /nutworks:nuts in Light mode to build [your task].
+```
 
-Keeping default working evidence outside the selected project prevents NUTS's
-own files from entering that project's ordinary Git status or project-root
-Docker/build context. This is not a confidentiality, durability, deletion-time,
-or unrelated parent-build-context guarantee. NUTS never edits Git, Docker,
-package, cloud, or deployment ignore/configuration files for evidence storage.
+For bigger work, replace `Light` with `Full`.
 
-The pilot user only installs and uses the skill. They are not being asked to
-run a test plan, collect diagnostics, upload evidence, or repair plugin state.
+## What “public pilot” means
+
+This release is **pilot-unqualified**: tested, but not proven on every host build.
+
+The package and workflow contracts have passed their documented tests.
+Nutworks has not been qualified across every Codex and Claude build.
+
+Nutworks is available from its
+[GitHub repository](https://github.com/AndrewMGomel/nutworks). It is not listed
+in the OpenAI-curated or Anthropic official plugin marketplaces.
+
+Nutworks has no runtime Compound Engineering dependency. It never installs,
+updates, repairs, or configures Compound Engineering.
+
+## What NUTS leaves behind
+
+By default, NUTS keeps working evidence outside your project.
+It uses your agent conversation or, when available, a temporary working sidecar.
+Each run requires one self-contained Summary at the end.
+Your host controls transcript retention and temporary cleanup.
 
 ## Development installation
 
