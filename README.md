@@ -99,24 +99,10 @@ updates, repairs, or configures Compound Engineering.
 
 ## What NUTS leaves behind
 
-Installing NUTS does not copy it into `AGENTS.md`, `CLAUDE.md`, or other
-project instructions.
-
-A NUTS run creates no project-local evidence folder by default.
-It keeps working evidence in your agent conversation.
-If your host allows it, NUTS may use a temporary working sidecar.
-That folder sits outside your project and the plugin source.
-
-This keeps NUTS files out of your project's normal Git status and project-root
-build context. It does not guarantee confidentiality, durability, deletion
-timing, or exclusion from a parent build context.
-Your host still controls temporary cleanup and transcript retention.
-
-NUTS requires one self-contained Summary at the end.
-During this pilot, check that it gives you enough context.
-
-NUTS never changes ignore files or project configuration to store evidence.
-As a user, you install and invoke NUTS. The tests below are for maintainers.
+By default, NUTS keeps working evidence outside your project.
+It uses your agent conversation or, when available, a temporary working sidecar.
+Each run requires one self-contained Summary at the end.
+Your host controls transcript retention and temporary cleanup.
 
 ## Development installation
 
