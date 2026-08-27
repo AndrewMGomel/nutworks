@@ -39,6 +39,30 @@ contracts, control flow, or error behavior but adds or updates no corresponding
 test. Exclude formatting, comments, type-only annotations, and metadata that
 does not change behavior.
 
+## Conditional False-Green And Harness Checks
+
+Apply these checks only when the target uses skips, a custom or mutation
+harness, disposable resources, or otherwise has a material false-green risk.
+Ordinary unit-test work does not earn extra ceremony merely because these
+checks exist.
+
+- A skip predicate tests only an environmental prerequisite; it never covers
+  the behavior under test.
+- Assertions bind observable behavior. A comment, string occurrence, broad
+  truthiness check, or declaration that is never used is not binding evidence.
+- When false green would materially change the claim, require a deliberate
+  defect or equivalent red-path check that makes the test fail.
+- Run a green no-op control before trusting a custom or mutation verdict. A
+  failed no-op invalidates every RED from that environment; it does not prove a
+  mutation was caught.
+- Mutation work uses an isolated disposable tree and isolated databases or
+  equivalent resources. Refuse to mutate a shared or deployable working tree.
+- Verify cleanup of temporary mutations and disposable resources. Cleanup
+  failure is an incomplete verification obligation.
+
+If a safe red-path check, no-op control, isolation, or cleanup proof is
+unavailable, report the exact gap instead of fabricating confidence.
+
 ## Confidence calibration
 
 - `100`: the missing or invalid coverage is directly provable from the current

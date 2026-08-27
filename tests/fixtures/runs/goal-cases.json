@@ -1,30 +1,27 @@
 [
-  {
-    "name": "safe-host-goal",
-    "host_surface": "available",
-    "unrelated_goal": false,
-    "expected": "attempt_before_plan",
-    "goal_is_evidence": false
-  },
-  {
-    "name": "unrelated-goal",
-    "host_surface": "available",
-    "unrelated_goal": true,
-    "expected": "preserve_unrelated",
-    "goal_is_evidence": false
-  },
-  {
-    "name": "goal-unavailable",
-    "host_surface": "unavailable",
-    "unrelated_goal": false,
-    "expected": "report_limitation",
-    "goal_is_evidence": false
-  },
-  {
-    "name": "blocked-no-reactivation",
-    "host_surface": "blocked_no_reactivation",
-    "unrelated_goal": false,
-    "expected": "use_current_evidence",
-    "goal_is_evidence": false
-  }
+  {"name":"authorized-create","nuts_invoked":true,"host":"accepts_invocation","existing":"none","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"create_once","expected_finish":"close","expected_report":"none","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"same-run-bind","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"bind","expected_finish":"close","expected_report":"none","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"user-designated-bind","nuts_invoked":true,"host":"available","existing":"exact_user_designation","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"bind","expected_finish":"close","expected_report":"none","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"similar-goal","nuts_invoked":true,"host":"available","existing":"similar_text","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"preserve_continue","expected_finish":"none","expected_report":"none","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"ambiguous-goal","nuts_invoked":true,"host":"available","existing":"ambiguous","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"preserve_continue","expected_finish":"none","expected_report":"none","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"unrelated-goal","nuts_invoked":true,"host":"available","existing":"unrelated","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"preserve_continue","expected_finish":"none","expected_report":"none","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"strict-host","nuts_invoked":true,"host":"separate_request_required","existing":"none","effect":"rejected","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"report_once_continue","expected_finish":"none","expected_report":"report_once","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"lifecycle-unavailable","nuts_invoked":true,"host":"unavailable","existing":"none","effect":"rejected","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"report_once_continue","expected_finish":"none","expected_report":"report_once","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"unavailable-host-cannot-bind-same-run","nuts_invoked":true,"host":"unavailable","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"report_once_continue","expected_finish":"none","expected_report":"report_once","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"strict-host-cannot-bind-user-designation","nuts_invoked":true,"host":"separate_request_required","existing":"exact_user_designation","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"report_once_continue","expected_finish":"none","expected_report":"report_once","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"bind-operation-rejected","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"rejected","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"bind","expected_finish":"none","expected_report":"report_once","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"update-operation-rejected","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"rejected","closeout":"incomplete","expected_start":"bind","expected_finish":"none","expected_report":"report_once","expected_later_mutation":"bound","prompt":false,"goal_is_evidence":false},
+  {"name":"uncertain-update-freezes","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"uncertain","closeout":"complete","expected_start":"bind","expected_finish":"none","expected_report":"report_once","expected_later_mutation":"frozen","prompt":false,"goal_is_evidence":false},
+  {"name":"close-operation-rejected","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"rejected","update_effect":"not_attempted","closeout":"complete","expected_start":"bind","expected_finish":"none","expected_report":"report_once","expected_later_mutation":"bound","prompt":false,"goal_is_evidence":false},
+  {"name":"unattempted-finish-effect-ignored","nuts_invoked":false,"host":"available","existing":"none","effect":"certain","finish_effect":"rejected","update_effect":"not_attempted","closeout":"complete","expected_start":"none","expected_finish":"none","expected_report":"none","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"uncertain-close-freezes","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"uncertain","update_effect":"not_attempted","closeout":"complete","expected_start":"bind","expected_finish":"none","expected_report":"report_once","expected_later_mutation":"frozen","prompt":false,"goal_is_evidence":false},
+  {"name":"resume-no-duplicate","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"incomplete","expected_start":"bind","expected_finish":"none","expected_report":"none","expected_later_mutation":"bound","prompt":false,"goal_is_evidence":false},
+  {"name":"ordinary-task-no-authority","nuts_invoked":false,"host":"available","existing":"none","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"none","expected_finish":"none","expected_report":"none","expected_later_mutation":"none","prompt":false,"goal_is_evidence":false},
+  {"name":"uncertain-effect-freezes","nuts_invoked":true,"host":"available","existing":"none","effect":"uncertain","finish_effect":"certain","update_effect":"not_attempted","closeout":"complete","expected_start":"freeze_after_effect","expected_finish":"none","expected_report":"report_once","expected_later_mutation":"frozen","prompt":false,"goal_is_evidence":false},
+  {"name":"blocked-never-closes","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"blocked","expected_start":"bind","expected_finish":"none","expected_report":"none","expected_later_mutation":"bound","prompt":false,"goal_is_evidence":false},
+  {"name":"cancelled-never-closes","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"cancelled","expected_start":"bind","expected_finish":"none","expected_report":"none","expected_later_mutation":"bound","prompt":false,"goal_is_evidence":false},
+  {"name":"failed-never-closes","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"failed","expected_start":"bind","expected_finish":"none","expected_report":"none","expected_later_mutation":"bound","prompt":false,"goal_is_evidence":false},
+  {"name":"interrupted-never-closes","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"interrupted","expected_start":"bind","expected_finish":"none","expected_report":"none","expected_later_mutation":"bound","prompt":false,"goal_is_evidence":false},
+  {"name":"unsupported-never-closes","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"unsupported","expected_start":"bind","expected_finish":"none","expected_report":"none","expected_later_mutation":"bound","prompt":false,"goal_is_evidence":false},
+  {"name":"unfinished-never-closes","nuts_invoked":true,"host":"available","existing":"stable_same_run","effect":"certain","finish_effect":"certain","update_effect":"not_attempted","closeout":"unfinished","expected_start":"bind","expected_finish":"none","expected_report":"none","expected_later_mutation":"bound","prompt":false,"goal_is_evidence":false}
 ]

@@ -31,6 +31,17 @@ Before writing the plan:
    mutation gates that the plan cannot decide on the user's behalf.
 5. Distinguish verified facts from assumptions and unresolved questions.
 
+For every load-bearing premise, record the object users actually run or
+receive, the observation or command that could falsify the premise, and the
+result. A negative existence claim such as “there is no X” requires the bounded
+search or command behind it. Ask four framing questions before committing to
+the approach: Are we inspecting the shipped/runtime object? What evidence could
+disprove the premise? Is a smaller no-build answer sufficient? Do apparently
+opposed fixes share a deeper cause? Apply this checkpoint to material premises,
+not every minor assumption. Contradictory evidence changes the Plan before
+Critique; unavailable evidence is an explicit gap and blocks only the claim
+that depends on it.
+
 Do not invent a path, command, integration, public identity, compatibility
 promise, or repository convention. If a required fact cannot be discovered,
 make its discovery or decision an explicit gate owned by the main runner.
@@ -189,6 +200,59 @@ truthfully as one of:
 Do not imply that code was implemented, shipped, released, or verified merely
 because a plan exists.
 
+When the Plan is the requested product, resolve its durable destination before
+leaving Plan. An exact user-designated Plan destination wins when safe; source
+paths, attachments, review targets, and incidental path mentions do not count.
+Otherwise select the first eligible destination without asking a preference
+question: the repository's declared Plan path, a specifically authorized
+handoff path, an established nearby Plan directory, then a host-native durable
+user-artifact location whose retention and exact readback are authoritative.
+For an ordinary Plan, a declared Plan path precedes a handoff path. If no
+candidate is eligible, report an early capability failure and do not dispatch
+Critique. Never invent a repository root, `docs/NUTS/`, hidden run store, global
+archive, or preference registry.
+
+Keep the candidate in temporary evidence through Critique, Build-as-Plan,
+Review, and the applicable Full audits. After convergence, revalidate the
+selected parent, target identity, authority, privacy, and retention, then write
+the exact reviewed bytes once through a byte-preserving path. Read the durable
+target back and require exact byte equality. A failed, partial, mismatched, or
+uncertain write is incomplete: preserve the observed effect, do not retry or
+fall back, and do not treat the artifact's presence as completion. Before a
+write, an automatically selected destination that becomes ineligible may move
+to the next qualified candidate; rerun semantic clearance only when Plan bytes,
+scope, or authority change. An invalid explicit destination never falls back.
+
+Filesystem candidates require canonical no-follow checks of the complete
+existing parent chain. For an absent target, exclusively create one new regular
+file; a collision fails without overwrite. For an existing target, require
+exact authority to mutate that logical Plan and reject links, special files,
+and multiple hard links. An existing repository-owned Plan may use its
+authorized editing path with either an identity-bound no-follow write or an
+authorized atomic replacement whose new regular single-link identity is
+captured and verified. An existing exact user-designated filesystem path
+outside the repository requires an identity-bound no-follow write; atomic
+replacement is not eligible there. Identity drift, an unauthorized overwrite,
+or unavailable safe write primitive is incomplete. Repository writes also
+require fresh single-writer evidence. Host artifacts must fail on
+collision, remain intentionally retained and user-retrievable after the run,
+expose a stable non-secret locator, and support exact-content readback. Unknown
+privacy, sharing, or retention disqualifies a candidate. Do not copy chats,
+credentials, host history, unrelated private paths, or temporary evidence into
+the Plan. Summary-file durability remains a separate decision.
+
+After every filesystem write or uncertain effect and before exact-byte
+readback, revalidate the complete canonical parent chain, logical-path binding,
+resulting target identity, regular-file/single-link/nonsymlink properties, and
+destination privacy and access posture. Parent drift, target replacement, or
+broader resulting access is incomplete and never permits retry or fallback.
+
+During ordinary authority and task reads, retain any declared convention for
+future issues, security obligations, or reusable learnings without inventorying
+unused owner surfaces. Route later discovery, custody, precedence, and reviewed-
+Plan gate eligibility to the sole detailed contract in
+`evidence-and-claims.md`.
+
 ## Final checks
 
 Before Plan can advance to Critique, confirm:
@@ -203,3 +267,6 @@ Before Plan can advance to Critique, confirm:
 - implementation claims are absent; and
 - an implementer could begin without making an unrecorded architectural
   decision.
+- a planning-only product has one eligible durable destination selected, with
+  its exact-write and readback gates recorded; and
+- material premises name the shipped/runtime object and falsifying evidence.

@@ -173,6 +173,18 @@ the pass is unfinished. A repeatedly malformed or old-format bench return does
 not authorize inferred receipt fields, endless retries, a pass or runtime
 ceiling, or new retry, journal, lease, registry, or recovery machinery.
 
+After validation, classify each actionable finding in runner evidence as
+`PRODUCT`, `GUARD`, or `HARNESS`. Keep that classification out of the shared
+packet schema and never rewrite the authoritative reviewer return. It guides
+the fix: preserve the authorized product contract, prefer narrowing scope or
+removing faulty guard machinery over adding another layer, and validate the
+harness before trusting its verdict. Classification never suppresses a valid
+finding, grants mutation authority, or converts a nonzero pass to zero.
+
+When a correction changes a premise or public claim, route the whole-document
+and release-mirror sweep to the shared owner in
+`evidence-and-claims.md`; do not define a second sweep contract here.
+
 ## Account For Passes
 
 Critique and Review use the same bounded topology:

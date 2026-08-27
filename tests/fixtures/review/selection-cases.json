@@ -9,6 +9,15 @@
     "expected": "valid"
   },
   {
+    "name": "unknown-mode",
+    "mode": "minimal",
+    "required": ["correctness"],
+    "sticky": [],
+    "selected": ["correctness"],
+    "rationale": "unknown mode must fail closed",
+    "expected": "invalid"
+  },
+  {
     "name": "same-pair-current-rationale",
     "mode": "light",
     "required": ["correctness", "testing"],

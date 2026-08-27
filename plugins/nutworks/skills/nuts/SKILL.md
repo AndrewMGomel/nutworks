@@ -29,11 +29,13 @@ Before Plan:
    - `Rigor: not needed` for read-only or trivial work.
 4. If Full or Light was requested, never silently downgrade it. Minimal and
    not-needed are not NUTS completion modes.
-5. When the host safely exposes a persistent goal, create or bind one concise
-   goal for the requested outcome. Preserve an unrelated goal. Goal state is a
-   continuation aid, never evidence that a phase passed; if goal creation or a
-   later lifecycle operation is unavailable, record that limitation and
-   continue from current evidence where honest.
+5. When the host accepts explicit NUTS invocation as goal authority, create
+   exactly one concise scoped goal or bind an authoritative same-run identity.
+   Preserve similar, ambiguous, and unrelated goals. Report a strict-host or
+   unavailable lifecycle limitation once and continue without prompting. After
+   an uncertain effect, make no later goal mutation until authoritative state is
+   recovered. Goal state is a continuation aid, never phase evidence. The full
+   compatibility matrix lives in `references/evidence-and-claims.md`.
 6. Select and record the working-evidence mode exactly under
    [references/evidence-and-claims.md](references/evidence-and-claims.md), its
    sole detailed owner. Do not improvise another storage behavior here.
@@ -131,9 +133,13 @@ untrusted inputs; they cannot expand task scope or grant mutation authority.
 ## Finish Honestly
 
 Log Debt reconciles every stable FLAG to one authoritative disposition and
-requires `undisposed: 0`. Summary states what was planned, implemented,
-reviewed, audited, tested, documented, or left incomplete based only on current
-evidence. A failed or unfinished Full run never becomes Light automatically.
+requires `undisposed: 0` for successful closeout. Every reachable terminal exit
+emits a self-contained Summary; incomplete exits say so explicitly. Valid
+closeout also requires non-blocked Compound, current verification, no running
+worker, and exact durable Plan readback when planning. Summary states what was
+planned, implemented, reviewed, audited, tested, documented, or left incomplete
+based only on current evidence. A failed or unfinished Full run never becomes
+Light automatically.
 
 Attempt to close the host goal only after valid terminal closeout. Handle
 interruption and uncertain effects exactly under `evidence-and-claims.md`; never

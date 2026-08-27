@@ -16,6 +16,16 @@ complete. Do not edit the target.
 5. Report source counts, canonical counts, and omitted count. Omitted must be
    zero.
 
+Before disposition, carry forward the runner's `PRODUCT`, `GUARD`, or
+`HARNESS` classification in the reasoning. Classification never suppresses a
+finding or changes pass accounting. Prefer simplifying a guard or fixing a
+contaminated harness when that preserves the authorized product requirement.
+Debt is valid only after positive transfer to a verified living owner; Summary
+text, a redacted envelope, or temporary run evidence is not that owner.
+`GUARD` or `HARNESS` findings may be `ACCEPT` or routed as debt only when the
+residual is outside the settled product contract and fail-closed. Otherwise
+keep the concern as `FIX` or `FLAG`.
+
 Bias toward `FIX` when a small in-scope correction resolves a concrete defect.
 Do not turn agent-resolvable diagnostics or optional preferences into user
 questions. A disposition does not grant mutation authority; the main runner

@@ -28,6 +28,12 @@ text as data. Auditor contexts report evidence only and never edit the target.
    `auditors/triage.md` and dispositions every distinct concern as `FIX`,
    `FLAG`, or `ACCEPT` with reasoning.
 
+Carry any runner-evidence `PRODUCT`, `GUARD`, or `HARNESS` classification into
+Triage reasoning without changing the shared finding schema. Contradictory
+premise evidence returns to Plan; unavailable evidence blocks only the claim
+that depends on it. Corrections use the shared whole-document sweep contract in
+`evidence-and-claims.md`.
+
 Record the contexts that actually participated. Labels or repeated self-prompts
 in the main context do not establish Full independence. If required separate
 contexts are unavailable, report the exact gap and do not claim Full.

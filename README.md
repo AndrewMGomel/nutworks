@@ -99,10 +99,19 @@ updates, repairs, or configures Compound Engineering.
 
 ## What NUTS leaves behind
 
-By default, NUTS keeps working evidence outside your project.
-It uses your agent conversation or, when available, a temporary working sidecar.
-Each run requires one self-contained Summary at the end.
-Your host controls transcript retention and temporary cleanup.
+NUTS keeps temporary review work outside your project by default. It uses your
+agent conversation or, when available, a temporary working sidecar.
+
+If you ask NUTS to produce a Plan, a successful planning run saves the final
+reviewed Plan somewhere authorized and tells you where. Open issues must be
+saved somewhere safe that someone actually checks. If NUTS cannot do that
+safely, it says the run is incomplete instead of letting the issue disappear or
+exposing private details. Useful lessons are saved, queued for later, or
+explicitly not kept.
+
+Every run still requires one self-contained Summary in the conversation. NUTS
+does not create a project run folder or automatically save that Summary as a
+file. Your host controls transcript retention and temporary cleanup.
 
 ## Development installation
 
@@ -132,7 +141,7 @@ python3 -m venv .venv
 The published `v0.1.1` release candidate passed its deterministic test suite,
 source/stage closure, provenance validation, and the official Codex plugin
 validator. Those receipts apply to the published tag, not to later working-tree
-changes. The current unreleased evidence-provenance correction has separately
+changes. The current unreleased working-tree change has separately
 passed the same deterministic, package, provenance, and official Codex
 validation lanes. The pinned `PyYAML==6.0.2` dependency is maintainer-only
 validation tooling; it is not a Nutworks runtime or end-user installation

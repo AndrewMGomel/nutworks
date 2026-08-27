@@ -5,6 +5,15 @@
   ],
   "required_parts": ["Main Context", "Concerns", "Verification", "Triage"],
   "triage_values": ["FIX", "FLAG", "ACCEPT"],
+  "guard_harness_residuals": [
+    {"name":"outside-and-fail-closed","classification":"GUARD","disposition":"DEBT","outside_product_contract":true,"fail_closed":true,"allowed":true},
+    {"name":"fail-open-cannot-be-accepted","classification":"HARNESS","disposition":"ACCEPT","outside_product_contract":true,"fail_closed":false,"allowed":false},
+    {"name":"inside-product-cannot-be-debt","classification":"GUARD","disposition":"DEBT","outside_product_contract":false,"fail_closed":true,"allowed":false},
+    {"name":"unknown-classification-fails-closed","classification":"GUADR","disposition":"DEBT","outside_product_contract":true,"fail_closed":true,"allowed":false},
+    {"name":"unknown-disposition-fails-closed","classification":"GUARD","disposition":"ACCEP","outside_product_contract":true,"fail_closed":true,"allowed":false},
+    {"name":"unknown-product-boundary-fails-closed","classification":"GUARD","disposition":"DEBT","outside_product_contract":"unknown","fail_closed":true,"allowed":false},
+    {"name":"unknown-fail-closed-state-fails-closed","classification":"HARNESS","disposition":"ACCEPT","outside_product_contract":true,"fail_closed":"unknown","allowed":false}
+  ],
   "cases": [
     {
       "name": "complete",

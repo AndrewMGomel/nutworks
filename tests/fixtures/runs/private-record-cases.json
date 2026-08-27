@@ -1,0 +1,17 @@
+[
+  {"name":"minimum-actionable-only","record":{"minimum_actionable_detail":true,"content_classes":["safe_id","state","next_action","closure_condition"]},"accepted":true},
+  {"name":"not-minimum-actionable","record":{"minimum_actionable_detail":false,"content_classes":["safe_id","state","next_action","closure_condition"]},"accepted":false},
+  {"name":"missing-safe-id","record":{"minimum_actionable_detail":true,"content_classes":["state","next_action","closure_condition"]},"accepted":false},
+  {"name":"missing-state","record":{"minimum_actionable_detail":true,"content_classes":["safe_id","next_action","closure_condition"]},"accepted":false},
+  {"name":"missing-next-action","record":{"minimum_actionable_detail":true,"content_classes":["safe_id","state","closure_condition"]},"accepted":false},
+  {"name":"missing-closure-condition","record":{"minimum_actionable_detail":true,"content_classes":["safe_id","state","next_action"]},"accepted":false},
+  {"name":"truncated-exclusion-evidence","record":{"minimum_actionable_detail":true},"accepted":false},
+  {"name":"contains-raw-chat-or-prompts","record":{"minimum_actionable_detail":true,"content_classes":["safe_id","raw_chat_or_prompts"]},"accepted":false},
+  {"name":"contains-credentials-or-tokens","record":{"minimum_actionable_detail":true,"content_classes":["safe_id","credentials_or_tokens"]},"accepted":false},
+  {"name":"contains-environment-dump","record":{"minimum_actionable_detail":true,"content_classes":["safe_id","environment_dump"]},"accepted":false},
+  {"name":"contains-host-history","record":{"minimum_actionable_detail":true,"content_classes":["safe_id","host_history"]},"accepted":false},
+  {"name":"contains-full-ledger","record":{"minimum_actionable_detail":true,"content_classes":["safe_id","full_ledger"]},"accepted":false},
+  {"name":"contains-unrelated-private-material","record":{"minimum_actionable_detail":true,"content_classes":["safe_id","unrelated_private_material"]},"accepted":false},
+  {"name":"contains-unclassified-extra-field","record":{"minimum_actionable_detail":true,"content_classes":["safe_id"],"credential_placeholder":"present"},"accepted":false},
+  {"name":"contains-recipient-metadata-field","record":{"minimum_actionable_detail":true,"content_classes":["safe_id"],"recipient_metadata_placeholder":"present"},"accepted":false}
+]
