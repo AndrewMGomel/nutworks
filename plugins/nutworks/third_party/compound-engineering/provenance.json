@@ -45,7 +45,7 @@
   "adapted": [
     {
       "destination": "skills/nuts/references/plan.md",
-      "destination_sha256": "df5f9c45c16aa72a0081736b44fdc32f78518872f52cf6e3010de636fadc83ae",
+      "destination_sha256": "0b65827b1ff3256dc0df16821ba8aa18eb9e9c6d20a23e67fc9c985687ff0ab2",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-plan/references/plan-sections.md",
@@ -74,10 +74,18 @@
             "change": "Changed absolute-path and invented-command guidance into explicit discovery gates.",
             "reason": "safety_boundary"
           },
-          {
-            "change": "Condensed the section catalog into the NUTS R11 output floor and its requirement-to-unit verification trace.",
-            "reason": "shared_evidence_contract"
-          }
+        {
+          "change": "Condensed the section catalog into the NUTS R11 output floor and its requirement-to-unit verification trace.",
+          "reason": "shared_evidence_contract"
+        },
+        {
+          "change": "Added shipped-object premise checks and falsifiable negative-claim evidence.",
+          "reason": "shared_evidence_contract"
+        },
+        {
+          "change": "Added automatic authorized planning-destination selection, exact-byte durable readback, and lazy owner discovery.",
+          "reason": "nuts_authority"
+        }
         ]
       }
     },
@@ -180,7 +188,7 @@
     },
     {
       "destination": "skills/nuts/references/reviewers/testing.md",
-      "destination_sha256": "ba3d61592d16c1d579503e6f133f836b44436b8bdd55eb01f97ec801b6a79ea2",
+      "destination_sha256": "bce16230950d42ed42b238e5b302db5fcd2082c8665d93545a7ad6077c7c5e1e",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-code-review/references/personas/testing-reviewer.md"
@@ -203,10 +211,14 @@
             "change": "Changed the output instruction to the shared NUTS schema and its testing_gaps channel.",
             "reason": "shared_evidence_contract"
           },
-          {
-            "change": "Made mutation prohibition explicit because only the NUTS main runner applies fixes.",
-            "reason": "nuts_authority"
-          }
+        {
+          "change": "Made mutation prohibition explicit because only the NUTS main runner applies fixes.",
+          "reason": "nuts_authority"
+        },
+        {
+          "change": "Added conditional false-green, no-op control, isolation, red-path, and cleanup checks for risky harnesses.",
+          "reason": "safety_boundary"
+        }
         ]
       }
     },
@@ -251,7 +263,7 @@
   "informed_by": [
     {
       "destination": "skills/nuts/references/compound.md",
-      "destination_sha256": "e3dc34b93ae69d62fdbf60a11d69a9754988f0a17c27236a5b661717e78de169",
+      "destination_sha256": "d27c1305bcaa45515059fb1cdf0f80641fa39058a3fd4d5c7d61ac3236dff7fb",
       "treatment": "original_informed_by",
       "sources": [
         {
@@ -259,8 +271,8 @@
           "sha256": "0295ee3be2f19b22b95568cbf17b846d20ff75e358331077fd477da95aa5ad19"
         }
       ],
-      "influence": "Verify durable-learning claims against current repository evidence and soften, attribute, or block claims that cannot be grounded.",
-      "classification_review": "The destination uses a NUTS-original one-learning disposition and invalidation contract. It does not copy or substantially adapt CE phase structure, templates, scripts, remote-truth workflow, session-history behavior, or wording."
+      "influence": "Verify durable-learning claims against current repository evidence and soften, attribute, forward to an existing owner, or block claims that cannot be grounded.",
+      "classification_review": "The destination uses a NUTS-original one-learning materiality, custody, disposition, and invalidation contract. It does not copy or substantially adapt CE phase structure, templates, scripts, remote-truth workflow, session-history behavior, or wording."
     }
   ],
   "original": [

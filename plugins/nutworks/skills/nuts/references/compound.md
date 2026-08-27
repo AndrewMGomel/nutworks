@@ -19,20 +19,31 @@ lesson.
 ## Decide One Outcome
 
 - `created` — one warranted reusable learning was added to an existing declared
-  truth location.
+  truth location under current write authority, compatible privacy, and
+  semantic readback.
 - `updated` — one existing learning was corrected or extended because it
-  overlaps the current lesson.
-- `candidate` — a durable lesson appears warranted, but the repository has no
-  safe declared destination or a later decision is needed; preserve it only in
-  the current bounded working evidence or host conversation.
+  overlaps the current lesson, under the same authority, privacy, and readback
+  gates.
+- `forwarded_candidate` — a material lesson was positively transferred to an
+  existing declared learning or backlog owner that current repository or system
+  policy designates authoritative and that exposes a current operator ingestion
+  path, with a stable locator, current authority, responsible owner, next gate,
+  closure condition, retention through closure, and semantic readback.
 - `no_op` — no durable lesson exists beyond the current Plan, code, tests, or
   ordinary documentation.
 - `blocked` — the phase cannot be completed honestly because required evidence
   is unavailable, unsafe, or contradictory.
 
 Write at most one project learning. Prefer updating an overlapping learning to
-creating a duplicate. `candidate` is not permission to add a new repository
-convention. `blocked` makes the run incomplete and cannot support Full or Light.
+creating a duplicate. First, unavailable, unsafe, or contradictory required
+Compound inspection evidence is `blocked`. Only after that inspection succeeds,
+evaluate the candidate's three materiality facts: verified current-run evidence;
+proof the lesson is not already captured by the reviewed Plan, code, tests, or
+ordinary documentation; and the repeat failure its retention would prevent. A
+weak, speculative, redundant, or insufficiently evidenced candidate is `no_op`.
+A material candidate that cannot be routed safely is `blocked`, not temporary-
+only success. Do not invent a repository convention. `blocked` makes the run
+incomplete and cannot support Full or Light.
 
 ## Ground The Result
 
@@ -45,14 +56,18 @@ For `created` or `updated`:
 5. Record the one project path changed.
 
 For every outcome, record what was inspected, why the outcome was chosen, what
-was written, and any limitation.
+was written, its stable locator when applicable, and any limitation. Validate
+candidate custody under `evidence-and-claims.md`, including its private minimum-
+content path for a sensitive candidate; Compound does not create a second owner-
+discovery or destination contract.
 
 ## Revalidate Project Writes
 
-A `created` or `updated` outcome changes the reviewed project target. Full must
-return through Review and a fresh post-audit before Log Debt. Light must return
-through Review before Log Debt. Do not repeat Compound after that verification
-loop. A `candidate` or `no_op` changes no project target and proceeds directly
-to Log Debt.
+A `created`, `updated`, or repo-local `forwarded_candidate` outcome changes the
+reviewed project target. Full must return through Review and a fresh post-audit
+before Log Debt. Light must return through Review before Log Debt. Do not repeat
+Compound after that verification loop. A `forwarded_candidate` written outside
+the reviewed product requires owner-specific semantic readback without
+invalidating product Review. Only `no_op` always proceeds directly to Log Debt.
 
 Compound does not push, publish, move unrelated files, or perform debt work.
