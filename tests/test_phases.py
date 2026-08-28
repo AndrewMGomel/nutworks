@@ -21,19 +21,6 @@ PACKET_REQUIRED = {
     "testing_gaps",
 }
 RECEIPT_REQUIRED = {"mode", "target_ref", "protocol_complete", "limitations"}
-LIVING_OWNER_REQUIRED = {
-    "authorized",
-    "routinely_checked",
-    "authoritative_surface",
-    "operator_ingestion",
-    "stable_locator",
-    "responsible_owner",
-    "next_gate",
-    "closure",
-    "retention",
-    "write_certain",
-    "readback",
-}
 
 
 def load_json(relative_path):
@@ -42,87 +29,6 @@ def load_json(relative_path):
 
 def normalized(text):
     return " ".join(text.split())
-
-
-def living_owner_is_verified(owner):
-    return (
-        isinstance(owner, dict)
-        and LIVING_OWNER_REQUIRED <= set(owner)
-        and all(owner[field] is True for field in LIVING_OWNER_REQUIRED)
-    )
-
-
-def scope_route(case):
-    valid_provenance = case.get("requirement_provenance") in {
-        "user_required",
-        "repo_required",
-        "essential_correctness",
-    }
-    classification = None
-    control = "blocked"
-    contract = "unchanged"
-    target_identity = "unchanged"
-    return_phases = []
-    invalidates = []
-
-    if case.get("mode") not in {"full", "light"}:
-        pass
-    elif case.get("requirement_provenance") == "agent_optional":
-        control = "plan_repair"
-        contract = "remove_or_narrow"
-        target_identity = "rotate_on_fix"
-        return_phases = ["critique"]
-        invalidates = ["critique"]
-        if case["mode"] == "full":
-            return_phases.append("pre_audit")
-            invalidates.append("pre_audit")
-    elif not valid_provenance:
-        pass
-    elif (
-        case["after_material_redesign"] is True
-        and case["fresh_material_findings"] is True
-        and case["requires_another_material_rescope"] is True
-    ):
-        classification = "required_now"
-        control = "freeze"
-    elif case["material_rescope"] is True:
-        if case["rescope_authorized"] is True:
-            classification = "authorized_rescope"
-            control = "replan"
-            contract = "replace"
-            target_identity = "rotate"
-            return_phases = ["plan", "critique"]
-            invalidates = ["plan", "critique"]
-            if case["mode"] == "full":
-                return_phases.append("pre_audit")
-                invalidates.append("pre_audit")
-            invalidates.append("downstream_proof")
-    elif case["scope_relation"] == "current_claim" and case["current_claim_violation"] is True:
-        classification = "required_now"
-        control = "repair"
-        target_identity = "rotate_on_fix"
-        invalidates = ["prior_target_evidence"]
-    elif case["scope_relation"] == "adjacent" and case["material_obligation"] is False:
-        control = "residual"
-    elif case["scope_relation"] == "adjacent" and living_owner_is_verified(case.get("owner")):
-        classification = "separately_owned"
-        control = "continue"
-
-    pass_state = case["incoming_pass_state"]
-    if control in {"blocked", "freeze", "plan_repair", "repair", "replan"}:
-        pass_state = "nonzero"
-
-    return {
-        "classification": classification,
-        "control": control,
-        "pass_state": pass_state,
-        "target_identity": target_identity,
-        "contract": contract,
-        "return_phases": return_phases,
-        "invalidates": invalidates,
-        "project_writes": 0,
-        "human_gate": case["requested_human_gate"] is True and case["gate_admitted"] is True,
-    }
 
 
 def compound_outcome(case):
@@ -180,7 +86,24 @@ def compound_outcome(case):
             return "blocked"
         sensitive = case["sensitive"]
         owner = case.get("owner")
-        complete = living_owner_is_verified(owner)
+        required = {
+            "authorized",
+            "routinely_checked",
+            "authoritative_surface",
+            "operator_ingestion",
+            "stable_locator",
+            "responsible_owner",
+            "next_gate",
+            "closure",
+            "retention",
+            "write_certain",
+            "readback",
+        }
+        complete = (
+            owner
+            and required <= set(owner)
+            and all(owner[field] is True for field in required)
+        )
         if sensitive:
             complete = (
                 complete
@@ -620,63 +543,6 @@ class ReviewContractTests(unittest.TestCase):
             self.assertIn(label, text)
         self.assertIn("never suppresses a valid finding", text)
         self.assertIn("converts a nonzero pass to zero", text)
-
-    def test_scope_routing_matrix_preserves_claim_and_convergence_boundaries(self):
-        cases = {
-            case["name"]: case
-            for case in load_json("review/scope-routing-cases.json")
-        }
-        for case in cases.values():
-            with self.subTest(case=case["name"]):
-                self.assertEqual(scope_route(case), case["expected"])
-
-        invented = scope_route(cases["agent-invented-guarantee-is-removed-not-hardened"])
-        self.assertEqual(invented["control"], "plan_repair")
-        self.assertEqual(invented["contract"], "remove_or_narrow")
-        self.assertFalse(invented["human_gate"])
-
-        unknown_provenance = dict(
-            cases["current-claim-defect-is-required-now"],
-            requirement_provenance="unknown",
-        )
-        self.assertEqual(scope_route(unknown_provenance)["control"], "blocked")
-
-        rescope = scope_route(cases["authorized-material-rescope-restarts-full-path"])
-        self.assertEqual(rescope["target_identity"], "rotate")
-        self.assertEqual(
-            rescope["invalidates"],
-            ["plan", "critique", "pre_audit", "downstream_proof"],
-        )
-
-        ordinary_fix = scope_route(cases["ordinary-fix-after-redesign-does-not-freeze"])
-        second_redesign = scope_route(cases["second-material-redesign-freezes"])
-        weak_observation = scope_route(
-            cases["weak-adjacent-observation-remains-residual-after-redesign"]
-        )
-        self.assertEqual(ordinary_fix["control"], "repair")
-        self.assertEqual(second_redesign["control"], "freeze")
-        self.assertEqual(weak_observation["control"], "residual")
-
-        transferred = scope_route(cases["adjacent-improvement-has-living-owner"])
-        self.assertEqual(transferred["pass_state"], "nonzero")
-
-    def test_scope_routing_contract_is_explicit(self):
-        text = normalized(
-            (REFERENCES / "evidence-and-claims.md").read_text(encoding="utf-8")
-        )
-        for phrase in (
-            "valid requirement provenance",
-            "required-now",
-            "authorized-rescope",
-            "separately-owned",
-            "verified living owner",
-            "creates no durable write",
-            "requires another material rescope",
-            "freezes for disposition",
-            "does not create a human gate",
-        ):
-            with self.subTest(phrase=phrase):
-                self.assertIn(phrase, text)
 
 
 class AuditContractTests(unittest.TestCase):

@@ -498,8 +498,7 @@ def gate_admission(case):
         }
         or not isinstance(case.get("gate_proposed"), bool)
         or not isinstance(case.get("material_choice"), bool)
-        or not isinstance(case.get("verified_default_covers"), bool)
-        or not isinstance(case.get("safe_default_available"), bool)
+        or not isinstance(case.get("established_default_covers"), bool)
         or not isinstance(case.get("current_step_depends"), bool)
         or not isinstance(case.get("fully_informed"), bool)
         or not isinstance(effect, dict)
@@ -507,33 +506,46 @@ def gate_admission(case):
         or not all(isinstance(value, bool) for value in effect.values())
     ):
         return "blocked"
-    separate_authority_effect = any(
-        effect[field]
-        for field in (
-            "sensitive",
-            "external_sharing",
-            "durable_truth",
-            "provider_or_account",
-            "activation",
-            "publication",
-            "destructive",
+    safe_evidence = (
+        all(
+            effect[field]
+            for field in (
+                "non_secret",
+                "local_only",
+                "minimized",
+                "owner_private",
+                "ephemeral",
+            )
+        )
+        and not any(
+            effect[field]
+            for field in (
+                "sensitive",
+                "external_sharing",
+                "durable_truth",
+                "provider_or_account",
+                "activation",
+                "publication",
+                "destructive",
+            )
         )
     )
-    if case["verified_default_covers"]:
-        return "fix" if case["gate_proposed"] else "proceed"
-    if case["safe_default_available"]:
-        return "fix"
-    authoritative = case["gate_source"] in {
-        "user",
-        "governing_policy",
-        "observed_effect",
-    }
+    material_effect = not safe_evidence
+    if (
+        not case["gate_proposed"]
+        and safe_evidence
+        and case["established_default_covers"]
+    ):
+        return "proceed"
+    authoritative = case["gate_source"] in {"user", "governing_policy"} or material_effect
     admissible = (
         authoritative
-        and separate_authority_effect
         and case["material_choice"]
+        and not case["established_default_covers"]
         and case["current_step_depends"]
     )
+    if material_effect and case["material_choice"] and case["current_step_depends"]:
+        admissible = True
     if not admissible:
         return "fix"
     return "flag" if case["fully_informed"] else "disclose"
@@ -797,6 +809,30 @@ class KernelContractTests(unittest.TestCase):
         self.assertNotIn(fixture["seeded_sensitive_value"].casefold(), combined)
         self.assertIn("host/os owns temporary cleanup", combined)
 
+    def test_human_gate_admission_preserves_autonomy_and_real_stops(self):
+        cases = load_json("runs/gate-admission-cases.json")
+        for case in cases:
+            with self.subTest(case=case["name"]):
+                self.assertEqual(gate_admission(case), case["expected"])
+        combined = normalized(
+            self.skill
+            + self.plan
+            + self.evidence
+            + (SKILL_ROOT / "references" / "audit.md").read_text(encoding="utf-8")
+            + (SKILL_ROOT / "references" / "auditors" / "triage.md").read_text(encoding="utf-8")
+            + (SKILL_ROOT / "references" / "auditors" / "verification.md").read_text(encoding="utf-8")
+        ).casefold()
+        for phrase in [
+            "authoritative provenance",
+            "material choice or risk delta",
+            "safe evidence envelope",
+            "runner-owned `fix`",
+            "earliest informed boundary",
+            "cannot create human authority",
+        ]:
+            with self.subTest(contract_phrase=phrase):
+                self.assertIn(phrase, combined)
+
         for phrase in [
             "after valid terminal closeout",
             "separate user request",
@@ -811,76 +847,6 @@ class KernelContractTests(unittest.TestCase):
         ]:
             with self.subTest(copy_rule=phrase):
                 self.assertIn(phrase, combined)
-
-    def test_human_gate_admission_preserves_autonomy_and_real_stops(self):
-        cases = load_json("runs/gate-admission-cases.json")
-        for case in cases:
-            with self.subTest(case=case["name"]):
-                self.assertEqual(gate_admission(case), case["expected"])
-        review = (SKILL_ROOT / "references" / "review.md").read_text(encoding="utf-8")
-        audit = (SKILL_ROOT / "references" / "audit.md").read_text(encoding="utf-8")
-        verification = (
-            SKILL_ROOT / "references" / "auditors" / "verification.md"
-        ).read_text(encoding="utf-8")
-        checks = {
-            "plan prevention": (
-                self.plan,
-                "reject a proposed gate when a verified established default already covers it",
-            ),
-            "critique correction": (
-                review,
-                "critique must challenge and remove a plan-created gate",
-            ),
-            "audit check": (
-                audit,
-                "independently reapply the human-gate admission contract",
-            ),
-            "runtime survivor rejection": (
-                self.evidence,
-                "runtime flag admission repeats this check independently",
-            ),
-            "verification challenge": (
-                verification,
-                "challenge a plan- or reviewer-created approval as a defect",
-            ),
-        }
-        for layer, (surface, phrase) in checks.items():
-            with self.subTest(layer=layer):
-                self.assertIn(phrase, normalized(surface).casefold())
-
-    def test_scope_contract_has_one_detailed_owner_and_phase_consumers(self):
-        review = (SKILL_ROOT / "references" / "review.md").read_text(encoding="utf-8")
-        audit = (SKILL_ROOT / "references" / "audit.md").read_text(encoding="utf-8")
-        triage = (
-            SKILL_ROOT / "references" / "auditors" / "triage.md"
-        ).read_text(encoding="utf-8")
-        verification = (
-            SKILL_ROOT / "references" / "auditors" / "verification.md"
-        ).read_text(encoding="utf-8")
-        owner = normalized(self.evidence).casefold()
-        for phrase in (
-            "valid requirement provenance",
-            "required-now",
-            "authorized-rescope",
-            "separately-owned",
-            "requires another material rescope",
-            "classification does not create a human gate",
-        ):
-            with self.subTest(owner_phrase=phrase):
-                self.assertIn(phrase, owner)
-        for name, surface in {
-            "runner": self.skill,
-            "review": review,
-            "audit": audit,
-            "triage": triage,
-            "verification": verification,
-        }.items():
-            with self.subTest(consumer=name):
-                self.assertIn(
-                    "scope-routing contract in `references/evidence-and-claims.md`",
-                    normalized(surface).casefold(),
-                )
-        self.assertNotIn("`defer`", owner)
 
     def test_runtime_and_public_instructions_have_no_project_local_run_path(self):
         public_readme = (ROOT / "README.md").read_text(encoding="utf-8")

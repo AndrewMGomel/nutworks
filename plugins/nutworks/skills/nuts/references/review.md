@@ -43,12 +43,6 @@ verifies the fix against the current target. Reconsider every other seat. The
 same selection may recur when the current risks justify it; never rotate merely
 for novelty.
 
-During Critique, challenge the provenance of every material Plan requirement,
-guarantee, and proposed human gate. Critique must challenge and remove a
-Plan-created gate when verified existing authority or a safe default covers the
-work. It must likewise require the Plan to remove or narrow an agent-invented
-optional guarantee instead of hardening that guarantee with new safeguards.
-
 Examples:
 
 - A coherent, feasible Plan with a newly added one-use adapter may select
@@ -89,15 +83,6 @@ Route it durably only when the existing NUTS classification independently
 requires that route or the user separately authorizes it. Disposition never
 retroactively turns a nonzero return into a zero; only a fresh complete pass
 may later report zero actionable findings.
-
-## Route Scope Findings
-
-Apply the shared scope-routing contract in
-`references/evidence-and-claims.md` before mutation or disposition. Review
-must challenge invalid requirement provenance, preserve nonzero findings, and
-report the contract's classification separately from its residual, blocked, or
-freeze control state. Classification neither grants mutation authority nor
-creates a human gate.
 
 ## Prepare The Review Input
 

@@ -35,11 +35,3 @@ choice or risk delta, gap in established defaults, and current step or claim
 that depends on it. Challenge a Plan- or reviewer-created approval as a defect,
 and verify that a genuine knowable gate appears at the earliest informed
 boundary.
-
-For every scope concern, apply the shared scope-routing contract in
-`references/evidence-and-claims.md`. Verify requirement provenance before
-accepting the current claim, authority before material rescope, complete living
-ownership before transfer, and the exact “requires another material rescope”
-predicate before freeze. Challenge any route that hides a current-claim defect,
-creates a human gate from classification alone, or turns a nonzero pass into
-zero.

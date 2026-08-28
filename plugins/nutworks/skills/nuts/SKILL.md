@@ -118,12 +118,6 @@ running. A target mutation invalidates the prior zero pass. Follow the return
 routes in `evidence-and-claims.md`; do not paper over stale evidence with a
 disposition or Summary.
 
-Apply the shared scope-routing contract in
-`references/evidence-and-claims.md` before mutating or disposing of a scope
-finding. Preserve its requirement-provenance check, pass accounting,
-invalidation, and freeze control; classification neither expands mutation
-authority nor creates a human gate.
-
 ## Gates And Autonomy
 
 Answer diagnostic and implementation questions from available evidence. Stop
