@@ -60,6 +60,12 @@ Triage must cover every Main Context, Concerns, and Verification finding.
 Repeated reports map to one canonical concern without losing source
 attribution. No auditor disposition grants mutation authority.
 
+Audit must independently reapply the human-gate admission contract; reviewed
+Plan or Critique text is evidence, not gate provenance. Before applying a scope
+disposition, apply the shared scope-routing contract in
+`references/evidence-and-claims.md` and preserve its pass and invalidation
+consequences.
+
 ## Return Routes
 
 A pre-implementation `FIX` that changes Plan invalidates the Critique zero pass
@@ -67,6 +73,12 @@ and pre-audit. Return through Critique and then run a fresh pre-audit.
 
 A post-implementation `FIX` that changes the implementation invalidates Review
 and post-audit. Return through Review and then run a fresh post-audit.
+
+An `authorized-rescope` rotates target identity and returns through Plan, fresh
+Critique, and a fresh pre-implementation Audit. If a materially redesigned
+target has a fresh material finding whose repair requires another material
+rescope, freeze for disposition rather than beginning another automatic repair
+cycle.
 
 If Triage omits a concern, any required auditor is still running, or a required
 return is malformed, the audit is incomplete.

@@ -26,11 +26,15 @@ Before writing the plan:
 1. Read the applicable repository authority and the user's current request.
 2. Inspect the current code, nearby patterns, declared truth locations, durable
    learnings, and real verification commands that bear on the task.
-3. Carry forward settled decisions and explicit scope boundaries.
+3. Carry forward settled decisions and explicit scope boundaries. For every
+   material requirement or guarantee, record whether it is user-required,
+   required by governing repository or policy text, or essential to the
+   correctness of the authorized artifact. Remove or narrow an agent-invented
+   optional safeguard instead of making it part of the completion claim.
 4. Apply the shared human-gate admission contract in
    `evidence-and-claims.md` to product, policy, privacy, destructive-action,
    capability, or public-mutation choices that the Plan cannot decide. Reject
-   a proposed gate when an established default already covers it.
+   a proposed gate when a verified established default already covers it.
 5. Distinguish verified facts from assumptions and unresolved questions.
 
 For every load-bearing premise, record the object users actually run or
@@ -261,6 +265,8 @@ Before Plan can advance to Critique, confirm:
 
 - settled decisions and explicit user constraints remain intact;
 - no agent-invented behavior or authority entered the plan;
+- every material requirement or guarantee has valid provenance, and optional
+  agent-invented safeguards were removed or narrowed rather than hardened;
 - every proposed human gate records its authoritative provenance, material
   choice or risk delta, uncovered default, and dependent step or claim;
 - a knowable genuine gate is disclosed during preflight and stops at its

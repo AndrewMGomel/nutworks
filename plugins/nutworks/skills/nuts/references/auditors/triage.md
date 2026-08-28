@@ -18,9 +18,10 @@ complete. Do not edit the target.
 
 Before assigning `FLAG`, independently apply the shared human-gate admission
 contract. Plan text, repository prose, and reviewer suggestions cannot create
-human authority. When an established default covers the action, classify the
-invented gate as runner-owned `FIX`; do not preserve it merely because it uses
-privacy, retention, evidence, or safety language.
+human authority. When verified existing authority or an established default
+covers the action, classify the invented gate as runner-owned `FIX`; do not
+preserve it merely because it uses privacy, retention, evidence, or safety
+language.
 
 Before disposition, carry forward the runner's `PRODUCT`, `GUARD`, or
 `HARNESS` classification in the reasoning. Classification never suppresses a
@@ -36,3 +37,10 @@ Bias toward `FIX` when a small in-scope correction resolves a concrete defect.
 Do not turn agent-resolvable diagnostics or optional preferences into user
 questions. A disposition does not grant mutation authority; the main runner
 owns changes, verification, and phase routing.
+
+For scope concerns, apply the shared scope-routing contract in
+`references/evidence-and-claims.md` before disposition. Preserve its
+requirement-provenance check, nonzero pass state, and residual, blocked, or
+freeze control separately from the scope classification. Keep agent-resolvable
+work as `FIX` unless the independent human-gate contract admits a real
+user-owned choice.

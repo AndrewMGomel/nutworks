@@ -186,12 +186,59 @@ outside pass accounting. A valid zero count is insufficient when complete
 protocol coverage, selected identity, independence, assignment mode,
 target-kind, current-target binding, or verification is missing.
 
+## Scope Finding Routing
+
+Before classifying a scope finding, verify valid requirement provenance. A
+material requirement or guarantee belongs to the current claim only when it is
+explicitly user-required, required by governing repository or policy text, or
+essential to the correctness of the authorized artifact. An optional safeguard
+invented by the Plan, reviewer, or runner has no such provenance. Remove or
+narrow that guarantee as a Plan repair, refresh affected Critique and, for
+Full, pre-audit evidence, and do not promote its consequences into `GUARD`,
+`HARNESS`, durable work, or a human gate.
+
+After that check, classify each actionable scope finding into exactly one of
+three routes:
+
+- `required-now` — a finding with valid provenance violates the settled
+  objective, success condition, constraint, or current completion claim. Keep
+  it actionable and the pass nonzero until an authorized in-scope fix is
+  verified. That fix rotates target identity without replacing the contract.
+- `authorized-rescope` — an explicitly authorized change materially replaces
+  scope, architecture, public behavior, or proof topology. Rotate target
+  identity, invalidate prior Plan, Critique, pre-audit, and downstream proof as
+  applicable, then return through Plan, fresh Critique, and, for Full, a fresh
+  pre-implementation Audit before Build.
+- `separately-owned` — a material adjacent obligation does not violate the
+  current claim and already has positive transfer to a verified living owner,
+  including stable locator, responsible owner, next gate, closure condition,
+  observed write, and semantic readback. It does not enter the current build or
+  change current pass accounting.
+
+Residual, blocked, and freeze are control states, not additional scope
+classifications. A weak adjacent observation remains residual evidence and
+creates no durable write. An unauthorized material rescope or material adjacent
+obligation without a complete living owner is blocked. A fresh material finding
+after a material redesign freezes for disposition only when its repair requires
+another material rescope; an ordinary in-contract fix or weak observation does
+not freeze the run.
+
+No classification or control state converts a nonzero pass to zero.
+Classification does not create a human gate: apply the human-gate admission
+contract independently. A requested stop is user-owned only when that separate
+contract admits it.
+
 ## Invalidation Routes
 
 | Later event | Stale evidence | Required route |
 |---|---|---|
 | A pre-audit FIX changes Plan | Critique zero pass and pre-audit | Critique, then a fresh pre-audit, before Implement. |
+| An authorized material rescope replaces the settled target contract | Plan, Critique, pre-audit, target identity, and any downstream evidence | Issue a new target identity and return through Plan, fresh Critique, and, for Full, a fresh pre-audit before Build. |
 | Implementation or a post-audit FIX changes the target | Review zero pass and post-audit | Review, then a fresh post-audit for Full. |
+| A required-now fix changes target bytes without changing the settled contract | Evidence bound to the prior target identity | Issue a new target identity, rerun affected verification, and obtain the fresh complete pass required by the current phase. |
+| An adjacent obligation is positively transferred to a separately-owned living owner outside the reviewed product | Owner custody evidence | Require stable locator, responsible owner, next gate, closure condition, observed write, and semantic readback; do not add it to the current build or change current pass accounting retroactively. |
+| A weak adjacent observation remains residual evidence | No project target changed | Create no durable write and continue under the current completion claim. |
+| A materially redesigned target receives a fresh material finding whose repair requires another material rescope | Completion claim | Freeze for disposition as redesign, abandon, or explicitly authorized rescope; do not start another automatic repair cycle. |
 | Full Compound creates or updates a project learning | Review zero pass and post-audit | Review, then a fresh post-audit, then Log Debt; do not repeat Compound. |
 | Light Compound creates or updates a project learning | Review zero pass | Review, then Log Debt; do not add an audit or repeat Compound. |
 | Compound records `no_op` | No project target changed | Continue to Log Debt. |
@@ -204,13 +251,17 @@ Any other material mutation of a reviewed target makes the evidence about the
 old target stale. Reread and reverify the current workspace rather than relying
 on the intention behind the mutation.
 
+Apply the scope-routing contract above before these routes. If a material case
+does not fit it, block for planning rather than inventing a disposition.
+
 ## FLAG And Debt Contract
 
 ### Human-gate admission
 
 Every proposed human gate must record its authoritative provenance, the
-material choice or risk delta, why an established default does not cover it,
-and the current step or completion claim that depends on it. A Plan,
+material choice or risk delta, why verified existing authority or an established
+default does not cover it, and the current step or completion claim that depends
+on it. A Plan,
 repository, or reviewer cannot create human authority merely by stating that
 approval is required. When the action is already covered, the invented gate is
 runner-owned `FIX`, not a user FLAG. Runtime FLAG admission repeats this check
@@ -221,7 +272,11 @@ predeclared fields, owner-private access, and ephemeral custody, with no
 external sharing, durable-truth write, provider or account effect, activation,
 publication, or destructive effect. Use the secure temporary-sidecar or
 host-conversation default when it satisfies that envelope without prompting.
-Sensitive content or any envelope deviation is not made safe by Plan text.
+Sensitive content or any envelope deviation is not made safe by Plan text. If
+the risky path is agent-created and the safe default remains available, use the
+safe default as runner-owned `FIX` work instead of asking for approval. An
+actual material effect already covered by verified existing authority likewise
+does not create a new gate.
 
 A genuine gate derives from the user's direction, governing policy, or the
 actual material effect. Disclose a knowable future decision during preflight,

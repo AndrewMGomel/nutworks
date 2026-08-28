@@ -45,7 +45,7 @@
   "adapted": [
     {
       "destination": "skills/nuts/references/plan.md",
-      "destination_sha256": "a171853e039f4a5f9ef9f6626082d4749be101c522d7f862b077832cd93b2314",
+      "destination_sha256": "46cc6d82e0162d74e85f20c88b6aaba0b8b6cfca90f3ca865b34f062fccbdefa",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-plan/references/plan-sections.md",
@@ -87,7 +87,7 @@
           "reason": "nuts_authority"
         },
         {
-          "change": "Added provenance- and materiality-based human-gate admission plus earliest-informed preflight timing.",
+          "change": "Added provenance checks for material requirements and human gates plus earliest-informed preflight timing.",
           "reason": "nuts_authority"
         }
         ]
