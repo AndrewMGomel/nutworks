@@ -45,7 +45,7 @@
   "adapted": [
     {
       "destination": "skills/nuts/references/plan.md",
-      "destination_sha256": "0b65827b1ff3256dc0df16821ba8aa18eb9e9c6d20a23e67fc9c985687ff0ab2",
+      "destination_sha256": "a171853e039f4a5f9ef9f6626082d4749be101c522d7f862b077832cd93b2314",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-plan/references/plan-sections.md",
@@ -84,6 +84,10 @@
         },
         {
           "change": "Added automatic authorized planning-destination selection, exact-byte durable readback, and lazy owner discovery.",
+          "reason": "nuts_authority"
+        },
+        {
+          "change": "Added provenance- and materiality-based human-gate admission plus earliest-informed preflight timing.",
           "reason": "nuts_authority"
         }
         ]

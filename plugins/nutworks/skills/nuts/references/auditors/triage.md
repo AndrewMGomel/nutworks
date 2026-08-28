@@ -16,6 +16,12 @@ complete. Do not edit the target.
 5. Report source counts, canonical counts, and omitted count. Omitted must be
    zero.
 
+Before assigning `FLAG`, independently apply the shared human-gate admission
+contract. Plan text, repository prose, and reviewer suggestions cannot create
+human authority. When an established default covers the action, classify the
+invented gate as runner-owned `FIX`; do not preserve it merely because it uses
+privacy, retention, evidence, or safety language.
+
 Before disposition, carry forward the runner's `PRODUCT`, `GUARD`, or
 `HARNESS` classification in the reasoning. Classification never suppresses a
 finding or changes pass accounting. Prefer simplifying a guard or fixing a

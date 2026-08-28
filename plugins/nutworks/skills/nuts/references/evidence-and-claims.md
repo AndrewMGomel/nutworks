@@ -206,6 +206,30 @@ on the intention behind the mutation.
 
 ## FLAG And Debt Contract
 
+### Human-gate admission
+
+Every proposed human gate must record its authoritative provenance, the
+material choice or risk delta, why an established default does not cover it,
+and the current step or completion claim that depends on it. A Plan,
+repository, or reviewer cannot create human authority merely by stating that
+approval is required. When the action is already covered, the invented gate is
+runner-owned `FIX`, not a user FLAG. Runtime FLAG admission repeats this check
+independently; reviewed Plan text is never sufficient provenance.
+
+The safe evidence envelope is mechanical: non-secret, local-only, minimized
+predeclared fields, owner-private access, and ephemeral custody, with no
+external sharing, durable-truth write, provider or account effect, activation,
+publication, or destructive effect. Use the secure temporary-sidecar or
+host-conversation default when it satisfies that envelope without prompting.
+Sensitive content or any envelope deviation is not made safe by Plan text.
+
+A genuine gate derives from the user's direction, governing policy, or the
+actual material effect. Disclose a knowable future decision during preflight,
+before lengthy avoidable work. Request the decision at the earliest informed
+boundary, when the exact target, effect, recovery choice, and material tradeoff
+are knowable. A genuinely new late gate stops immediately and records why
+preflight could not have found it.
+
 Assign stable run-wide IDs in discovery order: `F1`, `F2`, and so on. Repeated
 reports of the same decision boundary reuse the same ID. Split distinct choices
 into distinct FLAGS; do not bundle them to avoid a user decision.

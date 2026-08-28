@@ -470,6 +470,87 @@ def flag_is_disposed(case):
     return True
 
 
+def gate_admission(case):
+    effect_fields = {
+        "non_secret",
+        "local_only",
+        "minimized",
+        "owner_private",
+        "ephemeral",
+        "sensitive",
+        "external_sharing",
+        "durable_truth",
+        "provider_or_account",
+        "activation",
+        "publication",
+        "destructive",
+    }
+    effect = case.get("effect")
+    if (
+        case.get("gate_source") not in {
+            "none",
+            "plan",
+            "reviewer",
+            "repository",
+            "user",
+            "governing_policy",
+            "observed_effect",
+        }
+        or not isinstance(case.get("gate_proposed"), bool)
+        or not isinstance(case.get("material_choice"), bool)
+        or not isinstance(case.get("established_default_covers"), bool)
+        or not isinstance(case.get("current_step_depends"), bool)
+        or not isinstance(case.get("fully_informed"), bool)
+        or not isinstance(effect, dict)
+        or set(effect) != effect_fields
+        or not all(isinstance(value, bool) for value in effect.values())
+    ):
+        return "blocked"
+    safe_evidence = (
+        all(
+            effect[field]
+            for field in (
+                "non_secret",
+                "local_only",
+                "minimized",
+                "owner_private",
+                "ephemeral",
+            )
+        )
+        and not any(
+            effect[field]
+            for field in (
+                "sensitive",
+                "external_sharing",
+                "durable_truth",
+                "provider_or_account",
+                "activation",
+                "publication",
+                "destructive",
+            )
+        )
+    )
+    material_effect = not safe_evidence
+    if (
+        not case["gate_proposed"]
+        and safe_evidence
+        and case["established_default_covers"]
+    ):
+        return "proceed"
+    authoritative = case["gate_source"] in {"user", "governing_policy"} or material_effect
+    admissible = (
+        authoritative
+        and case["material_choice"]
+        and not case["established_default_covers"]
+        and case["current_step_depends"]
+    )
+    if material_effect and case["material_choice"] and case["current_step_depends"]:
+        admissible = True
+    if not admissible:
+        return "fix"
+    return "flag" if case["fully_informed"] else "disclose"
+
+
 def harness_case_is_accepted(case):
     if case["trigger"] == "ordinary":
         return True
@@ -727,6 +808,30 @@ class KernelContractTests(unittest.TestCase):
         self.assertIn(fixture["sensitive_handling"].casefold(), combined)
         self.assertNotIn(fixture["seeded_sensitive_value"].casefold(), combined)
         self.assertIn("host/os owns temporary cleanup", combined)
+
+    def test_human_gate_admission_preserves_autonomy_and_real_stops(self):
+        cases = load_json("runs/gate-admission-cases.json")
+        for case in cases:
+            with self.subTest(case=case["name"]):
+                self.assertEqual(gate_admission(case), case["expected"])
+        combined = normalized(
+            self.skill
+            + self.plan
+            + self.evidence
+            + (SKILL_ROOT / "references" / "audit.md").read_text(encoding="utf-8")
+            + (SKILL_ROOT / "references" / "auditors" / "triage.md").read_text(encoding="utf-8")
+            + (SKILL_ROOT / "references" / "auditors" / "verification.md").read_text(encoding="utf-8")
+        ).casefold()
+        for phrase in [
+            "authoritative provenance",
+            "material choice or risk delta",
+            "safe evidence envelope",
+            "runner-owned `fix`",
+            "earliest informed boundary",
+            "cannot create human authority",
+        ]:
+            with self.subTest(contract_phrase=phrase):
+                self.assertIn(phrase, combined)
 
         for phrase in [
             "after valid terminal closeout",

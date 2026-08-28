@@ -27,8 +27,10 @@ Before writing the plan:
 2. Inspect the current code, nearby patterns, declared truth locations, durable
    learnings, and real verification commands that bear on the task.
 3. Carry forward settled decisions and explicit scope boundaries.
-4. Identify product, policy, privacy, destructive-action, capability, or public
-   mutation gates that the plan cannot decide on the user's behalf.
+4. Apply the shared human-gate admission contract in
+   `evidence-and-claims.md` to product, policy, privacy, destructive-action,
+   capability, or public-mutation choices that the Plan cannot decide. Reject
+   a proposed gate when an established default already covers it.
 5. Distinguish verified facts from assumptions and unresolved questions.
 
 For every load-bearing premise, record the object users actually run or
@@ -259,6 +261,10 @@ Before Plan can advance to Critique, confirm:
 
 - settled decisions and explicit user constraints remain intact;
 - no agent-invented behavior or authority entered the plan;
+- every proposed human gate records its authoritative provenance, material
+  choice or risk delta, uncovered default, and dependent step or claim;
+- a knowable genuine gate is disclosed during preflight and stops at its
+  earliest informed boundary rather than after lengthy avoidable work;
 - every requirement maps to an implementation unit and proof;
 - unit dependencies are acyclic and ordered;
 - material failure paths and negative tests are present;
