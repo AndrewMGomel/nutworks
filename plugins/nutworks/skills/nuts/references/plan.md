@@ -48,6 +48,39 @@ Do not invent a path, command, integration, public identity, compatibility
 promise, or repository convention. If a required fact cannot be discovered,
 make its discovery or decision an explicit gate owned by the main runner.
 
+## Claim Boundary And Tranche End
+
+Before Critique, record one settled completion claim: the observable result and
+conditions this tranche must satisfy. Record its operating horizon—the point at
+which this tranche ends—plus explicit non-goals and the provenance of each
+material requirement or guard. The user's request and governing authority bound
+that claim; Plan wording cannot silently enlarge it.
+
+For every concern found later, apply this rule in order:
+
+1. Decide whether the current target or run violates the settled completion
+   claim, governing authority, or correctness necessary to that claim. A real
+   safety or policy violation is never demoted to adjacent work.
+2. If it does, identify the smallest correction. When that correction stays
+   inside the settled claim, architecture, and operating horizon and adds no
+   new subsystem or durable state, keep it as required current-tranche work.
+3. When the smallest correction changes the completion claim, architecture,
+   operating horizon, or adds a subsystem or durable state, return to Plan
+   before mutation. Revise the affected premise and repeat the review or audit
+   evidence invalidated by that change. This return is not automatically a
+   human gate; apply the human-gate admission contract only when the actual
+   change requires a new user-owned choice or authority.
+4. If there is no current violation, preserve the observation as residual
+   evidence or route it only to an existing authoritative owner when the
+   ordinary FLAG/debt contract independently requires that route. Do not create
+   a work item, owner, or implementation obligation merely because it was
+   noticed.
+
+Whole-target Review remains broad enough to find defects; this rule bounds what
+the current tranche may mutate. A successful tranche ends when its settled
+completion claim is satisfied. Adjacent work does not start another Plan,
+review loop, or implementation tranche without separate authority.
+
 ## Session-settled decisions
 
 Classify a conversation-carried decision by whether it survived examination,
@@ -261,6 +294,9 @@ Before Plan can advance to Critique, confirm:
 
 - settled decisions and explicit user constraints remain intact;
 - no agent-invented behavior or authority entered the plan;
+- the settled completion claim records its operating horizon, non-goals, and
+  material requirement/guard provenance, and optional agent-invented safeguards
+  were removed or narrowed rather than hardened;
 - every proposed human gate records its authoritative provenance, material
   choice or risk delta, uncovered default, and dependent step or claim;
 - a knowable genuine gate is disclosed during preflight and stops at its

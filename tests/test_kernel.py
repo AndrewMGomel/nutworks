@@ -848,6 +848,58 @@ class KernelContractTests(unittest.TestCase):
             with self.subTest(copy_rule=phrase):
                 self.assertIn(phrase, combined)
 
+    def test_claim_boundary_ends_the_tranche_without_a_routing_engine(self):
+        runtime_files = [
+            path
+            for path in sorted(SKILL_ROOT.rglob("*.md"))
+            if path.is_file()
+        ]
+        runtime_text = "\n".join(
+            path.read_text(encoding="utf-8") for path in runtime_files
+        )
+        self.assertEqual(
+            runtime_text.count("## Claim Boundary And Tranche End"), 1
+        )
+
+        plan = normalized(self.plan).casefold()
+        for phrase in (
+            "settled completion claim",
+            "operating horizon",
+            "smallest correction",
+            "return to plan before mutation",
+            "not automatically a human gate",
+            "successful tranche ends",
+            "whole-target review remains broad",
+        ):
+            with self.subTest(claim_boundary_phrase=phrase):
+                self.assertIn(phrase, plan)
+
+        review = normalized(
+            (SKILL_ROOT / "references" / "review.md").read_text(encoding="utf-8")
+        ).casefold()
+        triage = normalized(
+            (SKILL_ROOT / "references" / "auditors" / "triage.md").read_text(
+                encoding="utf-8"
+            )
+        ).casefold()
+        self.assertIn("claim-boundary rule in `plan.md`", review)
+        self.assertIn("claim-boundary rule in `plan.md`", triage)
+
+        forbidden = (
+            "required_now",
+            "authorized_rescope",
+            "separately_owned",
+            "second-material-rescope",
+            "gate_admitted",
+            "scope-routing-cases",
+            "material freeze",
+            "`defer`",
+        )
+        folded_runtime = runtime_text.casefold()
+        for phrase in forbidden:
+            with self.subTest(forbidden_scope_engine=phrase):
+                self.assertNotIn(phrase, folded_runtime)
+
     def test_runtime_and_public_instructions_have_no_project_local_run_path(self):
         public_readme = (ROOT / "README.md").read_text(encoding="utf-8")
         gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
@@ -1057,15 +1109,23 @@ class KernelContractTests(unittest.TestCase):
         )
         for phrase in [
             "entire selected named protocol against the whole current target",
-            "neither a whole-target assignment nor a finding grants",
-            "violation of the settled boundary is actionable",
-            "genuinely adjacent enhancement",
-            "preserve it outside `findings`",
-            "does not require a durable repository work item",
+            "canonical claim-boundary rule in `plan.md`",
+            "does not rewrite the boundary or grant mutation",
+            "Inspection stays broad while current-tranche mutation stays bounded",
             "only a fresh complete pass may later report zero actionable findings",
         ]:
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, review)
+
+        plan = normalized(self.plan)
+        for phrase in [
+            "violates the settled completion claim",
+            "preserve the observation as residual evidence",
+            "Do not create a work item, owner, or implementation obligation",
+            "Adjacent work does not start another Plan",
+        ]:
+            with self.subTest(canonical_claim_boundary=phrase):
+                self.assertIn(phrase, plan)
 
 
 if __name__ == "__main__":

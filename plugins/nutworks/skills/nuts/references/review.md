@@ -66,23 +66,17 @@ mode:
   surface. This is supplemental evidence, never a NUTS pass, never a selected
   pass seat, and never a convergence zero.
 
-The whole current target is evaluated against the settled objective, success
-condition, constraints, and scope. That inspection breadth does not expand
-mutation authority: neither a whole-target assignment nor a finding grants the
-runner authority to change anything outside the already-authorized tranche.
-The runner must not suppress a concern to manufacture a zero and must use the
-existing FLAG, debt, backlog, gate, rescope, or user-decision route when its
-classification requires one.
-
-A violation of the settled boundary is actionable and remains in `findings`
-until fixed or the boundary is explicitly changed. A genuinely adjacent
-enhancement that does not violate that boundary is not actionable merely
-because it was noticed; preserve it outside `findings` as residual or deferred
-evidence. Mere observation does not require a durable repository work item.
-Route it durably only when the existing NUTS classification independently
-requires that route or the user separately authorizes it. Disposition never
-retroactively turns a nonzero return into a zero; only a fresh complete pass
-may later report zero actionable findings.
+Evaluate the whole current target against the settled objective, success
+condition, constraints, and scope, then classify concerns through the canonical
+claim-boundary rule in `plan.md`. Review supplies evidence about the violation
+and smallest correction; it does not rewrite the boundary or grant mutation.
+During Critique, challenge the claim, horizon, non-goals, and provenance against
+that rule; an optional Plan-created safeguard is a Plan defect, not a reason to
+harden more machinery.
+The runner must not suppress a concern to manufacture a zero. Inspection stays
+broad while current-tranche mutation stays bounded, and disposition never
+retroactively turns a nonzero return into a zero; only a fresh complete pass may
+later report zero actionable findings.
 
 ## Prepare The Review Input
 

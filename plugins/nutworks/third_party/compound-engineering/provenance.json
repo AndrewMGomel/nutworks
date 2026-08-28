@@ -45,7 +45,7 @@
   "adapted": [
     {
       "destination": "skills/nuts/references/plan.md",
-      "destination_sha256": "a171853e039f4a5f9ef9f6626082d4749be101c522d7f862b077832cd93b2314",
+      "destination_sha256": "96f153dee24872122b2ceceda096bc87b28a15ff3311a468f23ee3d80ff5f6c7",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-plan/references/plan-sections.md",
@@ -88,6 +88,10 @@
         },
         {
           "change": "Added provenance- and materiality-based human-gate admission plus earliest-informed preflight timing.",
+          "reason": "nuts_authority"
+        },
+        {
+          "change": "Added one Plan-owned completion-claim and operating-horizon boundary that returns claim-changing corrections to Plan and ends successful tranches before adjacent work.",
           "reason": "nuts_authority"
         }
         ]
