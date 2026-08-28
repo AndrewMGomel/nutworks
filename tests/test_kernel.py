@@ -935,9 +935,31 @@ class KernelContractTests(unittest.TestCase):
         self.assertEqual(flags["safety-stop-restricted-custody"]["affected_work_after_stop"], 0)
         self.assertFalse(flags["redacted-notice-without-custody"]["expected_disposed"])
         self.assertEqual(flags["uncertain-write-no-duplicate"]["duplicate_writes"], 0)
+        claim_cases = {
+            case["name"]: case for case in load_json("runs/claim-cases.json")
+        }
+        debt_cases = {
+            case["name"]: case for case in load_json("runs/debt-cases.json")
+        }
+        custody_cases = {
+            case["name"]: case for case in load_json("runs/flag-cases.json")
+        }
+
+        def summary_accepts(case):
+            claim_case = case.get(
+                "claim_case",
+                "earned-full"
+                if case["run_status"] == "complete"
+                else "failed-full-never-light",
+            )
+            terminal_claim = earned_claim(
+                claim_cases[claim_case], debt_cases, custody_cases
+            )
+            return summary_is_accepted(case, terminal_claim)
+
         for case in load_json("runs/summary-cases.json"):
             with self.subTest(case=case["name"]):
-                self.assertEqual(summary_is_accepted(case), case["accepted"])
+                self.assertEqual(summary_accepts(case), case["accepted"])
         accepted_summary = next(
             case for case in load_json("runs/summary-cases.json")
             if case["name"] == "complete-two-layer"
@@ -951,20 +973,20 @@ class KernelContractTests(unittest.TestCase):
             candidate = dict(accepted_summary)
             candidate[field] = "unknown"
             with self.subTest(nonboolean_summary_evidence=field):
-                self.assertFalse(summary_is_accepted(candidate))
+                self.assertFalse(summary_accepts(candidate))
         candidate = dict(accepted_summary)
         candidate["no_failure_stated"] = "unknown"
-        self.assertFalse(summary_is_accepted(candidate))
+        self.assertFalse(summary_accepts(candidate))
         corrected_summary = next(
             case for case in load_json("runs/summary-cases.json")
             if case["name"] == "corrected-failure-with-evidence"
         )
         candidate = dict(corrected_summary)
         candidate["correcting_evidence"] = "unknown"
-        self.assertFalse(summary_is_accepted(candidate))
+        self.assertFalse(summary_accepts(candidate))
         candidate = dict(accepted_summary)
         candidate["sensitive_metadata_exposed"] = 0
-        self.assertFalse(summary_is_accepted(candidate))
+        self.assertFalse(summary_accepts(candidate))
         beginner_omits = next(
             case for case in load_json("runs/summary-cases.json")
             if case["name"] == "beginner-omits-technical-counts"
@@ -972,6 +994,13 @@ class KernelContractTests(unittest.TestCase):
         self.assertFalse(beginner_omits["beginner_ids"])
         self.assertTrue(beginner_omits["receipt_ids"])
         self.assertTrue(beginner_omits["accepted"])
+        summary_contract = normalized(self.evidence).casefold()
+        for phrase in (
+            "derive one terminal state",
+            "cannot upgrade or downgrade",
+            "before summary wording",
+        ):
+            self.assertIn(phrase, summary_contract)
 
     def test_runtime_instruction_tree_has_no_private_or_cut_mechanism_edges(self):
         text = "\n".join(

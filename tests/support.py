@@ -31,7 +31,10 @@ def private_reference_is_bound(case):
     )
 
 
-def summary_is_accepted(case):
+def summary_is_accepted(case, terminal_claim):
+    terminal_status = (
+        "complete" if terminal_claim in {"Full", "Light"} else "incomplete"
+    )
     failure_state = case.get("failure_state")
     failure_evidence_valid = (
         (failure_state == "none" and case.get("no_failure_stated") is True)
@@ -50,6 +53,7 @@ def summary_is_accepted(case):
         and case["receipt_ids"] is True
         and case["sensitive_metadata_exposed"] is False
         and case["run_status"] in {"complete", "incomplete"}
+        and case["run_status"] == terminal_status
         and case["beginner_first"] == case["run_status"]
         and failure_evidence_valid
     )

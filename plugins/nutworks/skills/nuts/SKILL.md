@@ -142,10 +142,11 @@ Log Debt reconciles every stable FLAG to one authoritative disposition and
 requires `undisposed: 0` for successful closeout. Every reachable terminal exit
 emits a self-contained Summary; incomplete exits say so explicitly. Valid
 closeout also requires non-blocked Compound, current verification, no running
-worker, and exact durable Plan readback when planning. Summary states what was
-planned, implemented, reviewed, audited, tested, documented, or left incomplete
-based only on current evidence. A failed or unfinished Full run never becomes
-Light automatically.
+worker, and exact durable Plan readback when planning. Derive that terminal
+state once under `evidence-and-claims.md`; Summary renders it but cannot choose
+or change it. Summary states what was planned, implemented, reviewed, audited,
+tested, documented, or left incomplete based only on current evidence. A failed
+or unfinished Full run never becomes Light automatically.
 
 Attempt to close the host goal only after valid terminal closeout. Handle
 interruption and uncertain effects exactly under `evidence-and-claims.md`; never

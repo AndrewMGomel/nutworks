@@ -304,7 +304,17 @@ records `raised: 0` and `undisposed: 0` without creating an empty ledger.
 
 ## Terminal Summary Contract
 
-Generate two layers from one reconciled closeout state:
+Before Summary wording, derive one terminal state from the current Phase
+Evidence Floor and Invalidation Routes: selected mode obligations, Critique and
+Review convergence, applicable audits, current verification, worker state,
+durable Plan readback when planning, Compound, and reconciled FLAG/debt state.
+Do this once from the actual run evidence, not from a Summary draft or a
+presentational status field. Summary consumes that state and cannot upgrade or
+downgrade it. Any missing, stale, contradictory, unknown, or unfinished input
+derives `incomplete`; only a fully earned Full or Light closeout derives
+`complete`.
+
+Generate two layers from that one reconciled closeout state:
 
 1. A beginner-facing paragraph says, in literal plain English, what result was
    produced, whether the run itself completed, and the next action. For an
