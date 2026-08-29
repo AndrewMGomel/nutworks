@@ -68,13 +68,13 @@ mode:
 
 Evaluate the whole current target against the settled objective, success
 condition, constraints, and scope, then classify concerns through the canonical
-claim-boundary rule in `plan.md`. Review supplies evidence about the violation
-and smallest correction; it does not rewrite the boundary or grant mutation.
-During Critique, challenge the claim, horizon, non-goals, and provenance against
-that rule; an optional Plan-created safeguard is a Plan defect, not a reason to
-harden more machinery.
+post-Critique route in `evidence-and-claims.md`. Review supplies evidence about
+the violation and smallest correction; it does not rewrite the boundary or
+grant mutation. During Critique, challenge the Plan boundary and provenance;
+an optional Plan-created safeguard is a Plan defect, not a reason to harden
+more machinery.
 The runner must not suppress a concern to manufacture a zero. Inspection stays
-broad while current-tranche mutation stays bounded, and disposition never
+broad while mutation stays bounded by the recorded Plan, and disposition never
 retroactively turns a nonzero return into a zero; only a fresh complete pass may
 later report zero actionable findings.
 

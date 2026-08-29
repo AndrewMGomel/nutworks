@@ -186,11 +186,38 @@ outside pass accounting. A valid zero count is insufficient when complete
 protocol coverage, selected identity, independence, assignment mode,
 target-kind, current-target binding, or verification is missing.
 
+## Completion-Boundary Routing
+
+For every concern found after Critique, first decide whether the current target
+or run violates the current objective, governing policy, safety, or correctness
+necessary to the objective. A real violation remains actionable when its
+smallest correction stays within the recorded Plan boundaries.
+
+When the smallest viable correction must depart from a recorded load-bearing
+objective, success condition, constraint, scope/non-goal, authority basis, or
+Definition of Done, pause mutation and revise Plan. Plan revision cannot enlarge
+authority. The return is not a human gate unless the independent human-gate
+admission contract finds a genuinely new user-owned decision or authority.
+When no current violation exists, preserve it as residual evidence or route it
+only to an existing authoritative owner when the ordinary FLAG/debt contract
+already requires that route. Do not create a work item, owner, or implementation
+obligation merely because the concern was noticed. Successful bounded work ends
+before adjacent work begins.
+
+| Plan revision point | Full stale evidence | Light stale evidence | Required route |
+|---|---|---|---|
+| Before Critique | None | None | Revise Plan, then enter Critique. |
+| After Critique and before Review | Critique, pre-audit, and implementation or verification derived from the old Plan | Critique and implementation or verification derived from the old Plan | Revise Plan; rerun Critique and Full pre-audit; then implement and verify as applicable. |
+| During Review or post-audit | Critique, pre-audit, implementation or verification derived from the old Plan, Review, and post-audit | Critique, implementation or verification derived from the old Plan, and Review | Revise Plan; rerun Critique and Full pre-audit; implement and verify as applicable; then rerun Review and Full post-audit. |
+
+If no viable correction exists within current authority, finish incomplete or
+stop at a genuine FLAG. Do not repeatedly revise Plan to manufacture a viable
+route.
+
 ## Invalidation Routes
 
 | Later event | Stale evidence | Required route |
 |---|---|---|
-| A pre-audit FIX changes Plan | Critique zero pass and pre-audit | Critique, then a fresh pre-audit, before Implement. |
 | Implementation or a post-audit FIX changes the target | Review zero pass and post-audit | Review, then a fresh post-audit for Full. |
 | Full Compound creates or updates a project learning | Review zero pass and post-audit | Review, then a fresh post-audit, then Log Debt; do not repeat Compound. |
 | Light Compound creates or updates a project learning | Review zero pass | Review, then Log Debt; do not add an audit or repeat Compound. |

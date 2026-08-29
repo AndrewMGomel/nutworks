@@ -45,7 +45,7 @@
   "adapted": [
     {
       "destination": "skills/nuts/references/plan.md",
-      "destination_sha256": "96f153dee24872122b2ceceda096bc87b28a15ff3311a468f23ee3d80ff5f6c7",
+      "destination_sha256": "0206db510d357cdce68f58107b795976a2a0ebbeb61318151d7a85ae4df417fe",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-plan/references/plan-sections.md",
@@ -91,7 +91,7 @@
           "reason": "nuts_authority"
         },
         {
-          "change": "Added one Plan-owned completion-claim and operating-horizon boundary that returns claim-changing corrections to Plan and ends successful tranches before adjacent work.",
+          "change": "Added one Plan completion boundary using its existing objective, success, scope, authority, and Definition of Done fields, with post-Critique routing delegated to the shared evidence owner.",
           "reason": "nuts_authority"
         }
         ]

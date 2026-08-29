@@ -62,11 +62,9 @@ attribution. No auditor disposition grants mutation authority.
 
 ## Return Routes
 
-A pre-implementation `FIX` that changes Plan invalidates the Critique zero pass
-and pre-audit. Return through Critique and then run a fresh pre-audit.
-
-A post-implementation `FIX` that changes the implementation invalidates Review
-and post-audit. Return through Review and then run a fresh post-audit.
+Use the canonical post-Critique route in `evidence-and-claims.md` for any Plan
+revision. Use its Invalidation Routes for target mutations that do not revise
+Plan. Do not restate either route here.
 
 If Triage omits a concern, any required auditor is still running, or a required
 return is malformed, the audit is incomplete.

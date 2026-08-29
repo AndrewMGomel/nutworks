@@ -76,7 +76,6 @@ def earned_claim(case, ledgers, custody_cases):
             )
         )
         and case["compound_blocked"] is False
-        and case["summary_reconciled"] is True
     )
     if not common:
         return "incomplete"
@@ -771,7 +770,6 @@ class KernelContractTests(unittest.TestCase):
             "workers_running",
             "planning_run",
             "compound_blocked",
-            "summary_reconciled",
         ):
             candidate = dict(earned_full)
             candidate[field] = "unknown"
@@ -848,7 +846,7 @@ class KernelContractTests(unittest.TestCase):
             with self.subTest(copy_rule=phrase):
                 self.assertIn(phrase, combined)
 
-    def test_claim_boundary_ends_the_tranche_without_a_routing_engine(self):
+    def test_completion_boundary_has_one_canonical_phase_route(self):
         runtime_files = [
             path
             for path in sorted(SKILL_ROOT.rglob("*.md"))
@@ -858,34 +856,49 @@ class KernelContractTests(unittest.TestCase):
             path.read_text(encoding="utf-8") for path in runtime_files
         )
         self.assertEqual(
-            runtime_text.count("## Claim Boundary And Tranche End"), 1
+            runtime_text.count("## Completion-Boundary Routing"), 1
         )
 
         plan = normalized(self.plan).casefold()
         for phrase in (
-            "settled completion claim",
-            "operating horizon",
-            "smallest correction",
-            "return to plan before mutation",
-            "not automatically a human gate",
-            "successful tranche ends",
-            "whole-target review remains broad",
+            "objective, success conditions, constraints, scope and non-goals",
+            "authority and provenance",
+            "definition of done",
+            "canonical post-critique route in `evidence-and-claims.md`",
         ):
-            with self.subTest(claim_boundary_phrase=phrase):
+            with self.subTest(completion_boundary_phrase=phrase):
                 self.assertIn(phrase, plan)
 
-        review = normalized(
-            (SKILL_ROOT / "references" / "review.md").read_text(encoding="utf-8")
-        ).casefold()
-        triage = normalized(
-            (SKILL_ROOT / "references" / "auditors" / "triage.md").read_text(
-                encoding="utf-8"
-            )
-        ).casefold()
-        self.assertIn("claim-boundary rule in `plan.md`", review)
-        self.assertIn("claim-boundary rule in `plan.md`", triage)
+        route_section = self.evidence.split(
+            "## Completion-Boundary Routing\n", 1
+        )[1].split("\n## ", 1)[0]
+        rows = [
+            tuple(cell.strip() for cell in line.strip().strip("|").split("|"))
+            for line in route_section.splitlines()
+            if line.startswith("|") and "---" not in line
+        ]
+        self.assertEqual(
+            rows,
+            [
+                ("Plan revision point", "Full stale evidence", "Light stale evidence", "Required route"),
+                ("Before Critique", "None", "None", "Revise Plan, then enter Critique."),
+                ("After Critique and before Review", "Critique, pre-audit, and implementation or verification derived from the old Plan", "Critique and implementation or verification derived from the old Plan", "Revise Plan; rerun Critique and Full pre-audit; then implement and verify as applicable."),
+                ("During Review or post-audit", "Critique, pre-audit, implementation or verification derived from the old Plan, Review, and post-audit", "Critique, implementation or verification derived from the old Plan, and Review", "Revise Plan; rerun Critique and Full pre-audit; implement and verify as applicable; then rerun Review and Full post-audit."),
+            ],
+        )
+
+        for relative in (
+            "references/plan.md",
+            "references/review.md",
+            "references/auditors/triage.md",
+        ):
+            text = normalized((SKILL_ROOT / relative).read_text(encoding="utf-8"))
+            self.assertIn("canonical post-Critique route in `evidence-and-claims.md`", text)
 
         forbidden = (
+            "operating horizon",
+            "current-tranche",
+            "successful tranche",
             "required_now",
             "authorized_rescope",
             "separately_owned",
@@ -998,12 +1011,7 @@ class KernelContractTests(unittest.TestCase):
         }
 
         def summary_accepts(case):
-            claim_case = case.get(
-                "claim_case",
-                "earned-full"
-                if case["run_status"] == "complete"
-                else "failed-full-never-light",
-            )
+            claim_case = case["claim_case"]
             terminal_claim = earned_claim(
                 claim_cases[claim_case], debt_cases, custody_cases
             )
@@ -1093,7 +1101,9 @@ class KernelContractTests(unittest.TestCase):
 
     def test_invalidation_routes_cover_all_post_zero_mutations(self):
         required = [
-            "pre-audit FIX changes Plan",
+            "Completion-Boundary Routing",
+            "After Critique and before Review",
+            "During Review or post-audit",
             "post-audit FIX changes the target",
             "Full Compound creates or updates",
             "Light Compound creates or updates",
@@ -1109,23 +1119,23 @@ class KernelContractTests(unittest.TestCase):
         )
         for phrase in [
             "entire selected named protocol against the whole current target",
-            "canonical claim-boundary rule in `plan.md`",
+            "canonical post-Critique route in `evidence-and-claims.md`",
             "does not rewrite the boundary or grant mutation",
-            "Inspection stays broad while current-tranche mutation stays bounded",
+            "Inspection stays broad while mutation stays bounded by the recorded Plan",
             "only a fresh complete pass may later report zero actionable findings",
         ]:
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, review)
 
-        plan = normalized(self.plan)
+        evidence = normalized(self.evidence)
         for phrase in [
-            "violates the settled completion claim",
-            "preserve the observation as residual evidence",
+            "violates the current objective, governing policy, safety, or correctness necessary to the objective",
+            "preserve it as residual evidence",
             "Do not create a work item, owner, or implementation obligation",
-            "Adjacent work does not start another Plan",
+            "Successful bounded work ends before adjacent work begins",
         ]:
-            with self.subTest(canonical_claim_boundary=phrase):
-                self.assertIn(phrase, plan)
+            with self.subTest(canonical_completion_boundary=phrase):
+                self.assertIn(phrase, evidence)
 
 
 if __name__ == "__main__":
