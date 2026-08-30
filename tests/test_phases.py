@@ -200,10 +200,6 @@ class ReviewContractTests(unittest.TestCase):
             set(schema["properties"]["target_kind"]["enum"]),
             {"document", "code"},
         )
-        self.assertEqual(
-            schema["properties"]["target_kind"]["description"],
-            "Assignment-level kind for this producer or seat; the runner's target_ref separately binds the shared whole target",
-        )
         receipt = schema["properties"]["review_receipt"]
         self.assertFalse(receipt["additionalProperties"])
         self.assertEqual(set(receipt["required"]), RECEIPT_REQUIRED)

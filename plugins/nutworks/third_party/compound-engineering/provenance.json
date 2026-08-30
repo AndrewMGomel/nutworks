@@ -232,7 +232,7 @@
     },
     {
       "destination": "skills/nuts/references/schemas/finding.schema.json",
-      "destination_sha256": "38a55a13a788dcf4b23e34d64773834ebd948b99e3ecf1739d48948c03c83912",
+      "destination_sha256": "f3e6c4b31446ad71fe9c4ffaf9b22dd42bcc60ded82f385c8a781194af56a8b9",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-doc-review/references/findings-schema.json",
@@ -265,7 +265,7 @@
             "reason": "shared_evidence_contract"
           },
           {
-            "change": "Clarified that target_kind is assignment-level while the runner's target_ref binds the shared whole target.",
+            "change": "Clarified that target_kind is the assignment-level document or code kind represented by the finding.",
             "reason": "shared_evidence_contract"
           }
         ]
