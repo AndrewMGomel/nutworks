@@ -315,6 +315,10 @@ class CurrentRepositoryPackageTest(unittest.TestCase):
         self.assertNotIn("invoke `$nuts`", readme)
         self.assertIn(f"{repository}/issues", readme)
         self.assertIn("pilot-unqualified", readme)
+        self.assertIn(
+            "do not simulate or qualify model behavior",
+            " ".join(readme.casefold().split()),
+        )
 
 
 if __name__ == "__main__":

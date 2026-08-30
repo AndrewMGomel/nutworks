@@ -150,6 +150,11 @@ validators were not rerun because this repository does not yet document a
 pinned invocation for them; they are not claimed for the current unreleased
 change.
 
+These deterministic lanes check source structure, malformed-input handling,
+package integrity, and provenance. They do not simulate or qualify model
+behavior; behavioral qualification requires a separately identified run against
+the exact source under test.
+
 Ordinary reinstall/list smoke passed for the exact published `v0.1.1` tag on
 `codex-cli 0.148.0-alpha.9` and Claude Code `2.1.214`; a projectless Codex
 updater also moved one installed profile from `0.1.0` to `0.1.1` while

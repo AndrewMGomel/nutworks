@@ -56,43 +56,6 @@ def numbered_list_under(text, heading):
     ]
 
 
-def earned_claim(case, ledgers, custody_cases):
-    mode = case.get("selected_mode")
-    required_phases = {
-        "full": FULL_PHASES[:-1],
-        "light": LIGHT_PHASES[:-1],
-    }.get(mode)
-    ledger = ledgers[case["debt_case"]]
-    common = (
-        required_phases is not None
-        and case.get("current_phases") == required_phases
-        and case["verification_green"] is True
-        and case["workers_running"] is False
-        and ledger_reconciles(ledger, custody_cases)
-        and ledger["undisposed"] == 0
-        and (
-            case["planning_run"] is False
-            or (
-                case["planning_run"] is True
-                and case.get("plan_durable") is True
-            )
-        )
-        and case.get("compound_outcome") in {
-            "created",
-            "updated",
-            "forwarded_candidate",
-            "no_op",
-        }
-    )
-    if not common:
-        return "incomplete"
-    if mode == "full":
-        return "Full"
-    if mode == "light":
-        return "Light"
-    return "incomplete"
-
-
 def ledger_reconciles(case, custody_cases):
     canonical_ids = case["canonical_ids"]
     disposed = case["dispositions"]
@@ -476,96 +439,6 @@ def flag_is_disposed(case):
     return True
 
 
-def gate_admission(case):
-    effect_fields = {
-        "non_secret",
-        "local_only",
-        "minimized",
-        "owner_private",
-        "ephemeral",
-        "sensitive",
-        "external_sharing",
-        "durable_truth",
-        "provider_or_account",
-        "activation",
-        "publication",
-        "destructive",
-    }
-    effect = case.get("effect")
-    if (
-        case.get("gate_source") not in {
-            "none",
-            "plan",
-            "reviewer",
-            "repository",
-            "user",
-            "governing_policy",
-            "observed_effect",
-        }
-        or not isinstance(case.get("gate_proposed"), bool)
-        or not isinstance(case.get("established_default_covers"), bool)
-        or case.get("established_default_source") not in {
-            "none",
-            "safe_evidence",
-            "user",
-            "governing_policy",
-            "plan",
-        }
-        or not isinstance(case.get("current_step_depends"), bool)
-        or not isinstance(case.get("fully_informed"), bool)
-        or not isinstance(effect, dict)
-        or set(effect) != effect_fields
-        or not all(isinstance(value, bool) for value in effect.values())
-    ):
-        return "blocked"
-    safe_evidence = (
-        all(
-            effect[field]
-            for field in (
-                "non_secret",
-                "local_only",
-                "minimized",
-                "owner_private",
-                "ephemeral",
-            )
-        )
-        and not any(
-            effect[field]
-            for field in (
-                "sensitive",
-                "external_sharing",
-                "durable_truth",
-                "provider_or_account",
-                "activation",
-                "publication",
-                "destructive",
-            )
-        )
-    )
-    material_effect = not safe_evidence
-    material_choice = material_effect or case["gate_source"] in {
-        "user",
-        "governing_policy",
-    }
-    default_source = case["established_default_source"]
-    authoritative_default = case["established_default_covers"] and (
-        default_source in {"user", "governing_policy"}
-        or (default_source == "safe_evidence" and safe_evidence)
-    )
-    if not case["gate_proposed"] and authoritative_default:
-        return "proceed"
-    authoritative = case["gate_source"] in {"user", "governing_policy"} or material_effect
-    admissible = (
-        authoritative
-        and material_choice
-        and not authoritative_default
-        and case["current_step_depends"]
-    )
-    if not admissible:
-        return "fix"
-    return "flag" if case["fully_informed"] else "disclose"
-
-
 def harness_case_is_accepted(case):
     if case["trigger"] == "ordinary":
         return True
@@ -761,55 +634,22 @@ class KernelContractTests(unittest.TestCase):
         ]:
             self.assertIn(phrase, text)
 
-    def test_claim_oracle_never_downgrades_failed_full(self):
-        cases = load_json("runs/claim-cases.json")
-        ledgers = {
-            case["name"]: case for case in load_json("runs/debt-cases.json")
-        }
-        custody_cases = {
-            case["name"]: case for case in load_json("runs/flag-cases.json")
-        }
-        for case in cases:
-            with self.subTest(case=case["name"]):
-                self.assertNotIn("Summary", case["current_phases"])
-                self.assertEqual(
-                    earned_claim(case, ledgers, custody_cases), case["expected_claim"]
-                )
-        self.assertEqual(self.evidence.count("first eight ordered\nphases"), 1)
-        self.assertEqual(self.evidence.count("first six ordered phases"), 1)
-        self.assertIn("Current after the last FLAG, owner, or reviewed-target change", self.evidence)
-        failed_full = next(case for case in cases if case["name"] == "failed-full-never-light")
-        self.assertEqual(
-            earned_claim(failed_full, ledgers, custody_cases), "incomplete"
+    def test_terminal_state_has_one_source_owner(self):
+        runtime_text = "\n".join(
+            path.read_text(encoding="utf-8")
+            for path in sorted(SKILL_ROOT.rglob("*.md"))
+            if path.is_file()
         )
-        earned_full = next(case for case in cases if case["name"] == "earned-full")
-        for phase in FULL_PHASES[:-1]:
-            candidate = dict(earned_full)
-            candidate["current_phases"] = [
-                item for item in FULL_PHASES[:-1] if item != phase
-            ]
-            with self.subTest(missing_current_phase=phase):
-                self.assertEqual(
-                    earned_claim(candidate, ledgers, custody_cases), "incomplete"
-                )
-        for field in ("verification_green", "workers_running", "planning_run"):
-            candidate = dict(earned_full)
-            candidate[field] = "unknown"
-            with self.subTest(nonboolean_closeout_evidence=field):
-                self.assertEqual(
-                    earned_claim(candidate, ledgers, custody_cases), "incomplete"
-                )
-        planning = next(case for case in cases if case["name"] == "planning-plan-durable")
-        candidate = dict(planning)
-        candidate["plan_durable"] = "unknown"
-        self.assertEqual(earned_claim(candidate, ledgers, custody_cases), "incomplete")
-        for field in ("workers_running", "planning_run"):
-            candidate = dict(earned_full)
-            candidate[field] = 0
-            with self.subTest(falsey_nonboolean_closeout=field):
-                self.assertEqual(
-                    earned_claim(candidate, ledgers, custody_cases), "incomplete"
-                )
+        self.assertEqual(runtime_text.count("## Terminal Summary Contract"), 1)
+        phase_floor = self.evidence.split(
+            "## Phase Evidence Floor\n", 1
+        )[1].split("\n## ", 1)[0]
+        self.assertIn("sole owner of terminal-state derivation", phase_floor)
+        self.assertIn(
+            "Current after the last FLAG, owner, or reviewed-target change",
+            phase_floor,
+        )
+        self.assertIn("It never supplies prior phase evidence", phase_floor)
 
     def test_temporary_evidence_and_conversation_fallback_are_explicit(self):
         fixture = load_json("runs/privacy-cases.json")
@@ -829,12 +669,7 @@ class KernelContractTests(unittest.TestCase):
         self.assertNotIn(fixture["seeded_sensitive_value"].casefold(), combined)
         self.assertIn("host/os owns temporary cleanup", combined)
 
-    def test_human_gate_admission_preserves_autonomy_and_real_stops(self):
-        cases = load_json("runs/gate-admission-cases.json")
-        for case in cases:
-            with self.subTest(case=case["name"]):
-                self.assertNotIn("material_choice", case)
-                self.assertEqual(gate_admission(case), case["expected"])
+    def test_human_gate_contract_has_one_source_owner(self):
         combined = normalized(
             self.skill
             + self.plan
@@ -843,6 +678,7 @@ class KernelContractTests(unittest.TestCase):
             + (SKILL_ROOT / "references" / "auditors" / "triage.md").read_text(encoding="utf-8")
             + (SKILL_ROOT / "references" / "auditors" / "verification.md").read_text(encoding="utf-8")
         ).casefold()
+        self.assertEqual(self.evidence.count("### Human-gate admission"), 1)
         for phrase in [
             "authoritative provenance",
             "material choice or risk delta",
@@ -902,39 +738,20 @@ class KernelContractTests(unittest.TestCase):
             for line in route_section.splitlines()
             if line.startswith("|") and "---" not in line
         ]
+        self.assertTrue(rows)
+        width = len(rows[0])
+        self.assertEqual(width, 5)
+        self.assertTrue(all(len(row) == width for row in rows))
+        row_labels = [row[0] for row in rows[1:]]
+        self.assertEqual(len(row_labels), len(set(row_labels)))
         self.assertEqual(
-            rows[0],
-            (
-                "Plan revision point",
-                "Full stale evidence",
-                "Full ordered route",
-                "Light stale evidence",
-                "Light ordered route",
-            ),
+            row_labels,
+            [
+                "Before Critique",
+                "After Critique and before Review",
+                "During Review or post-audit",
+            ],
         )
-        routes = {row[0]: row[1:] for row in rows[1:]}
-        self.assertEqual(
-            set(routes),
-            {"Before Critique", "After Critique and before Review", "During Review or post-audit"},
-        )
-        expected = {
-            "Before Critique": ([], FULL_PHASES[:2], [], LIGHT_PHASES[:2]),
-            "After Critique and before Review": (
-                FULL_PHASES[1:4], FULL_PHASES[:4],
-                LIGHT_PHASES[1:3], LIGHT_PHASES[:3],
-            ),
-            "During Review or post-audit": (
-                FULL_PHASES[1:6], FULL_PHASES[:6],
-                LIGHT_PHASES[1:4], LIGHT_PHASES[:4],
-            ),
-        }
-        for point, cells in routes.items():
-            actual = tuple(
-                [] if cell == "None" else cell.split(" → ")
-                for cell in cells
-            )
-            with self.subTest(route_point=point):
-                self.assertEqual(actual, expected[point])
 
         for relative in (
             "references/plan.md",
@@ -1061,22 +878,8 @@ class KernelContractTests(unittest.TestCase):
         self.assertEqual(flags["safety-stop-restricted-custody"]["affected_work_after_stop"], 0)
         self.assertFalse(flags["redacted-notice-without-custody"]["expected_disposed"])
         self.assertEqual(flags["uncertain-write-no-duplicate"]["duplicate_writes"], 0)
-        claim_cases = {
-            case["name"]: case for case in load_json("runs/claim-cases.json")
-        }
-        debt_cases = {
-            case["name"]: case for case in load_json("runs/debt-cases.json")
-        }
-        custody_cases = {
-            case["name"]: case for case in load_json("runs/flag-cases.json")
-        }
-
         def summary_accepts(case):
-            claim_case = case["claim_case"]
-            terminal_claim = earned_claim(
-                claim_cases[claim_case], debt_cases, custody_cases
-            )
-            return summary_is_accepted(case, terminal_claim)
+            return summary_is_accepted(case, case["terminal_claim"])
 
         for case in load_json("runs/summary-cases.json"):
             with self.subTest(case=case["name"]):

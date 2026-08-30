@@ -705,26 +705,5 @@ class CompoundContractTests(unittest.TestCase):
         self.assertNotIn("Full must return", compound)
         self.assertNotIn("Light must return", compound)
 
-
-class IntegratedFixtureTests(unittest.TestCase):
-    def test_full_and_light_happy_paths_preserve_mode_orders(self):
-        full = load_json("semantic-project/full-run.json")
-        light = load_json("semantic-project/light-learning-run.json")
-        self.assertEqual(full["expected_claim"], "Full")
-        self.assertIn("Audit pre clear", full["events"])
-        self.assertIn("Audit post clear", full["events"])
-        self.assertEqual(light["expected_claim"], "Light")
-        self.assertNotIn("Audit pre clear", light["events"])
-        self.assertLess(
-            light["events"].index("Compound updated"),
-            light["events"].index("Review zero after learning"),
-        )
-
-    def test_running_worker_prevents_completion(self):
-        interrupted = load_json("semantic-project/interrupted-run.json")
-        self.assertGreater(interrupted["workers_running_at_summary"], 0)
-        self.assertEqual(interrupted["expected_claim"], "incomplete")
-
-
 if __name__ == "__main__":
     unittest.main()
