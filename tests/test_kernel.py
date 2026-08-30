@@ -58,26 +58,14 @@ def numbered_list_under(text, heading):
 
 def earned_claim(case, ledgers, custody_cases):
     mode = case.get("selected_mode")
-    required_phases = [
-        "plan_current",
-        "critique_current",
-        "implementation_current",
-        "review_current",
-        "compound_current",
-    ]
-    if mode == "full":
-        required_phases.extend(("pre_audit_current", "post_audit_current"))
+    required_phases = {
+        "full": FULL_PHASES[:-1],
+        "light": LIGHT_PHASES[:-1],
+    }.get(mode)
     ledger = ledgers[case["debt_case"]]
     common = (
-        mode in {"full", "light"}
-        and all(case.get(field) is True for field in required_phases)
-        and (
-            mode != "light"
-            or (
-                case.get("pre_audit_current") is None
-                and case.get("post_audit_current") is None
-            )
-        )
+        required_phases is not None
+        and case.get("current_phases") == required_phases
         and case["verification_green"] is True
         and case["workers_running"] is False
         and ledger_reconciles(ledger, custody_cases)
@@ -89,7 +77,12 @@ def earned_claim(case, ledgers, custody_cases):
                 and case.get("plan_durable") is True
             )
         )
-        and case["compound_blocked"] is False
+        and case.get("compound_outcome") in {
+            "created",
+            "updated",
+            "forwarded_candidate",
+            "no_op",
+        }
     )
     if not common:
         return "incomplete"
@@ -510,7 +503,6 @@ def gate_admission(case):
             "observed_effect",
         }
         or not isinstance(case.get("gate_proposed"), bool)
-        or not isinstance(case.get("material_choice"), bool)
         or not isinstance(case.get("established_default_covers"), bool)
         or case.get("established_default_source") not in {
             "none",
@@ -551,6 +543,10 @@ def gate_admission(case):
         )
     )
     material_effect = not safe_evidence
+    material_choice = material_effect or case["gate_source"] in {
+        "user",
+        "governing_policy",
+    }
     default_source = case["established_default_source"]
     authoritative_default = case["established_default_covers"] and (
         default_source in {"user", "governing_policy"}
@@ -561,7 +557,7 @@ def gate_admission(case):
     authoritative = case["gate_source"] in {"user", "governing_policy"} or material_effect
     admissible = (
         authoritative
-        and case["material_choice"]
+        and material_choice
         and not authoritative_default
         and case["current_step_depends"]
     )
@@ -775,28 +771,28 @@ class KernelContractTests(unittest.TestCase):
         }
         for case in cases:
             with self.subTest(case=case["name"]):
-                self.assertNotIn("summary_current", case)
+                self.assertNotIn("Summary", case["current_phases"])
                 self.assertEqual(
                     earned_claim(case, ledgers, custody_cases), case["expected_claim"]
                 )
+        self.assertEqual(self.evidence.count("first eight ordered\nphases"), 1)
+        self.assertEqual(self.evidence.count("first six ordered phases"), 1)
+        self.assertIn("Current after the last FLAG, owner, or reviewed-target change", self.evidence)
         failed_full = next(case for case in cases if case["name"] == "failed-full-never-light")
         self.assertEqual(
             earned_claim(failed_full, ledgers, custody_cases), "incomplete"
         )
         earned_full = next(case for case in cases if case["name"] == "earned-full")
-        for field in (
-            "plan_current",
-            "critique_current",
-            "pre_audit_current",
-            "implementation_current",
-            "review_current",
-            "post_audit_current",
-            "compound_current",
-            "verification_green",
-            "workers_running",
-            "planning_run",
-            "compound_blocked",
-        ):
+        for phase in FULL_PHASES[:-1]:
+            candidate = dict(earned_full)
+            candidate["current_phases"] = [
+                item for item in FULL_PHASES[:-1] if item != phase
+            ]
+            with self.subTest(missing_current_phase=phase):
+                self.assertEqual(
+                    earned_claim(candidate, ledgers, custody_cases), "incomplete"
+                )
+        for field in ("verification_green", "workers_running", "planning_run"):
             candidate = dict(earned_full)
             candidate[field] = "unknown"
             with self.subTest(nonboolean_closeout_evidence=field):
@@ -807,7 +803,7 @@ class KernelContractTests(unittest.TestCase):
         candidate = dict(planning)
         candidate["plan_durable"] = "unknown"
         self.assertEqual(earned_claim(candidate, ledgers, custody_cases), "incomplete")
-        for field in ("workers_running", "planning_run", "compound_blocked"):
+        for field in ("workers_running", "planning_run"):
             candidate = dict(earned_full)
             candidate[field] = 0
             with self.subTest(falsey_nonboolean_closeout=field):
@@ -837,6 +833,7 @@ class KernelContractTests(unittest.TestCase):
         cases = load_json("runs/gate-admission-cases.json")
         for case in cases:
             with self.subTest(case=case["name"]):
+                self.assertNotIn("material_choice", case)
                 self.assertEqual(gate_admission(case), case["expected"])
         combined = normalized(
             self.skill
@@ -905,24 +902,39 @@ class KernelContractTests(unittest.TestCase):
             for line in route_section.splitlines()
             if line.startswith("|") and "---" not in line
         ]
-        self.assertEqual(rows[0], ("Plan revision point", "Full route", "Light route"))
+        self.assertEqual(
+            rows[0],
+            (
+                "Plan revision point",
+                "Full stale evidence",
+                "Full ordered route",
+                "Light stale evidence",
+                "Light ordered route",
+            ),
+        )
         routes = {row[0]: row[1:] for row in rows[1:]}
         self.assertEqual(
             set(routes),
             {"Before Critique", "After Critique and before Review", "During Review or post-audit"},
         )
-        for point, (full_route, light_route) in routes.items():
+        expected = {
+            "Before Critique": ([], FULL_PHASES[:2], [], LIGHT_PHASES[:2]),
+            "After Critique and before Review": (
+                FULL_PHASES[1:4], FULL_PHASES[:4],
+                LIGHT_PHASES[1:3], LIGHT_PHASES[:3],
+            ),
+            "During Review or post-audit": (
+                FULL_PHASES[1:6], FULL_PHASES[:6],
+                LIGHT_PHASES[1:4], LIGHT_PHASES[:4],
+            ),
+        }
+        for point, cells in routes.items():
+            actual = tuple(
+                [] if cell == "None" else cell.split(" → ")
+                for cell in cells
+            )
             with self.subTest(route_point=point):
-                self.assertIn("Revise Plan", full_route)
-                self.assertIn("Revise Plan", light_route)
-                if point != "Before Critique":
-                    self.assertIn("Critique", full_route)
-                    self.assertIn("Critique", light_route)
-                    self.assertIn("audit", full_route.casefold())
-                    self.assertNotIn("audit", light_route.casefold())
-                if point == "During Review or post-audit":
-                    self.assertIn("Review", full_route)
-                    self.assertIn("Review", light_route)
+                self.assertEqual(actual, expected[point])
 
         for relative in (
             "references/plan.md",

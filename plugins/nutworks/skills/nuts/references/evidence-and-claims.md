@@ -145,11 +145,9 @@ mode depends on a host goal lifecycle the runner cannot observe or control.
 
 ## Phase Evidence Floor
 
-Derive the terminal claim before Summary from the current evidence for Plan,
-Critique, applicable audits, implementation, Review, Compound, Log Debt,
-verification, running workers, and durable Plan readback when applicable.
-Summary receives that result; it does not supply, count as, or alter prior phase
-completion.
+This table records each phase's current evidence. The Terminal Summary Contract
+below is the sole owner of terminal-state derivation; Summary receives that
+result and does not supply, count as, or alter prior phase completion.
 
 | Obligation | Current evidence required |
 |---|---|
@@ -160,8 +158,8 @@ completion.
 | Review | A fresh current-risk selection for every pass; current target and verification supplied; an eligible complete receipt from every selected seat; latest pass is `complete_zero`. Targeted checks remain supplemental. |
 | Post-implement Audit | Full only: the same current four-part contract against the current Plan, implementation, Review evidence, and verification. |
 | Compound | Exactly one of `created`, `updated`, `forwarded_candidate`, `no_op`, or `blocked`, supported by current repository evidence. |
-| Log Debt | Every stable FLAG has one authoritative disposition, every open route has a verified living owner and next gate, and counts reconcile. `undisposed: 0` gates successful closeout, not Summary emission. |
-| Summary | Every reachable exit emits a self-contained, reconciled plain-English result and technical receipt. Successful closeout also requires current mode obligations, green verification, no running worker, durable Plan readback when applicable, non-blocked Compound, and `undisposed: 0`. |
+| Log Debt | Current after the last FLAG, owner, or reviewed-target change: every stable FLAG has one authoritative disposition, every open route has a verified living owner and next gate, and counts reconcile. `undisposed: 0` gates successful closeout, not Summary emission. |
+| Summary | Receives the already-derived terminal state and emits a self-contained, reconciled plain-English result and technical receipt at every reachable exit. It never supplies prior phase evidence. |
 
 ## Pass And Finding Evidence
 
@@ -210,11 +208,14 @@ already requires that route. Do not create a work item, owner, or implementation
 obligation merely because the concern was noticed. Successful bounded work ends
 before adjacent work begins.
 
-| Plan revision point | Full route | Light route |
-|---|---|---|
-| Before Critique | Revise Plan, then enter Critique. | Revise Plan, then enter Critique. |
-| After Critique and before Review | Revise Plan; rerun Critique and pre-implement Audit; then implement and verify as applicable. | Revise Plan; rerun Critique; then implement and verify as applicable. |
-| During Review or post-audit | Revise Plan; rerun Critique and pre-implement Audit; implement and verify as applicable; then rerun Review and post-implement Audit. | Revise Plan; rerun Critique; implement and verify as applicable; then rerun Review. |
+Each stale-evidence cell names the affected phase evidence; `Implement or Build`
+includes its affected verification. Each ordered route is exact.
+
+| Plan revision point | Full stale evidence | Full ordered route | Light stale evidence | Light ordered route |
+|---|---|---|---|---|
+| Before Critique | None | Plan → Critique until convergence | None | Plan → Critique until convergence |
+| After Critique and before Review | Critique until convergence → Audit (pre-implement) → Implement or Build | Plan → Critique until convergence → Audit (pre-implement) → Implement or Build | Critique until convergence → Implement or Build | Plan → Critique until convergence → Implement or Build |
+| During Review or post-audit | Critique until convergence → Audit (pre-implement) → Implement or Build → Review until convergence → Audit (post-implement) | Plan → Critique until convergence → Audit (pre-implement) → Implement or Build → Review until convergence → Audit (post-implement) | Critique until convergence → Implement or Build → Review until convergence | Plan → Critique until convergence → Implement or Build → Review until convergence |
 
 If no viable correction exists within current authority, finish incomplete or
 stop at a genuine FLAG. Do not repeatedly revise Plan to manufacture a viable
@@ -343,9 +344,12 @@ records `raised: 0` and `undisposed: 0` without creating an empty ledger.
 ## Terminal Summary Contract
 
 Before Summary wording, derive one terminal state from the current Phase
-Evidence Floor and Invalidation Routes: selected mode obligations, Critique and
-Review convergence, applicable audits, current verification, worker state,
-durable Plan readback when planning, Compound, and reconciled FLAG/debt state.
+Evidence Floor and Invalidation Routes. Full requires its first eight ordered
+phases through current Log Debt; Light requires its first six ordered phases
+through current Log Debt and selection at Plan. Also require current
+verification, no running worker, durable Plan readback when planning,
+non-blocked Compound, and reconciled FLAG/debt state after the last relevant
+change.
 Do this once from the actual run evidence, not from a Summary draft or a
 presentational status field. Summary consumes that state and cannot upgrade or
 downgrade it. Any missing, stale, contradictory, unknown, or unfinished input
@@ -445,10 +449,10 @@ does not neutralize contradictory content later in the document. Contradictory
 premise evidence returns to Plan; unavailable evidence blocks only the claim it
 is needed to support. This section is the shared correction-sweep owner.
 
-Full is earned only when all nine Full obligations are current. Light is earned
-only when all seven Light obligations are current and Light was selected at
-Plan. A stopped, cancelled, unsupported, failed, or unfinished run reports its
-exact gap and never changes modes retroactively. A planning run says
+Earn Full or Light only under the Terminal Summary Contract; Summary remains a
+required reporting phase but never participates in deriving the state it
+renders. A stopped, cancelled, unsupported, failed, or unfinished run reports
+its exact gap and never changes modes retroactively. A planning run says
 `Build-as-Plan`, `Build-as-Handoff`, or another exact deliverable and never
 implies runtime code shipped.
 
