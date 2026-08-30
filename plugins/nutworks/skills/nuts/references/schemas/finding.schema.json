@@ -30,7 +30,7 @@
     "target_kind": {
       "type": "string",
       "enum": ["document", "code"],
-      "description": "Kind of current target reviewed"
+      "description": "Assignment-level kind for this producer or seat; the runner's target_ref separately binds the shared whole target"
     },
     "findings": {
       "type": "array",

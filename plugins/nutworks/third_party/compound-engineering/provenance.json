@@ -232,7 +232,7 @@
     },
     {
       "destination": "skills/nuts/references/schemas/finding.schema.json",
-      "destination_sha256": "31d4f6cdcfb375349d1ae9faf0da3dbf570a1e3fa17079a776b2b2b6f93ff63c",
+      "destination_sha256": "38a55a13a788dcf4b23e34d64773834ebd948b99e3ecf1739d48948c03c83912",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-doc-review/references/findings-schema.json",
@@ -262,6 +262,10 @@
           },
           {
             "change": "Added one closed bench-only assignment receipt for complete-protocol versus targeted-verification evidence while leaving target matching, pass-seat eligibility, and convergence under main-runner ownership.",
+            "reason": "shared_evidence_contract"
+          },
+          {
+            "change": "Clarified that target_kind is assignment-level while the runner's target_ref binds the shared whole target.",
             "reason": "shared_evidence_contract"
           }
         ]
