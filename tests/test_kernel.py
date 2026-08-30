@@ -57,13 +57,27 @@ def numbered_list_under(text, heading):
 
 
 def earned_claim(case, ledgers, custody_cases):
-    required_obligations = {"full": 9, "light": 7}.get(case["selected_mode"])
+    mode = case.get("selected_mode")
+    required_phases = [
+        "plan_current",
+        "critique_current",
+        "implementation_current",
+        "review_current",
+        "compound_current",
+    ]
+    if mode == "full":
+        required_phases.extend(("pre_audit_current", "post_audit_current"))
     ledger = ledgers[case["debt_case"]]
     common = (
-        required_obligations is not None
-        and case["expected_obligations"] == required_obligations
-        and case["completed_obligations"] == required_obligations
-        and case["current_zero_passes"] is True
+        mode in {"full", "light"}
+        and all(case.get(field) is True for field in required_phases)
+        and (
+            mode != "light"
+            or (
+                case.get("pre_audit_current") is None
+                and case.get("post_audit_current") is None
+            )
+        )
         and case["verification_green"] is True
         and case["workers_running"] is False
         and ledger_reconciles(ledger, custody_cases)
@@ -79,9 +93,9 @@ def earned_claim(case, ledgers, custody_cases):
     )
     if not common:
         return "incomplete"
-    if case["selected_mode"] == "full" and case["audits_current"] is True:
+    if mode == "full":
         return "Full"
-    if case["selected_mode"] == "light":
+    if mode == "light":
         return "Light"
     return "incomplete"
 
@@ -498,6 +512,13 @@ def gate_admission(case):
         or not isinstance(case.get("gate_proposed"), bool)
         or not isinstance(case.get("material_choice"), bool)
         or not isinstance(case.get("established_default_covers"), bool)
+        or case.get("established_default_source") not in {
+            "none",
+            "safe_evidence",
+            "user",
+            "governing_policy",
+            "plan",
+        }
         or not isinstance(case.get("current_step_depends"), bool)
         or not isinstance(case.get("fully_informed"), bool)
         or not isinstance(effect, dict)
@@ -530,21 +551,20 @@ def gate_admission(case):
         )
     )
     material_effect = not safe_evidence
-    if (
-        not case["gate_proposed"]
-        and safe_evidence
-        and case["established_default_covers"]
-    ):
+    default_source = case["established_default_source"]
+    authoritative_default = case["established_default_covers"] and (
+        default_source in {"user", "governing_policy"}
+        or (default_source == "safe_evidence" and safe_evidence)
+    )
+    if not case["gate_proposed"] and authoritative_default:
         return "proceed"
     authoritative = case["gate_source"] in {"user", "governing_policy"} or material_effect
     admissible = (
         authoritative
         and case["material_choice"]
-        and not case["established_default_covers"]
+        and not authoritative_default
         and case["current_step_depends"]
     )
-    if material_effect and case["material_choice"] and case["current_step_depends"]:
-        admissible = True
     if not admissible:
         return "fix"
     return "flag" if case["fully_informed"] else "disclose"
@@ -755,6 +775,7 @@ class KernelContractTests(unittest.TestCase):
         }
         for case in cases:
             with self.subTest(case=case["name"]):
+                self.assertNotIn("summary_current", case)
                 self.assertEqual(
                     earned_claim(case, ledgers, custody_cases), case["expected_claim"]
                 )
@@ -764,8 +785,13 @@ class KernelContractTests(unittest.TestCase):
         )
         earned_full = next(case for case in cases if case["name"] == "earned-full")
         for field in (
-            "current_zero_passes",
-            "audits_current",
+            "plan_current",
+            "critique_current",
+            "pre_audit_current",
+            "implementation_current",
+            "review_current",
+            "post_audit_current",
+            "compound_current",
             "verification_green",
             "workers_running",
             "planning_run",
@@ -824,6 +850,8 @@ class KernelContractTests(unittest.TestCase):
             "authoritative provenance",
             "material choice or risk delta",
             "safe evidence envelope",
+            "established default is authoritative only",
+            "already-authorized effects need no new human gate",
             "runner-owned `fix`",
             "earliest informed boundary",
             "cannot create human authority",
@@ -877,23 +905,44 @@ class KernelContractTests(unittest.TestCase):
             for line in route_section.splitlines()
             if line.startswith("|") and "---" not in line
         ]
+        self.assertEqual(rows[0], ("Plan revision point", "Full route", "Light route"))
+        routes = {row[0]: row[1:] for row in rows[1:]}
         self.assertEqual(
-            rows,
-            [
-                ("Plan revision point", "Full stale evidence", "Light stale evidence", "Required route"),
-                ("Before Critique", "None", "None", "Revise Plan, then enter Critique."),
-                ("After Critique and before Review", "Critique, pre-audit, and implementation or verification derived from the old Plan", "Critique and implementation or verification derived from the old Plan", "Revise Plan; rerun Critique and Full pre-audit; then implement and verify as applicable."),
-                ("During Review or post-audit", "Critique, pre-audit, implementation or verification derived from the old Plan, Review, and post-audit", "Critique, implementation or verification derived from the old Plan, and Review", "Revise Plan; rerun Critique and Full pre-audit; implement and verify as applicable; then rerun Review and Full post-audit."),
-            ],
+            set(routes),
+            {"Before Critique", "After Critique and before Review", "During Review or post-audit"},
         )
+        for point, (full_route, light_route) in routes.items():
+            with self.subTest(route_point=point):
+                self.assertIn("Revise Plan", full_route)
+                self.assertIn("Revise Plan", light_route)
+                if point != "Before Critique":
+                    self.assertIn("Critique", full_route)
+                    self.assertIn("Critique", light_route)
+                    self.assertIn("audit", full_route.casefold())
+                    self.assertNotIn("audit", light_route.casefold())
+                if point == "During Review or post-audit":
+                    self.assertIn("Review", full_route)
+                    self.assertIn("Review", light_route)
 
         for relative in (
             "references/plan.md",
             "references/review.md",
+            "references/audit.md",
             "references/auditors/triage.md",
         ):
             text = normalized((SKILL_ROOT / relative).read_text(encoding="utf-8"))
             self.assertIn("canonical post-Critique route in `evidence-and-claims.md`", text)
+
+        audit = normalized((SKILL_ROOT / "references/audit.md").read_text(encoding="utf-8"))
+        compound = normalized((SKILL_ROOT / "references/compound.md").read_text(encoding="utf-8"))
+        self.assertNotIn("evidence returns to Plan", audit)
+        for duplicate in (
+            "must return through Review",
+            "return through Review",
+            "fresh post-audit before Log Debt",
+        ):
+            self.assertNotIn(duplicate, compound)
+        self.assertIn("canonical Invalidation Routes in `evidence-and-claims.md`", compound)
 
         forbidden = (
             "operating horizon",

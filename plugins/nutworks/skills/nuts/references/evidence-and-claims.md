@@ -145,14 +145,20 @@ mode depends on a host goal lifecycle the runner cannot observe or control.
 
 ## Phase Evidence Floor
 
+Derive the terminal claim before Summary from the current evidence for Plan,
+Critique, applicable audits, implementation, Review, Compound, Log Debt,
+verification, running workers, and durable Plan readback when applicable.
+Summary receives that result; it does not supply, count as, or alter prior phase
+completion.
+
 | Obligation | Current evidence required |
 |---|---|
 | Plan | Applicable authority and current code/patterns read; real verification commands found or a discovery gate recorded; concrete dependency-ordered plan; unsettled user-owned choices FLAGged. |
 | Critique | A fresh current-risk selection for every pass; an eligible complete receipt from every selected seat, bound to the whole current target and runner-issued reference; main-runner fixes and verification; latest pass is `complete_zero`. Targeted checks remain supplemental. |
-| Pre-implement Audit | Full only: Main Context, separate Concerns, separate Verification, and fresh Triage; every concern dispositioned; any Plan-changing FIX returned through Critique and a fresh audit. |
+| Pre-implement Audit | Full only: current Main Context, separate Concerns, separate Verification, and fresh Triage against the current Plan; every concern dispositioned. |
 | Implement or Build | Current converged Plan; Full also has current pre-audit clearance; target changes and affected verification recorded; planning-only output labeled precisely. |
 | Review | A fresh current-risk selection for every pass; current target and verification supplied; an eligible complete receipt from every selected seat; latest pass is `complete_zero`. Targeted checks remain supplemental. |
-| Post-implement Audit | Full only: the same four-part contract against current implementation; any implementation-changing FIX returned through Review and a fresh audit. |
+| Post-implement Audit | Full only: the same current four-part contract against the current Plan, implementation, Review evidence, and verification. |
 | Compound | Exactly one of `created`, `updated`, `forwarded_candidate`, `no_op`, or `blocked`, supported by current repository evidence. |
 | Log Debt | Every stable FLAG has one authoritative disposition, every open route has a verified living owner and next gate, and counts reconcile. `undisposed: 0` gates successful closeout, not Summary emission. |
 | Summary | Every reachable exit emits a self-contained, reconciled plain-English result and technical receipt. Successful closeout also requires current mode obligations, green verification, no running worker, durable Plan readback when applicable, non-blocked Compound, and `undisposed: 0`. |
@@ -204,11 +210,11 @@ already requires that route. Do not create a work item, owner, or implementation
 obligation merely because the concern was noticed. Successful bounded work ends
 before adjacent work begins.
 
-| Plan revision point | Full stale evidence | Light stale evidence | Required route |
-|---|---|---|---|
-| Before Critique | None | None | Revise Plan, then enter Critique. |
-| After Critique and before Review | Critique, pre-audit, and implementation or verification derived from the old Plan | Critique and implementation or verification derived from the old Plan | Revise Plan; rerun Critique and Full pre-audit; then implement and verify as applicable. |
-| During Review or post-audit | Critique, pre-audit, implementation or verification derived from the old Plan, Review, and post-audit | Critique, implementation or verification derived from the old Plan, and Review | Revise Plan; rerun Critique and Full pre-audit; implement and verify as applicable; then rerun Review and Full post-audit. |
+| Plan revision point | Full route | Light route |
+|---|---|---|
+| Before Critique | Revise Plan, then enter Critique. | Revise Plan, then enter Critique. |
+| After Critique and before Review | Revise Plan; rerun Critique and pre-implement Audit; then implement and verify as applicable. | Revise Plan; rerun Critique; then implement and verify as applicable. |
+| During Review or post-audit | Revise Plan; rerun Critique and pre-implement Audit; implement and verify as applicable; then rerun Review and post-implement Audit. | Revise Plan; rerun Critique; implement and verify as applicable; then rerun Review. |
 
 If no viable correction exists within current authority, finish incomplete or
 stop at a genuine FLAG. Do not repeatedly revise Plan to manufacture a viable
@@ -249,6 +255,11 @@ external sharing, durable-truth write, provider or account effect, activation,
 publication, or destructive effect. Use the secure temporary-sidecar or
 host-conversation default when it satisfies that envelope without prompting.
 Sensitive content or any envelope deviation is not made safe by Plan text.
+
+An established default is authoritative only when it derives from the safe
+evidence envelope, user direction, or governing policy. A Plan or reviewer
+assertion cannot turn itself into an established default. Already-authorized
+effects need no new human gate; an invented gate remains runner-owned `FIX`.
 
 A genuine gate derives from the user's direction, governing policy, or the
 actual material effect. Disclose a knowable future decision during preflight,

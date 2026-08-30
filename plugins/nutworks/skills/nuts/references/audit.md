@@ -32,10 +32,11 @@ decision.
    `FLAG`, or `ACCEPT` with reasoning.
 
 Carry any runner-evidence `PRODUCT`, `GUARD`, or `HARNESS` classification into
-Triage reasoning without changing the shared finding schema. Contradictory
-premise evidence returns to Plan; unavailable evidence blocks only the claim
-that depends on it. Corrections use the shared whole-document sweep contract in
-`evidence-and-claims.md`.
+Triage reasoning without changing the shared finding schema. Classify
+contradictory premise evidence through the canonical post-Critique route in
+`evidence-and-claims.md`; unavailable evidence blocks only the claim that
+depends on it. Corrections use that file's shared whole-document sweep
+contract.
 
 Record the contexts that actually participated. Labels or repeated self-prompts
 in the main context do not establish Full independence. If required separate

@@ -699,8 +699,11 @@ class CompoundContractTests(unittest.TestCase):
             with self.subTest(case=case["name"]):
                 if case["project_writes"] == 1 and case["expected_outcome"] != "blocked":
                     self.assertTrue(case["requires_review"])
-        self.assertIn("Full must", self.compound)
-        self.assertIn("Light must", self.compound)
+        compound = normalized(self.compound)
+        self.assertIn("canonical Invalidation Routes", compound)
+        self.assertIn("sole owner of the resulting phase route", compound)
+        self.assertNotIn("Full must return", compound)
+        self.assertNotIn("Light must return", compound)
 
 
 class IntegratedFixtureTests(unittest.TestCase):

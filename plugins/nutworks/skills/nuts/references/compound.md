@@ -63,11 +63,10 @@ discovery or destination contract.
 
 ## Revalidate Project Writes
 
-A `created`, `updated`, or repo-local `forwarded_candidate` outcome changes the
-reviewed project target. Full must return through Review and a fresh post-audit
-before Log Debt. Light must return through Review before Log Debt. Do not repeat
-Compound after that verification loop. A `forwarded_candidate` written outside
-the reviewed product requires owner-specific semantic readback without
-invalidating product Review. Only `no_op` always proceeds directly to Log Debt.
+Classify any Compound write through the canonical Invalidation Routes in
+`evidence-and-claims.md`; that table is the sole owner of the resulting phase
+route. Record the outcome and follow the referenced route without restating a
+Full or Light phase sequence here. Do not repeat Compound after the referenced
+verification. Only `no_op` always proceeds directly to Log Debt.
 
 Compound does not push, publish, move unrelated files, or perform debt work.

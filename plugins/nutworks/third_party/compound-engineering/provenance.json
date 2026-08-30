@@ -271,7 +271,7 @@
   "informed_by": [
     {
       "destination": "skills/nuts/references/compound.md",
-      "destination_sha256": "d27c1305bcaa45515059fb1cdf0f80641fa39058a3fd4d5c7d61ac3236dff7fb",
+      "destination_sha256": "aa8a147723078f227c25a01ff2245ca75cea7016aed20d7cd20b756f4f264bae",
       "treatment": "original_informed_by",
       "sources": [
         {
