@@ -15,12 +15,6 @@ def private_record_is_minimal(record):
         and len(record["content_classes"]) == len(set(record["content_classes"]))
         and set(record["content_classes"]) == required_content_classes
     )
-
-
-def is_count(value):
-    return isinstance(value, int) and not isinstance(value, bool) and value >= 0
-
-
 def private_reference_is_bound(case):
     private_owner_ref = case.get("private_owner_ref")
     outward_owner_ref = case.get("outward_reference_owner_ref")

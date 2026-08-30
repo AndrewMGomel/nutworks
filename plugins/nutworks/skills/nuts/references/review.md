@@ -85,7 +85,8 @@ the selection note:
 
 - phase and assignment mode;
 - selected protocol;
-- the whole current target and expected `target_kind` (`document` or `code`);
+- the whole current target and assignment-level expected `target_kind`
+  (`document` or `code`);
 - one nonempty runner-issued `target_ref` for the current target;
 - changes since the prior pass, unresolved findings, and additive focus; and
 - the required shared finding shape.
@@ -96,12 +97,21 @@ dispatch. Use a natural content digest or host revision when available, or a
 run-local revision label such as `plan-r3`. This is target binding for the
 current run, not a durable registry or cryptographic completeness claim.
 
+One `target_ref` binds the whole current target even when that target contains
+both code and documentation. Assign `target_kind` per selected protocol: two
+seats may receive different `code` or `document` kinds while sharing the exact
+same whole-target reference. Select enough applicable protocols to cover every
+materially affected component. All seats remain one coordinated pass with one
+pass state and one convergence decision. Do not add a `mixed` kind, split the
+target into independent convergence loops, or let a seat's kind hide the other
+parts of the whole target supplied for context.
+
 Give each selected reviewer:
 
 - applicable repository authority;
 - the active NUTS/run context and selected mode;
 - the exact whole current target, relevant diff, runner-issued `target_ref`,
-  expected `target_kind`, and assignment mode;
+  that protocol's expected `target_kind`, and assignment mode;
 - current Plan, constraints, affected verification, and unresolved findings;
 - the selected reviewer protocol; and
 - the required shared finding shape.

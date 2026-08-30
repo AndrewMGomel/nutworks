@@ -165,7 +165,8 @@ result and does not supply, count as, or alter prior phase completion.
 
 A coordinated set of reviewer returns is one pass. Before dispatch, separately
 record the fresh selection and each runner-owned assignment: phase, assignment
-mode, selected protocol, whole current target, expected `target_kind`, nonempty
+mode, selected protocol, whole current target, assignment-level expected
+`target_kind`, nonempty
 current `target_ref`, changes, unresolved findings, additive focus, and return
 schema. Every target mutation requires a new reference. Selection rationale and
 fix focus never narrow the named protocol's complete assignment.
@@ -208,6 +209,24 @@ already requires that route. Do not create a work item, owner, or implementation
 obligation merely because the concern was noticed. Successful bounded work ends
 before adjacent work begins.
 
+When the user requests a load-bearing Plan change after Review begins and the
+change would restart or revalidate most of the selected mode, disclose the
+consequences before changing Plan or target and ask, `Still proceed?` A clear
+request to change the Plan does not by itself show awareness of that hidden
+cost. State the selected mode, current phase and its ordinal, phases already
+completed, the table-derived stale evidence and exact repeat route, that
+existing artifacts are not automatically deleted but cannot establish the
+revised completion claim, and elapsed time only when directly observable. If
+the user already acknowledged that restart or revalidation consequence, give
+any needed concise notice and proceed without asking again. When the
+substantive choice remains ambiguous, ask whether to revise the current run,
+keep the current boundary and leave the change outside it, or stop. A
+non-load-bearing edit uses the ordinary affected-evidence route. An
+agent-discovered correction follows existing authority and human-gate admission
+without a user prompt merely because the return is expensive. Any genuinely
+new effect or authority remains independently gated. This is a return to Plan,
+not deletion of artifacts or a restart from scratch.
+
 Each stale-evidence cell names the affected phase evidence; `Implement or Build`
 includes its affected verification. Each ordered route is exact.
 
@@ -215,7 +234,7 @@ includes its affected verification. Each ordered route is exact.
 |---|---|---|---|---|
 | Before Critique | None | Plan → Critique until convergence | None | Plan → Critique until convergence |
 | After Critique and before Review | Critique until convergence → Audit (pre-implement) → Implement or Build | Plan → Critique until convergence → Audit (pre-implement) → Implement or Build | Critique until convergence → Implement or Build | Plan → Critique until convergence → Implement or Build |
-| During Review or post-audit | Critique until convergence → Audit (pre-implement) → Implement or Build → Review until convergence → Audit (post-implement) | Plan → Critique until convergence → Audit (pre-implement) → Implement or Build → Review until convergence → Audit (post-implement) | Critique until convergence → Implement or Build → Review until convergence | Plan → Critique until convergence → Implement or Build → Review until convergence |
+| After Review begins and before terminal closeout (Review, post-audit, Compound, Log Debt, or Summary) | Every already-produced phase result after Plan, including any derived terminal state or draft Summary | Plan → Critique until convergence → Audit (pre-implement) → Implement or Build → Review until convergence → Audit (post-implement) → Compound → Log Debt → derive terminal state → Summary | Every already-produced phase result after Plan, including any derived terminal state or draft Summary | Plan → Critique until convergence → Implement or Build → Review until convergence → Compound → Log Debt → derive terminal state → Summary |
 
 If no viable correction exists within current authority, finish incomplete or
 stop at a genuine FLAG. Do not repeatedly revise Plan to manufacture a viable
