@@ -45,7 +45,7 @@
   "adapted": [
     {
       "destination": "skills/nuts/references/plan.md",
-      "destination_sha256": "0206db510d357cdce68f58107b795976a2a0ebbeb61318151d7a85ae4df417fe",
+      "destination_sha256": "0292a67e1b909a0561d95023f94f33dbae0942b382f32d43034cfed79f2d7268",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-plan/references/plan-sections.md",
@@ -91,7 +91,7 @@
           "reason": "nuts_authority"
         },
         {
-          "change": "Added one Plan completion boundary using its existing objective, success, scope, authority, and Definition of Done fields, with post-Critique routing delegated to the shared evidence owner.",
+          "change": "Added one Plan completion boundary using its existing objective, success, scope, authority, and Definition of Done fields, with during-and-after-Critique routing delegated to the shared evidence owner.",
           "reason": "nuts_authority"
         }
         ]

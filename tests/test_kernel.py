@@ -216,7 +216,7 @@ class KernelContractTests(unittest.TestCase):
             row_labels,
             [
                 "Before Critique",
-                "After Critique and before Review",
+                "During or after Critique and before Review",
                 "After Review begins and before terminal closeout (Review, post-audit, Compound, Log Debt, or Summary)",
             ],
         )
@@ -226,6 +226,18 @@ class KernelContractTests(unittest.TestCase):
         self.assertIn("Every already-produced phase result after Plan", late_row[1])
         self.assertIn("Every already-produced phase result after Plan", late_row[3])
 
+        folded_route = normalized(route_section).casefold()
+        for phrase in (
+            "actionable concern found during critique or any later phase",
+            "a plan assertion is not authority by itself",
+            "without provenance in user direction, governing policy, safety, or correctness necessary to the objective",
+            "remove or narrow that guarantee instead of hardening machinery",
+            "finding and current pass remain nonzero",
+            "plan mutation requires fresh complete critique",
+        ):
+            with self.subTest(completion_boundary_contract=phrase):
+                self.assertIn(phrase, folded_route)
+
         for relative in (
             "references/plan.md",
             "references/review.md",
@@ -234,7 +246,8 @@ class KernelContractTests(unittest.TestCase):
         ):
             text = normalized((SKILL_ROOT / relative).read_text(encoding="utf-8"))
             self.assertIn(
-                "canonical post-Critique route in `evidence-and-claims.md`", text
+                "canonical Completion-Boundary Routing in `evidence-and-claims.md`",
+                text,
             )
 
         folded_runtime = runtime_text.casefold()
@@ -325,7 +338,7 @@ class KernelContractTests(unittest.TestCase):
     def test_invalidation_routes_cover_post_zero_mutations(self):
         for phrase in [
             "Completion-Boundary Routing",
-            "After Critique and before Review",
+            "During or after Critique and before Review",
             "After Review begins and before terminal closeout",
             "post-audit FIX changes the target",
             "Full Compound creates or updates",
@@ -350,7 +363,7 @@ class KernelContractTests(unittest.TestCase):
 
         for phrase in [
             "entire selected named protocol against the whole current target",
-            "canonical post-Critique route in `evidence-and-claims.md`",
+            "canonical Completion-Boundary Routing in `evidence-and-claims.md`",
             "does not rewrite the boundary or grant mutation",
             "Inspection stays broad while mutation stays bounded by the recorded Plan",
         ]:

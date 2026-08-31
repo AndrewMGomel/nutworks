@@ -26,10 +26,10 @@ Before disposition, carry forward the runner's `PRODUCT`, `GUARD`, or
 `HARNESS` classification in the reasoning. Classification never suppresses a
 finding or changes pass accounting. Prefer simplifying a guard or fixing a
 contaminated harness when that preserves the authorized product requirement.
-Use the canonical post-Critique route in `evidence-and-claims.md` before turning
-a finding into current work; a return to Plan is not a `FLAG` unless the
-independent human-gate admission contract finds a genuine user-owned choice or
-authority boundary.
+Use the canonical Completion-Boundary Routing in `evidence-and-claims.md`
+before turning a finding into current work; a return to Plan is not a `FLAG`
+unless the independent human-gate admission contract finds a genuine user-owned
+choice or authority boundary.
 Debt is valid only after positive transfer to a verified living owner; Summary
 text, a redacted envelope, or temporary run evidence is not that owner.
 `GUARD` or `HARNESS` findings may be `ACCEPT` or routed as debt only when the

@@ -33,9 +33,9 @@ decision.
 
 Carry any runner-evidence `PRODUCT`, `GUARD`, or `HARNESS` classification into
 Triage reasoning without changing the shared finding schema. Classify
-contradictory premise evidence through the canonical post-Critique route in
-`evidence-and-claims.md`; unavailable evidence blocks only the claim that
-depends on it. Corrections use that file's shared whole-document sweep
+contradictory premise evidence through the canonical Completion-Boundary
+Routing in `evidence-and-claims.md`; unavailable evidence blocks only the claim
+that depends on it. Corrections use that file's shared whole-document sweep
 contract.
 
 Record the contexts that actually participated. Labels or repeated self-prompts
@@ -63,9 +63,9 @@ attribution. No auditor disposition grants mutation authority.
 
 ## Return Routes
 
-Use the canonical post-Critique route in `evidence-and-claims.md` for any Plan
-revision. Use its Invalidation Routes for target mutations that do not revise
-Plan. Do not restate either route here.
+Use the canonical Completion-Boundary Routing in `evidence-and-claims.md` for
+any Plan revision. Use its Invalidation Routes for target mutations that do not
+revise Plan. Do not restate either route here.
 
 If Triage omits a concern, any required auditor is still running, or a required
 return is malformed, the audit is incomplete.

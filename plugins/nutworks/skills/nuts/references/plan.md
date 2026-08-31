@@ -55,9 +55,10 @@ and non-goals, authority and provenance, and Definition of Done. These existing
 Plan fields bound the work; Plan wording cannot silently enlarge user or policy
 authority.
 
-After Critique, classify concerns and handle any necessary Plan revision only
-through the canonical post-Critique route in `evidence-and-claims.md`. Plan does
-not duplicate that routing or invalidation contract.
+During and after Critique, classify concerns and handle any necessary Plan
+revision only through the canonical Completion-Boundary Routing in
+`evidence-and-claims.md`. Plan does not duplicate that routing or invalidation
+contract.
 
 ## Session-settled decisions
 

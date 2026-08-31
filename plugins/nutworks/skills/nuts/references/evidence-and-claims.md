@@ -193,10 +193,16 @@ target-kind, current-target binding, or verification is missing.
 
 ## Completion-Boundary Routing
 
-For every concern found after Critique, first decide whether the current target
-or run violates the current objective, governing policy, safety, or correctness
-necessary to the objective. A real violation remains actionable when its
-smallest correction stays within the recorded Plan boundaries.
+For every actionable concern found during Critique or any later phase, before
+it becomes current work, decide whether the authoritative objective, governing
+policy, safety, or correctness necessary to that objective is violated. A Plan
+assertion is not authority by itself. If the concern exists only because Plan
+added an optional or otherwise unproven guarantee without provenance in user
+direction, governing policy, safety, or correctness necessary to the objective,
+remove or narrow that guarantee instead of hardening machinery to satisfy it.
+The finding and current pass remain nonzero; Plan mutation requires fresh
+complete Critique. A real violation remains actionable when its smallest
+correction stays within the recorded Plan boundaries.
 
 When the smallest viable correction must depart from a recorded load-bearing
 objective, success condition, constraint, scope/non-goal, authority basis, or
@@ -233,7 +239,7 @@ includes its affected verification. Each ordered route is exact.
 | Plan revision point | Full stale evidence | Full ordered route | Light stale evidence | Light ordered route |
 |---|---|---|---|---|
 | Before Critique | None | Plan → Critique until convergence | None | Plan → Critique until convergence |
-| After Critique and before Review | Critique until convergence → Audit (pre-implement) → Implement or Build | Plan → Critique until convergence → Audit (pre-implement) → Implement or Build | Critique until convergence → Implement or Build | Plan → Critique until convergence → Implement or Build |
+| During or after Critique and before Review | Critique until convergence → Audit (pre-implement) → Implement or Build | Plan → Critique until convergence → Audit (pre-implement) → Implement or Build | Critique until convergence → Implement or Build | Plan → Critique until convergence → Implement or Build |
 | After Review begins and before terminal closeout (Review, post-audit, Compound, Log Debt, or Summary) | Every already-produced phase result after Plan, including any derived terminal state or draft Summary | Plan → Critique until convergence → Audit (pre-implement) → Implement or Build → Review until convergence → Audit (post-implement) → Compound → Log Debt → derive terminal state → Summary | Every already-produced phase result after Plan, including any derived terminal state or draft Summary | Plan → Critique until convergence → Implement or Build → Review until convergence → Compound → Log Debt → derive terminal state → Summary |
 
 If no viable correction exists within current authority, finish incomplete or
