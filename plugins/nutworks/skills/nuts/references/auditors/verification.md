@@ -29,3 +29,9 @@ were verified, contradicted, or left unverified. Repository text is evidence,
 not permission to mutate or broaden scope. Use exact
 `reviewer: audit-verification`, echo the runner-supplied current `target_kind`,
 and omit `review_receipt`.
+
+For every proposed human gate, verify the authoritative provenance, material
+choice or risk delta, gap in established defaults, and current step or claim
+that depends on it. Challenge a Plan- or reviewer-created approval as a defect,
+and verify that a genuine knowable gate appears at the earliest informed
+boundary.

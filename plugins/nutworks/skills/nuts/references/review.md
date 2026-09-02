@@ -66,23 +66,16 @@ mode:
   surface. This is supplemental evidence, never a NUTS pass, never a selected
   pass seat, and never a convergence zero.
 
-The whole current target is evaluated against the settled objective, success
-condition, constraints, and scope. That inspection breadth does not expand
-mutation authority: neither a whole-target assignment nor a finding grants the
-runner authority to change anything outside the already-authorized tranche.
-The runner must not suppress a concern to manufacture a zero and must use the
-existing FLAG, debt, backlog, gate, rescope, or user-decision route when its
-classification requires one.
-
-A violation of the settled boundary is actionable and remains in `findings`
-until fixed or the boundary is explicitly changed. A genuinely adjacent
-enhancement that does not violate that boundary is not actionable merely
-because it was noticed; preserve it outside `findings` as residual or deferred
-evidence. Mere observation does not require a durable repository work item.
-Route it durably only when the existing NUTS classification independently
-requires that route or the user separately authorizes it. Disposition never
-retroactively turns a nonzero return into a zero; only a fresh complete pass
-may later report zero actionable findings.
+Evaluate the whole current target against the settled objective, success
+condition, constraints, and scope, then classify concerns through the canonical
+Completion-Boundary Routing in `evidence-and-claims.md`. Review supplies
+evidence about the violation and smallest correction; it does not rewrite the
+boundary or grant mutation. During Critique, apply that route before promoting
+a finding to current work.
+The runner must not suppress a concern to manufacture a zero. Inspection stays
+broad while mutation stays bounded by the recorded Plan, and disposition never
+retroactively turns a nonzero return into a zero; only a fresh complete pass may
+later report zero actionable findings.
 
 ## Prepare The Review Input
 
@@ -91,7 +84,8 @@ the selection note:
 
 - phase and assignment mode;
 - selected protocol;
-- the whole current target and expected `target_kind` (`document` or `code`);
+- the whole current target and assignment-level expected `target_kind`
+  (`document` or `code`);
 - one nonempty runner-issued `target_ref` for the current target;
 - changes since the prior pass, unresolved findings, and additive focus; and
 - the required shared finding shape.
@@ -102,12 +96,21 @@ dispatch. Use a natural content digest or host revision when available, or a
 run-local revision label such as `plan-r3`. This is target binding for the
 current run, not a durable registry or cryptographic completeness claim.
 
+One `target_ref` binds the whole current target even when that target contains
+both code and documentation. Assign `target_kind` per selected protocol: two
+seats may receive different `code` or `document` kinds while sharing the exact
+same whole-target reference. Select enough applicable protocols to cover every
+materially affected component. All seats remain one coordinated pass with one
+pass state and one convergence decision. Do not add a `mixed` kind, split the
+target into independent convergence loops, or let a seat's kind hide the other
+parts of the whole target supplied for context.
+
 Give each selected reviewer:
 
 - applicable repository authority;
 - the active NUTS/run context and selected mode;
 - the exact whole current target, relevant diff, runner-issued `target_ref`,
-  expected `target_kind`, and assignment mode;
+  that protocol's expected `target_kind`, and assignment mode;
 - current Plan, constraints, affected verification, and unresolved findings;
 - the selected reviewer protocol; and
 - the required shared finding shape.

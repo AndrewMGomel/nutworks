@@ -15,12 +15,6 @@ def private_record_is_minimal(record):
         and len(record["content_classes"]) == len(set(record["content_classes"]))
         and set(record["content_classes"]) == required_content_classes
     )
-
-
-def is_count(value):
-    return isinstance(value, int) and not isinstance(value, bool) and value >= 0
-
-
 def private_reference_is_bound(case):
     private_owner_ref = case.get("private_owner_ref")
     outward_owner_ref = case.get("outward_reference_owner_ref")
@@ -31,7 +25,10 @@ def private_reference_is_bound(case):
     )
 
 
-def summary_is_accepted(case):
+def summary_is_accepted(case, terminal_claim):
+    terminal_status = (
+        "complete" if terminal_claim in {"Full", "Light"} else "incomplete"
+    )
     failure_state = case.get("failure_state")
     failure_evidence_valid = (
         (failure_state == "none" and case.get("no_failure_stated") is True)
@@ -50,6 +47,7 @@ def summary_is_accepted(case):
         and case["receipt_ids"] is True
         and case["sensitive_metadata_exposed"] is False
         and case["run_status"] in {"complete", "incomplete"}
+        and case["run_status"] == terminal_status
         and case["beginner_first"] == case["run_status"]
         and failure_evidence_valid
     )

@@ -30,7 +30,7 @@
     "target_kind": {
       "type": "string",
       "enum": ["document", "code"],
-      "description": "Kind of current target reviewed"
+      "description": "Assignment-level document or code kind represented by this finding"
     },
     "findings": {
       "type": "array",

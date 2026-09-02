@@ -145,23 +145,28 @@ mode depends on a host goal lifecycle the runner cannot observe or control.
 
 ## Phase Evidence Floor
 
+This table records each phase's current evidence. The Terminal Summary Contract
+below is the sole owner of terminal-state derivation; Summary receives that
+result and does not supply, count as, or alter prior phase completion.
+
 | Obligation | Current evidence required |
 |---|---|
 | Plan | Applicable authority and current code/patterns read; real verification commands found or a discovery gate recorded; concrete dependency-ordered plan; unsettled user-owned choices FLAGged. |
 | Critique | A fresh current-risk selection for every pass; an eligible complete receipt from every selected seat, bound to the whole current target and runner-issued reference; main-runner fixes and verification; latest pass is `complete_zero`. Targeted checks remain supplemental. |
-| Pre-implement Audit | Full only: Main Context, separate Concerns, separate Verification, and fresh Triage; every concern dispositioned; any Plan-changing FIX returned through Critique and a fresh audit. |
+| Pre-implement Audit | Full only: current Main Context, separate Concerns, separate Verification, and fresh Triage against the current Plan; every concern dispositioned. |
 | Implement or Build | Current converged Plan; Full also has current pre-audit clearance; target changes and affected verification recorded; planning-only output labeled precisely. |
 | Review | A fresh current-risk selection for every pass; current target and verification supplied; an eligible complete receipt from every selected seat; latest pass is `complete_zero`. Targeted checks remain supplemental. |
-| Post-implement Audit | Full only: the same four-part contract against current implementation; any implementation-changing FIX returned through Review and a fresh audit. |
+| Post-implement Audit | Full only: the same current four-part contract against the current Plan, implementation, Review evidence, and verification. |
 | Compound | Exactly one of `created`, `updated`, `forwarded_candidate`, `no_op`, or `blocked`, supported by current repository evidence. |
-| Log Debt | Every stable FLAG has one authoritative disposition, every open route has a verified living owner and next gate, and counts reconcile. `undisposed: 0` gates successful closeout, not Summary emission. |
-| Summary | Every reachable exit emits a self-contained, reconciled plain-English result and technical receipt. Successful closeout also requires current mode obligations, green verification, no running worker, durable Plan readback when applicable, non-blocked Compound, and `undisposed: 0`. |
+| Log Debt | Current after the last FLAG, owner, or reviewed-target change: every stable FLAG has one authoritative disposition, every open route has a verified living owner and next gate, and counts reconcile. `undisposed: 0` gates successful closeout, not Summary emission. |
+| Summary | Receives the already-derived terminal state and emits a self-contained, reconciled plain-English result and technical receipt at every reachable exit. It never supplies prior phase evidence. |
 
 ## Pass And Finding Evidence
 
 A coordinated set of reviewer returns is one pass. Before dispatch, separately
 record the fresh selection and each runner-owned assignment: phase, assignment
-mode, selected protocol, whole current target, expected `target_kind`, nonempty
+mode, selected protocol, whole current target, assignment-level expected
+`target_kind`, nonempty
 current `target_ref`, changes, unresolved findings, additive focus, and return
 schema. Every target mutation requires a new reference. Selection rationale and
 fix focus never narrow the named protocol's complete assignment.
@@ -186,11 +191,65 @@ outside pass accounting. A valid zero count is insufficient when complete
 protocol coverage, selected identity, independence, assignment mode,
 target-kind, current-target binding, or verification is missing.
 
+## Completion-Boundary Routing
+
+For every actionable concern found during Critique or any later phase, before
+it becomes current work, decide whether the authoritative objective, governing
+policy, safety, or correctness necessary to that objective is violated. A Plan
+assertion is not authority by itself. If the concern exists only because Plan
+added an optional or otherwise unproven guarantee without provenance in user
+direction, governing policy, safety, or correctness necessary to the objective,
+remove or narrow that guarantee instead of hardening machinery to satisfy it.
+The finding and current pass remain nonzero; Plan mutation requires fresh
+complete Critique. A real violation remains actionable when its smallest
+correction stays within the recorded Plan boundaries.
+
+When the smallest viable correction must depart from a recorded load-bearing
+objective, success condition, constraint, scope/non-goal, authority basis, or
+Definition of Done, pause mutation and revise Plan. Plan revision cannot enlarge
+authority. The return is not a human gate unless the independent human-gate
+admission contract finds a genuinely new user-owned decision or authority.
+When no current violation exists, preserve it as residual evidence or route it
+only to an existing authoritative owner when the ordinary FLAG/debt contract
+already requires that route. Do not create a work item, owner, or implementation
+obligation merely because the concern was noticed. Successful bounded work ends
+before adjacent work begins.
+
+When the user requests a load-bearing Plan change after Review begins and the
+change would restart or revalidate most of the selected mode, disclose the
+consequences before changing Plan or target and ask, `Still proceed?` A clear
+request to change the Plan does not by itself show awareness of that hidden
+cost. State the selected mode, current phase and its ordinal, phases already
+completed, the table-derived stale evidence and exact repeat route, that
+existing artifacts are not automatically deleted but cannot establish the
+revised completion claim, and elapsed time only when directly observable. If
+the user already acknowledged that restart or revalidation consequence, give
+any needed concise notice and proceed without asking again. When the
+substantive choice remains ambiguous, ask whether to revise the current run,
+keep the current boundary and leave the change outside it, or stop. A
+non-load-bearing edit uses the ordinary affected-evidence route. An
+agent-discovered correction follows existing authority and human-gate admission
+without a user prompt merely because the return is expensive. Any genuinely
+new effect or authority remains independently gated. This is a return to Plan,
+not deletion of artifacts or a restart from scratch.
+
+Each stale-evidence cell names the affected phase evidence; `Implement or Build`
+includes its affected verification. Each ordered route is exact.
+
+| Plan revision point | Full stale evidence | Full ordered route | Light stale evidence | Light ordered route |
+|---|---|---|---|---|
+| Before Critique | None | Plan → Critique until convergence | None | Plan → Critique until convergence |
+| During or after Critique and before Review | Critique until convergence → Audit (pre-implement) → Implement or Build | Plan → Critique until convergence → Audit (pre-implement) → Implement or Build | Critique until convergence → Implement or Build | Plan → Critique until convergence → Implement or Build |
+| After Review begins and before terminal closeout (Review, post-audit, Compound, Log Debt, or Summary) | Every already-produced phase result after Plan, including any derived terminal state or draft Summary | Plan → Critique until convergence → Audit (pre-implement) → Implement or Build → Review until convergence → Audit (post-implement) → Compound → Log Debt → derive terminal state → Summary | Every already-produced phase result after Plan, including any derived terminal state or draft Summary | Plan → Critique until convergence → Implement or Build → Review until convergence → Compound → Log Debt → derive terminal state → Summary |
+
+If no viable correction exists within current authority, finish incomplete or
+stop at a genuine FLAG. Do not repeatedly revise Plan to manufacture a viable
+route.
+
 ## Invalidation Routes
 
 | Later event | Stale evidence | Required route |
 |---|---|---|
-| A pre-audit FIX changes Plan | Critique zero pass and pre-audit | Critique, then a fresh pre-audit, before Implement. |
 | Implementation or a post-audit FIX changes the target | Review zero pass and post-audit | Review, then a fresh post-audit for Full. |
 | Full Compound creates or updates a project learning | Review zero pass and post-audit | Review, then a fresh post-audit, then Log Debt; do not repeat Compound. |
 | Light Compound creates or updates a project learning | Review zero pass | Review, then Log Debt; do not add an audit or repeat Compound. |
@@ -205,6 +264,35 @@ old target stale. Reread and reverify the current workspace rather than relying
 on the intention behind the mutation.
 
 ## FLAG And Debt Contract
+
+### Human-gate admission
+
+Every proposed human gate must record its authoritative provenance, the
+material choice or risk delta, why an established default does not cover it,
+and the current step or completion claim that depends on it. A Plan,
+repository, or reviewer cannot create human authority merely by stating that
+approval is required. When the action is already covered, the invented gate is
+runner-owned `FIX`, not a user FLAG. Runtime FLAG admission repeats this check
+independently; reviewed Plan text is never sufficient provenance.
+
+The safe evidence envelope is mechanical: non-secret, local-only, minimized
+predeclared fields, owner-private access, and ephemeral custody, with no
+external sharing, durable-truth write, provider or account effect, activation,
+publication, or destructive effect. Use the secure temporary-sidecar or
+host-conversation default when it satisfies that envelope without prompting.
+Sensitive content or any envelope deviation is not made safe by Plan text.
+
+An established default is authoritative only when it derives from the safe
+evidence envelope, user direction, or governing policy. A Plan or reviewer
+assertion cannot turn itself into an established default. Already-authorized
+effects need no new human gate; an invented gate remains runner-owned `FIX`.
+
+A genuine gate derives from the user's direction, governing policy, or the
+actual material effect. Disclose a knowable future decision during preflight,
+before lengthy avoidable work. Request the decision at the earliest informed
+boundary, when the exact target, effect, recovery choice, and material tradeoff
+are knowable. A genuinely new late gate stops immediately and records why
+preflight could not have found it.
 
 Assign stable run-wide IDs in discovery order: `F1`, `F2`, and so on. Repeated
 reports of the same decision boundary reuse the same ID. Split distinct choices
@@ -280,7 +368,20 @@ records `raised: 0` and `undisposed: 0` without creating an empty ledger.
 
 ## Terminal Summary Contract
 
-Generate two layers from one reconciled closeout state:
+Before Summary wording, derive one terminal state from the current Phase
+Evidence Floor and Invalidation Routes. Full requires its first eight ordered
+phases through current Log Debt; Light requires its first six ordered phases
+through current Log Debt and selection at Plan. Also require current
+verification, no running worker, durable Plan readback when planning,
+non-blocked Compound, and reconciled FLAG/debt state after the last relevant
+change.
+Do this once from the actual run evidence, not from a Summary draft or a
+presentational status field. Summary consumes that state and cannot upgrade or
+downgrade it. Any missing, stale, contradictory, unknown, or unfinished input
+derives `incomplete`; only a fully earned Full or Light closeout derives
+`complete`.
+
+Generate two layers from that one reconciled closeout state:
 
 1. A beginner-facing paragraph says, in literal plain English, what result was
    produced, whether the run itself completed, and the next action. For an
@@ -373,10 +474,10 @@ does not neutralize contradictory content later in the document. Contradictory
 premise evidence returns to Plan; unavailable evidence blocks only the claim it
 is needed to support. This section is the shared correction-sweep owner.
 
-Full is earned only when all nine Full obligations are current. Light is earned
-only when all seven Light obligations are current and Light was selected at
-Plan. A stopped, cancelled, unsupported, failed, or unfinished run reports its
-exact gap and never changes modes retroactively. A planning run says
+Earn Full or Light only under the Terminal Summary Contract; Summary remains a
+required reporting phase but never participates in deriving the state it
+renders. A stopped, cancelled, unsupported, failed, or unfinished run reports
+its exact gap and never changes modes retroactively. A planning run says
 `Build-as-Plan`, `Build-as-Handoff`, or another exact deliverable and never
 implies runtime code shipped.
 

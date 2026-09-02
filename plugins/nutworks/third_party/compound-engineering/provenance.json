@@ -45,7 +45,7 @@
   "adapted": [
     {
       "destination": "skills/nuts/references/plan.md",
-      "destination_sha256": "0b65827b1ff3256dc0df16821ba8aa18eb9e9c6d20a23e67fc9c985687ff0ab2",
+      "destination_sha256": "0292a67e1b909a0561d95023f94f33dbae0942b382f32d43034cfed79f2d7268",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-plan/references/plan-sections.md",
@@ -84,6 +84,14 @@
         },
         {
           "change": "Added automatic authorized planning-destination selection, exact-byte durable readback, and lazy owner discovery.",
+          "reason": "nuts_authority"
+        },
+        {
+          "change": "Added provenance- and materiality-based human-gate admission plus earliest-informed preflight timing.",
+          "reason": "nuts_authority"
+        },
+        {
+          "change": "Added one Plan completion boundary using its existing objective, success, scope, authority, and Definition of Done fields, with during-and-after-Critique routing delegated to the shared evidence owner.",
           "reason": "nuts_authority"
         }
         ]
@@ -224,7 +232,7 @@
     },
     {
       "destination": "skills/nuts/references/schemas/finding.schema.json",
-      "destination_sha256": "31d4f6cdcfb375349d1ae9faf0da3dbf570a1e3fa17079a776b2b2b6f93ff63c",
+      "destination_sha256": "f3e6c4b31446ad71fe9c4ffaf9b22dd42bcc60ded82f385c8a781194af56a8b9",
       "treatment": "substantially_adapted",
       "sources": [
         "skills/ce-doc-review/references/findings-schema.json",
@@ -255,6 +263,10 @@
           {
             "change": "Added one closed bench-only assignment receipt for complete-protocol versus targeted-verification evidence while leaving target matching, pass-seat eligibility, and convergence under main-runner ownership.",
             "reason": "shared_evidence_contract"
+          },
+          {
+            "change": "Clarified that target_kind is the assignment-level document or code kind represented by the finding.",
+            "reason": "shared_evidence_contract"
           }
         ]
       }
@@ -263,7 +275,7 @@
   "informed_by": [
     {
       "destination": "skills/nuts/references/compound.md",
-      "destination_sha256": "d27c1305bcaa45515059fb1cdf0f80641fa39058a3fd4d5c7d61ac3236dff7fb",
+      "destination_sha256": "aa8a147723078f227c25a01ff2245ca75cea7016aed20d7cd20b756f4f264bae",
       "treatment": "original_informed_by",
       "sources": [
         {

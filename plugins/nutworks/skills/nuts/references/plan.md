@@ -27,8 +27,10 @@ Before writing the plan:
 2. Inspect the current code, nearby patterns, declared truth locations, durable
    learnings, and real verification commands that bear on the task.
 3. Carry forward settled decisions and explicit scope boundaries.
-4. Identify product, policy, privacy, destructive-action, capability, or public
-   mutation gates that the plan cannot decide on the user's behalf.
+4. Apply the shared human-gate admission contract in
+   `evidence-and-claims.md` to product, policy, privacy, destructive-action,
+   capability, or public-mutation choices that the Plan cannot decide. Reject
+   a proposed gate when an established default already covers it.
 5. Distinguish verified facts from assumptions and unresolved questions.
 
 For every load-bearing premise, record the object users actually run or
@@ -45,6 +47,18 @@ that depends on it.
 Do not invent a path, command, integration, public identity, compatibility
 promise, or repository convention. If a required fact cannot be discovered,
 make its discovery or decision an explicit gate owned by the main runner.
+
+## Completion Boundary
+
+Before Critique, record the objective, success conditions, constraints, scope
+and non-goals, authority and provenance, and Definition of Done. These existing
+Plan fields bound the work; Plan wording cannot silently enlarge user or policy
+authority.
+
+During and after Critique, classify concerns and handle any necessary Plan
+revision only through the canonical Completion-Boundary Routing in
+`evidence-and-claims.md`. Plan does not duplicate that routing or invalidation
+contract.
 
 ## Session-settled decisions
 
@@ -259,6 +273,14 @@ Before Plan can advance to Critique, confirm:
 
 - settled decisions and explicit user constraints remain intact;
 - no agent-invented behavior or authority entered the plan;
+- the objective, success conditions, constraints, scope/non-goals, authority,
+  material requirement/guard provenance, and Definition of Done are explicit,
+  and optional agent-invented safeguards were removed or narrowed rather than
+  hardened;
+- every proposed human gate records its authoritative provenance, material
+  choice or risk delta, uncovered default, and dependent step or claim;
+- a knowable genuine gate is disclosed during preflight and stops at its
+  earliest informed boundary rather than after lengthy avoidable work;
 - every requirement maps to an implementation unit and proof;
 - unit dependencies are acyclic and ordered;
 - material failure paths and negative tests are present;
