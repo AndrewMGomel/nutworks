@@ -10,7 +10,7 @@ from scripts.validate_package import MIT_LICENSE, PackageValidationError, valida
 
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_VERSION = "0.1.1"
+EXPECTED_VERSION = "0.1.2"
 CONTENT_CASES = json.loads(
     (Path(__file__).parent / "fixtures" / "package" / "content-cases.json").read_text(
         encoding="utf-8"

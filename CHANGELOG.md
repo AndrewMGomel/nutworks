@@ -2,11 +2,26 @@
 
 ## Unreleased
 
+## 0.1.2 — 2026-09-03 public prerelease
+
 - Distinguish authoritative reviewer returns from rewritten evidence summaries:
   only an original validated packet or its exact copy can affect pass
   accounting, while derived summaries must be labeled ineligible.
 - Add regression coverage proving that a packet-like derived summary cannot
   fill a pass seat or invalidate a valid original return.
+- Prevent Plans and review findings from manufacturing human approval gates;
+  safe established defaults and prior authority continue unattended, while
+  genuine decisions are raised at their earliest informed boundary.
+- Derive successful and incomplete Summaries from the run's actual lifecycle
+  state, including verification, Compound, debt, Plan readback, and phase
+  convergence, instead of letting presentation choose the result.
+- Keep in-claim defects actionable, return claim-changing corrections to Plan
+  before mutation, and end successful tranches before adjacent work expands the
+  completion claim.
+- Preserve material adjacent discoveries through an existing authoritative
+  owner or a stable FLAG disposition without adding an automatic backlog writer
+  or a new custody subsystem.
+- Simplify the public explanation of NUTS evidence retention and host limits.
 
 ## 0.1.1 — 2026-08-17 public prerelease
 

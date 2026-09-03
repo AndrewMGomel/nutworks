@@ -35,7 +35,7 @@ broad, risky, or high-stakes work needing independent reviews and audits.
 
 ## Install NUTS
 
-Version `0.1.1` is the current public pilot.
+Version `0.1.2` is the current public pilot.
 
 ### Codex
 
@@ -45,10 +45,10 @@ If an earlier Nutworks pilot is installed, remove it first:
 codex plugin marketplace remove nutworks
 ```
 
-Then install `0.1.1`:
+Then install `0.1.2`:
 
 ```bash
-codex plugin marketplace add AndrewMGomel/nutworks --ref v0.1.1
+codex plugin marketplace add AndrewMGomel/nutworks --ref v0.1.2
 codex plugin add nutworks@nutworks
 ```
 
@@ -68,10 +68,10 @@ If an earlier Nutworks pilot is installed, remove it first:
 claude plugin marketplace remove nutworks
 ```
 
-Then install `0.1.1`:
+Then install `0.1.2`:
 
 ```bash
-claude plugin marketplace add AndrewMGomel/nutworks@v0.1.1 --scope user
+claude plugin marketplace add AndrewMGomel/nutworks@v0.1.2 --scope user
 claude plugin install nutworks@nutworks --scope user
 ```
 
@@ -140,10 +140,10 @@ python3 -m venv .venv
 
 The published `v0.1.1` release candidate passed its deterministic test suite,
 source/stage closure, provenance validation, and the official Codex plugin
-validator. Those receipts apply to the published tag, not to later working-tree
-changes. The current unreleased working-tree change has separately
-passed the same deterministic, package, provenance, and official Codex
-validation lanes. The pinned `PyYAML==6.0.2` dependency is maintainer-only
+validator. Those receipts apply to the published tag, not to later candidates.
+The current unreleased `v0.1.2` candidate has separately passed the same
+deterministic, package, provenance, and official Codex validation lanes. The
+pinned `PyYAML==6.0.2` dependency is maintainer-only
 validation tooling; it is not a Nutworks runtime or end-user installation
 dependency. The NUTS skill validator and Claude's strict plugin and marketplace
 validators were not rerun because this repository does not yet document a
