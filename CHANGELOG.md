@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## 0.1.2 — 2026-09-03 public prerelease
+## 0.2.0 — 2026-09-03 public prerelease
 
 - Distinguish authoritative reviewer returns from rewritten evidence summaries:
   only an original validated packet or its exact copy can affect pass

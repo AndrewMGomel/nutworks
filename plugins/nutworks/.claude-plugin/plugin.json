@@ -1,6 +1,6 @@
 {
   "name": "nutworks",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Run NUTS, a rigorous evidence-backed engineering workflow",
   "author": {
     "name": "Andrew Gomel",
