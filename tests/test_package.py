@@ -10,7 +10,7 @@ from scripts.validate_package import MIT_LICENSE, PackageValidationError, valida
 
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_VERSION = "0.1.1"
+EXPECTED_VERSION = "0.2.0"
 CONTENT_CASES = json.loads(
     (Path(__file__).parent / "fixtures" / "package" / "content-cases.json").read_text(
         encoding="utf-8"
@@ -230,7 +230,7 @@ class PackageValidationTests(unittest.TestCase):
     def test_manifest_and_catalog_divergence_are_rejected(self) -> None:
         manifest_path = self.root / "plugins/nutworks/.claude-plugin/plugin.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        manifest["version"] = "0.2.0"
+        manifest["version"] = "9.9.9"
         write_json(manifest_path, manifest)
         self.assert_invalid("host manifests disagree on version")
         manifest["version"] = EXPECTED_VERSION
