@@ -22,9 +22,10 @@ reports honestly when work remains.
   verified. Important open issues and reusable lessons must be saved somewhere
   an established person or system will follow them up, or the run reports
   itself incomplete.
-- **Stronger scope control.** Problems inside the agreed work stay actionable.
-  A correction that changes the agreed goal goes back through planning, while
-  useful but unrelated discoveries do not silently widen the task.
+- **Stops safeguards from snowballing.** NUTS fixes problems that threaten the
+  agreed result, but it does not turn every new concern into another requirement
+  or another round of work. Changes to the agreed goal go back through planning,
+  while useful but unrelated discoveries stay outside the current task.
 - **More dependable review evidence.** A rewritten or shortened review summary
   cannot count as the original reviewer result, so required review passes
   reflect the reviews that actually happened.
