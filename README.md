@@ -27,6 +27,7 @@ It helps your agent:
 - put pressure on assumptions before implementation;
 - find risks that the original builder missed;
 - rerun reviews after meaningful changes;
+- keep review concerns from quietly expanding the work you authorized;
 - back completion claims with tests and evidence; and
 - stop when a decision truly belongs to you.
 
@@ -36,6 +37,8 @@ broad, risky, or high-stakes work needing independent reviews and audits.
 ## Install NUTS
 
 Version `0.2.0` is the current public pilot.
+See the [v0.2.0 release notes](https://github.com/AndrewMGomel/nutworks/releases/tag/v0.2.0)
+for what changed and the exact-tag validation results.
 
 ### Codex
 
@@ -97,21 +100,28 @@ in the OpenAI-curated or Anthropic official plugin marketplaces.
 Nutworks has no runtime Compound Engineering dependency. It never installs,
 updates, repairs, or configures Compound Engineering.
 
+Rollback is not supported in this pilot. Removal uses the host's native plugin
+management rather than a Nutworks migration or repair path.
+
 ## What NUTS leaves behind
 
 NUTS keeps temporary review work outside your project by default. It uses your
 agent conversation or, when available, a temporary working sidecar.
 
-If you ask NUTS to produce a Plan, a successful planning run saves the final
-reviewed Plan somewhere authorized and tells you where. Open issues must be
-saved somewhere safe that someone actually checks. If NUTS cannot do that
-safely, it says the run is incomplete instead of letting the issue disappear or
-exposing private details. Useful lessons are saved, queued for later, or
-explicitly not kept.
+When a Plan is the requested result, a successful run saves the final reviewed
+Plan somewhere authorized, verifies it, and tells you where. Important open
+issues and reusable lessons must reach a safe place that someone actually
+checks. If they cannot, the run reports itself incomplete. Weak, duplicate, or
+unsupported lesson ideas may be left out.
 
-Every run still requires one self-contained Summary in the conversation. NUTS
+Every run includes one self-contained final Summary in the conversation. NUTS
 does not create a project run folder or automatically save that Summary as a
-file. Your host controls transcript retention and temporary cleanup.
+file.
+
+Keeping temporary review work outside the project reduces clutter, but it does
+not guarantee privacy, long-term storage, or a deletion time. Your host controls
+transcript access and retention. Your host and operating system control cleanup
+of temporary copies.
 
 ## Development installation
 
@@ -138,36 +148,27 @@ python3 -m venv .venv
 .venv/bin/python scripts/validate_official_codex.py
 ```
 
-The published `v0.1.1` release candidate passed its deterministic test suite,
-source/stage closure, provenance validation, and the official Codex plugin
-validator. Those receipts apply to the published tag, not to later candidates.
-The current unreleased `v0.2.0` candidate has separately passed the same
-deterministic, package, provenance, and official Codex validation lanes. The
-pinned `PyYAML==6.0.2` dependency is maintainer-only
-validation tooling; it is not a Nutworks runtime or end-user installation
-dependency. The NUTS skill validator and Claude's strict plugin and marketplace
-validators were not rerun because this repository does not yet document a
-pinned invocation for them; they are not claimed for the current unreleased
-change.
+The published `v0.2.0` tag passed 70 deterministic tests, exact 23-file
+runtime-package closure, provenance validation across six adapted destinations
+and eight frozen sources, the official Codex static plugin validator, and the
+release diff check in a fresh disposable checkout. Those receipts apply only to
+the exact published tag. The pinned `PyYAML==6.0.2` dependency is
+maintainer-only validation tooling; it is not a Nutworks runtime or end-user
+installation dependency. The NUTS skill validator and Claude's strict plugin
+and marketplace validators were not rerun for `v0.2.0`, and no `0.2.0`
+installed-host smoke is claimed. See the
+[v0.2.0 release notes](https://github.com/AndrewMGomel/nutworks/releases/tag/v0.2.0)
+for the complete release receipt.
 
 These deterministic lanes check source structure, malformed-input handling,
 package integrity, and provenance. They do not simulate or qualify model
 behavior; behavioral qualification requires a separately identified run against
 the exact source under test.
 
-Ordinary reinstall/list smoke passed for the exact published `v0.1.1` tag on
-`codex-cli 0.148.0-alpha.9` and Claude Code `2.1.214`; a projectless Codex
-updater also moved one installed profile from `0.1.0` to `0.1.1` while
-normalized before/after inventories showed every unrelated plugin and
-marketplace unchanged. The published `0.1.0` candidate previously passed its
-own packaging validators and install/list smoke on `codex-cli
-0.147.0-alpha.6.5` and Claude Code `2.1.214`. Each observation applies only to
-its exact release, build, and profile. They do not prove privacy isolation,
-model behavior, semantic parity, cache custody, rollback, or general host
-support.
-
-Rollback is not supported in this pilot. Removal uses the host's native plugin
-management rather than a Nutworks migration or repair path.
+Exact-tag validation receipts and installed-host observations remain with their
+named GitHub releases and tags. Each applies only to its exact release, build,
+and profile; none proves privacy isolation, model behavior, semantic parity,
+cache custody, rollback, or general host support.
 
 ## Feedback and support
 
