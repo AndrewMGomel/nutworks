@@ -207,6 +207,14 @@ admission beside the canonical finding in the current phase evidence. Record:
 5. the current target identity and canonical finding identity; and
 6. the resulting runner route.
 
+Keep the record metadata-minimal but falsifiable. Record only the minimum
+non-sensitive authority proposition, authority category, stable independently
+readable locator, and non-sensitive identity digest needed to make the
+admission falsifiable and fresh. Never copy raw credentials, tokens, secret
+values, or unnecessary private text into admission evidence or a retained
+qualification receipt. A category or digest alone cannot substitute for a
+readable authority source.
+
 The record must be falsifiable from current evidence. User direction,
 applicable repository authority, governing policy, and current obligations
 arising from safety, privacy, credential handling, destructive effects,
