@@ -47,8 +47,14 @@ for a pass seat.
 
 ## Dispositions
 
-- `FIX` — the main runner resolves it before proceeding, verifies the change,
-  and reruns the evidence invalidated by that mutation.
+- `FIX` — a proposed current correction, not mutation authority. Before any
+  change, the main runner applies the canonical Completion-Boundary Routing in
+  `evidence-and-claims.md`. An admitted correction is resolved and verified
+  before proceeding, with every invalidated phase rerun. A complete runner
+  denial with its recorded residual or existing-owner consequence counts as
+  handled for Audit accounting without editing the Triage packet or forcing
+  another Triage round. Missing, stale, unavailable, or contradictory
+  admission evidence leaves Audit incomplete.
 - `FLAG` — a genuine user-owned product, architecture, public claim/interface,
   privacy/retention, destructive, money/account, policy, or publication choice
   that passes the shared human-gate admission contract. Assign or reuse its

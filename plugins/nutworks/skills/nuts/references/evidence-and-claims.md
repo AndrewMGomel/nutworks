@@ -193,16 +193,58 @@ target-kind, current-target binding, or verification is missing.
 
 ## Completion-Boundary Routing
 
-For every actionable concern found during Critique or any later phase, before
-it becomes current work, decide whether the authoritative objective, governing
-policy, safety, or correctness necessary to that objective is violated. A Plan
-assertion is not authority by itself. If the concern exists only because Plan
-added an optional or otherwise unproven guarantee without provenance in user
-direction, governing policy, safety, or correctness necessary to the objective,
-remove or narrow that guarantee instead of hardening machinery to satisfy it.
-The finding and current pass remain nonzero; Plan mutation requires fresh
-complete Critique. A real violation remains actionable when its smallest
-correction stays within the recorded Plan boundaries.
+Every actionable concern found during Critique or any later phase is finding
+evidence, not mutation authority. Immediately before any finding-driven Plan or
+product mutation, the main runner records one complete finding-mutation
+admission beside the canonical finding in the current phase evidence. Record:
+
+1. the non-Plan authority source and an independently readable locator or
+   observation for it;
+2. the current obligation or authorized outcome at risk;
+3. the smallest correction that addresses the violation;
+4. whether removing or narrowing an agent-invented guarantee is sufficient
+   and, when it is not, why;
+5. the current target identity and canonical finding identity; and
+6. the resulting runner route.
+
+The record must be falsifiable from current evidence. User direction,
+applicable repository authority, governing policy, and current obligations
+arising from safety, privacy, credential handling, destructive effects,
+publication, or correctness necessary to the authorized outcome may support
+admission. A Plan assertion is not authority by itself. Reviewer repetition,
+severity language, a Triage disposition, elapsed cost, or the runner's own
+assertion likewise cannot create authority. Those sources and labels also
+cannot establish a current violation without concrete evidence about the
+current target.
+
+Each materially distinct obligation changed by a bundled mutation must pass
+separately; split the correction or omit the unadmitted part. Admission is
+current only for the recorded finding, target, authority, and violation
+evidence. Any intervening change to the target, Plan, user direction, governing
+policy, or cited evidence makes it stale before mutation. A prior complete
+denial remains current only while that tuple is unchanged; materially new
+authority or violation evidence requires a fresh admission evaluation.
+
+When the record establishes a current authorized violation, apply only the
+smallest correction and follow the existing Plan or target invalidation route.
+A complete denial requires every field above and affirmative evidence that no
+current authorized obligation is violated, including when every proposed
+authority source is circular or affirmatively absent. Preserve the concern as
+residual evidence or transfer it only to an existing authoritative owner under
+the ordinary FLAG/debt contract. Missing fields, unavailable required
+authority, contradictory evidence, or a stale identity makes admission
+unevaluable: leave the phase unfinished or incomplete, and do not convert the
+gap into a denial, residual, or mutation.
+
+If the concern exists only because Plan added an optional or otherwise
+unproven guarantee without provenance in user direction, governing policy,
+safety, or correctness necessary to the objective, remove or narrow that
+guarantee instead of hardening machinery to satisfy it. This boundary-restoring
+Plan mutation follows the existing route: the finding and current pass remain
+nonzero; Plan mutation requires fresh complete Critique. An unsupported
+proposal not yet present in Plan causes no mutation. A real violation remains
+actionable when its smallest correction stays within the recorded Plan
+boundaries.
 
 When the smallest viable correction must depart from a recorded load-bearing
 objective, success condition, constraint, scope/non-goal, authority basis, or

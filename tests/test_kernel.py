@@ -267,6 +267,94 @@ class KernelContractTests(unittest.TestCase):
             with self.subTest(forbidden_scope_engine=phrase):
                 self.assertNotIn(phrase, folded_runtime)
 
+    def test_finding_mutation_admission_is_falsifiable_and_fail_closed(self):
+        route = self.evidence.split(
+            "## Completion-Boundary Routing\n", 1
+        )[1].split("\n## ", 1)[0]
+        folded_route = normalized(route).casefold()
+
+        proof_fields = (
+            "non-plan authority source",
+            "current obligation or authorized outcome",
+            "smallest correction",
+            "whether removing or narrowing",
+            "current target identity",
+            "canonical finding identity",
+            "resulting runner route",
+        )
+        for phrase in proof_fields:
+            with self.subTest(admission_proof_field=phrase):
+                self.assertIn(phrase, folded_route)
+
+        for phrase in (
+            "reviewer repetition",
+            "severity language",
+            "triage disposition",
+            "elapsed cost",
+            "runner's own assertion",
+        ):
+            with self.subTest(non_authority=phrase):
+                self.assertIn(phrase, folded_route)
+
+        for phrase in (
+            "user direction",
+            "applicable repository authority",
+            "governing policy",
+            "safety",
+            "privacy",
+            "destructive",
+            "publication",
+            "correctness necessary",
+        ):
+            with self.subTest(genuine_authority=phrase):
+                self.assertIn(phrase, folded_route)
+
+        for phrase in (
+            "complete denial",
+            "residual evidence",
+            "existing authoritative owner",
+            "missing fields",
+            "unavailable required authority",
+            "contradictory",
+            "stale",
+            "unfinished or incomplete",
+        ):
+            with self.subTest(admission_consequence=phrase):
+                self.assertIn(phrase, folded_route)
+
+        for phrase in (
+            "materially distinct obligation",
+            "pass separately",
+            "prior complete denial",
+            "materially new authority or violation evidence",
+            "unsupported proposal not yet",
+            "causes no mutation",
+        ):
+            with self.subTest(admission_boundary=phrase):
+                self.assertIn(phrase, folded_route)
+
+        folded_review = normalized(self.review).casefold()
+        for phrase in (
+            "complete admission record",
+            "next complete reviewer assignment",
+            "still returns it as actionable",
+            "pass remains nonzero",
+            "finishes incomplete",
+        ):
+            with self.subTest(duplicate_amplification=phrase):
+                self.assertIn(phrase, folded_review)
+
+        audit = normalized(
+            (SKILL_ROOT / "references" / "audit.md").read_text(encoding="utf-8")
+        ).casefold()
+        for phrase in (
+            "proposed current correction",
+            "complete runner denial",
+            "counts as handled",
+        ):
+            with self.subTest(audit_denial_accounting=phrase):
+                self.assertIn(phrase, audit)
+
     def test_runtime_and_public_instructions_have_no_project_local_run_path(self):
         public_readme = (ROOT / "README.md").read_text(encoding="utf-8")
         gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")

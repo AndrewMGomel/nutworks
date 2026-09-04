@@ -184,6 +184,15 @@ removing faulty guard machinery over adding another layer, and validate the
 harness before trusting its verdict. Classification never suppresses a valid
 finding, grants mutation authority, or converts a nonzero pass to zero.
 
+Immediately before any finding-driven Plan or product mutation, apply the
+canonical Completion-Boundary Routing in `evidence-and-claims.md`; do not copy
+its admission fields here. When a prior complete denial remains current, give
+the complete admission record as additive context in the next complete
+reviewer assignment. If a fresh reviewer still returns it as actionable, the
+current pass remains nonzero and the bounded attempt finishes incomplete
+without mutation or an automatic retry. Reuse never suppresses the report,
+manufactures a zero, or narrows the broad review assignment.
+
 When a correction changes a premise or public claim, route the whole-document
 and release-mirror sweep to the shared owner in
 `evidence-and-claims.md`; do not define a second sweep contract here.
