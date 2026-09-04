@@ -112,7 +112,7 @@ def known_self_authorization_overrides(text):
     ]
 
 
-def finding_admission_errors(evidence, review, audit, triage):
+def finding_admission_errors(plan, evidence, review, audit, triage):
     route_source = section_under(evidence, "Completion-Boundary Routing")
     route = normalized(route_source)
     folded_route = route.casefold()
@@ -124,16 +124,17 @@ def finding_admission_errors(evidence, review, audit, triage):
     checks = {
         "table": markdown_table_with_header(evidence, "Completion-Boundary Routing", FINDING_ADMISSION_TABLE[0]) == list(FINDING_ADMISSION_TABLE),
         "locator": re.search(r"stable (?:independently )?readable locator when the host provides one; otherwise .+ independently readable .+ observation .+ identity binding", folded_route) is not None,
-        "self-authorization": not known_self_authorization_overrides(" ".join((route, review, audit, triage))),
+        "self-authorization": not known_self_authorization_overrides(" ".join((plan, evidence, review, audit, triage))),
         "reuse record": "Record every reuse, sameness, and materiality judgment with the bound values compared and cited evidence; when a bound value changed, name that value" in route,
         "reuse fail closed": "If sameness or materiality cannot be established, the prior decision is stale and requires a fresh evaluation before mutation" in route,
-        "freshness bound values": all(value in freshness for value in ("finding", "target", "plan", "user direction", "governing policy", "cited evidence", "outcome", "route", "correction", "narrowing")),
+        "freshness bound values": all(clause in freshness for clause in ("current only while its bound finding, target, plan, user direction, governing policy, cited evidence, outcome, and route are unchanged", "a proven-violation decision also binds its correction and correction identity", "an unsupported plan guarantee decision also binds its narrowing and narrowing identity")),
         "Review handoff": "Immediately before any finding-driven Plan or product mutation, apply the canonical Completion-Boundary Routing in `evidence-and-claims.md`" in review,
         "Audit handoff": "Before any change, the main runner applies the canonical Completion-Boundary Routing in `evidence-and-claims.md`" in audit,
         "Audit advisory FIX": "`FIX` — a proposed current correction, not mutation authority" in audit,
         "Audit denial": "A complete runner `No current violation` outcome with its recorded residual or existing-owner route counts as handled for Audit accounting" in audit,
         "Audit incomplete": "Missing, stale, unavailable, or contradictory admission evidence leaves Audit incomplete" in audit,
         "Triage handoff": "Use the canonical Completion-Boundary Routing in `evidence-and-claims.md` before turning a finding into current work" in triage,
+        "Triage advisory FIX": "`FIX` — propose a current correction" in triage and "`FIX` — resolve and verify before proceeding" not in triage,
         "post-Audit route": (
             "Implementation or a post-audit FIX changes the target",
             "Review zero pass and post-audit",
@@ -363,7 +364,7 @@ class KernelContractTests(unittest.TestCase):
     def test_finding_admission_contract_is_source_bound(self):
         self.assertEqual(
             finding_admission_errors(
-                self.evidence, self.review, self.audit, self.triage
+                self.plan, self.evidence, self.review, self.audit, self.triage
             ),
             set(),
         )
@@ -379,36 +380,38 @@ class KernelContractTests(unittest.TestCase):
 
     def test_hostile_finding_admission_sources_fail_the_live_contract(self):
         cases = [
-            ("table", self.evidence.replace(
+            ("table", self.plan, self.evidence.replace(
                 "independently readable non-Plan authority", "Plan assertion", 1
             ), self.review, self.audit, self.triage),
-            ("Review handoff", self.evidence, normalized(self.review).replace(
+            ("Review handoff", self.plan, self.evidence, normalized(self.review).replace(
                 "Immediately before any finding-driven Plan or product mutation, apply the canonical Completion-Boundary Routing in `evidence-and-claims.md`",
                 "Before mutation, consider the available findings", 1
             ), self.audit, self.triage),
-            ("Audit handoff", self.evidence, self.review, normalized(self.audit).replace(
+            ("Audit handoff", self.plan, self.evidence, self.review, normalized(self.audit).replace(
                 "Before any change, the main runner applies the canonical Completion-Boundary Routing in `evidence-and-claims.md`",
                 "Before any change, Triage grants mutation authority", 1
             ), self.triage),
-            ("post-Audit route", self.evidence.replace(
+            ("post-Audit route", self.plan, self.evidence.replace(
                 "Review, then a fresh post-audit for Full.",
                 "Continue without Review or post-audit.", 1
             ), self.review, self.audit, self.triage),
-            ("reuse record", self.evidence.replace("judgment with\nthe bound values compared and cited evidence; when a bound value changed, name\nthat value.", "judgment.", 1), self.review, self.audit, self.triage),
-            ("reuse fail closed", self.evidence.replace("the prior\ndecision is stale and requires a fresh evaluation before mutation.", "the prior\ndecision remains current without a fresh evaluation before mutation.", 1), self.review, self.audit, self.triage),
-            ("freshness bound values", self.evidence.replace("bound finding, target, Plan,", "bound target, Plan,", 1), self.review, self.audit, self.triage),
+            ("reuse record", self.plan, self.evidence.replace("judgment with\nthe bound values compared and cited evidence; when a bound value changed, name\nthat value.", "judgment.", 1), self.review, self.audit, self.triage),
+            ("reuse fail closed", self.plan, self.evidence.replace("the prior\ndecision is stale and requires a fresh evaluation before mutation.", "the prior\ndecision remains current without a fresh evaluation before mutation.", 1), self.review, self.audit, self.triage),
+            ("freshness bound values", self.plan, self.evidence.replace("bound finding, target, Plan,", "bound target, Plan,", 1), self.review, self.audit, self.triage),
+            ("freshness bound values", self.plan, self.evidence.replace("policy, cited evidence, outcome", "policy, outcome", 1), self.review, self.audit, self.triage),
+            ("Triage advisory FIX", self.plan, self.evidence, self.review, self.audit, self.triage + "\n`FIX` — resolve and verify before proceeding.\n"),
         ]
         cases.extend(
-            ("self-authorization", self.evidence, self.review + suffix if source == "review" else self.review, self.audit + suffix if source == "audit" else self.audit, self.triage + suffix if source == "triage" else self.triage)
-            for source in ("review", "audit", "triage")
+            ("self-authorization", self.plan + suffix if source == "plan" else self.plan, self.evidence + suffix if source == "evidence" else self.evidence, self.review + suffix if source == "review" else self.review, self.audit + suffix if source == "audit" else self.audit, self.triage + suffix if source == "triage" else self.triage)
+            for source in ("plan", "evidence", "review", "audit", "triage")
             for override in KNOWN_SELF_AUTHORIZATION_OVERRIDES
             for suffix in (f"\n{override}.\n",)
         )
 
-        for expected_error, evidence, review, audit, triage in cases:
+        for expected_error, plan, evidence, review, audit, triage in cases:
             with self.subTest(hostile_source=expected_error):
                 self.assertEqual(
-                    finding_admission_errors(evidence, review, audit, triage),
+                    finding_admission_errors(plan, evidence, review, audit, triage),
                     {expected_error},
                 )
 
