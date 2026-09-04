@@ -36,6 +36,13 @@ LIGHT_PHASES = [
     "Summary",
 ]
 
+KNOWN_SELF_AUTHORIZATION_OVERRIDES = (
+    "plan text can create authority",
+    "reviewer repetition creates authority",
+    "triage `fix` grants mutation authority",
+    "the runner's own assertion establishes a current violation",
+)
+
 
 def load_json(relative_path):
     return json.loads((FIXTURES / relative_path).read_text(encoding="utf-8"))
@@ -59,11 +66,41 @@ def section_under(text, heading):
     return text.split(marker, 1)[1].split("\n## ", 1)[0]
 
 
-def markdown_table_under(text, heading):
+def markdown_tables_under(text, heading):
+    tables = []
+    table = []
+    for line in section_under(text, heading).splitlines():
+        if line.startswith("|"):
+            if "---" not in line:
+                table.append(
+                    tuple(
+                        cell.strip()
+                        for cell in line.strip().strip("|").split("|")
+                    )
+                )
+        elif table:
+            tables.append(table)
+            table = []
+    if table:
+        tables.append(table)
+    return tables
+
+
+def markdown_table_with_header(text, heading, header):
+    matches = [
+        table
+        for table in markdown_tables_under(text, heading)
+        if table and table[0] == header
+    ]
+    return matches[0] if len(matches) == 1 else []
+
+
+def known_self_authorization_overrides(text):
+    folded = normalized(text).casefold()
     return [
-        tuple(cell.strip() for cell in line.strip().strip("|").split("|"))
-        for line in section_under(text, heading).splitlines()
-        if line.startswith("|") and "---" not in line
+        override
+        for override in KNOWN_SELF_AUTHORIZATION_OVERRIDES
+        if override in folded
     ]
 
 
@@ -212,7 +249,19 @@ class KernelContractTests(unittest.TestCase):
         self.assertEqual(runtime_text.count("## Completion-Boundary Routing"), 1)
 
         route_section = section_under(self.evidence, "Completion-Boundary Routing")
-        rows = markdown_table_under(self.evidence, "Completion-Boundary Routing")
+        tables = markdown_tables_under(self.evidence, "Completion-Boundary Routing")
+        self.assertEqual(len(tables), 2)
+        rows = markdown_table_with_header(
+            self.evidence,
+            "Completion-Boundary Routing",
+            (
+                "Plan revision point",
+                "Full stale evidence",
+                "Full ordered route",
+                "Light stale evidence",
+                "Light ordered route",
+            ),
+        )
         self.assertTrue(rows)
         self.assertTrue(all(len(row) == 5 for row in rows))
         row_labels = [row[0] for row in rows[1:]]
@@ -272,210 +321,114 @@ class KernelContractTests(unittest.TestCase):
             with self.subTest(forbidden_scope_engine=phrase):
                 self.assertNotIn(phrase, folded_runtime)
 
-    def admission_source_edge_failures(self, sources):
-        evidence = sources["evidence"]
-        route = normalized(
-            section_under(evidence, "Completion-Boundary Routing")
-        ).casefold()
-        plan = normalized(sources["plan"]).casefold()
-        review = normalized(sources["review"]).casefold()
-        audit = normalized(sources["audit"]).casefold()
-        triage = normalized(sources["triage"]).casefold()
-
-        invalidation_rows = markdown_table_under(evidence, "Invalidation Routes")
-        post_audit_rows = [
-            row
-            for row in invalidation_rows[1:]
-            if row[0] == "Implementation or a post-audit FIX changes the target"
-        ]
-
-        edges = {
-            "canonical-owner": evidence.count("## Completion-Boundary Routing") == 1,
-            "plan-handoff": (
-                "handle any necessary plan revision only through the canonical "
-                "completion-boundary routing in `evidence-and-claims.md`"
-                in plan
-            ),
-            "review-pre-mutation-handoff": (
-                "immediately before any finding-driven plan or product mutation, "
-                "apply the canonical completion-boundary routing in "
-                "`evidence-and-claims.md`"
-                in review
-            ),
-            "audit-pre-mutation-handoff": (
-                "before any change, the main runner applies the canonical "
-                "completion-boundary routing in `evidence-and-claims.md`"
-                in audit
-            ),
-            "triage-advisory-handoff": (
-                "use the canonical completion-boundary routing in "
-                "`evidence-and-claims.md` before turning a finding into current work"
-                in triage
-                and "a disposition does not grant mutation authority; the main runner "
-                "owns changes, verification, and phase routing"
-                in triage
-            ),
-            "external-authority": (
-                "a plan assertion is not authority by itself. reviewer repetition, "
-                "severity language, a triage disposition, elapsed cost, or the runner's "
-                "own assertion likewise cannot create authority"
-                in route
-                and "cannot establish a current violation without concrete evidence "
-                "about the current target"
-                in route
-            ),
-            "minimal-private-evidence": (
-                "minimum non-sensitive authority proposition, authority category, "
-                "stable independently readable locator, and non-sensitive identity "
-                "digest"
-                in route
-                and "raw credentials, tokens, secret values, or unnecessary private "
-                "text"
-                in route
-                and "a category or digest alone cannot substitute for a readable "
-                "authority source"
-                in route
-            ),
-            "atomic-and-fresh": (
-                "each materially distinct obligation changed by a bundled mutation "
-                "must pass separately; split the correction or omit the unadmitted part"
-                in route
-                and "any intervening change to the target, plan, user direction, "
-                "governing policy, or cited evidence makes it stale before mutation"
-                in route
-            ),
-            "admitted-smallest-correction": (
-                "when the record establishes a current authorized violation, apply "
-                "only the smallest correction and follow the existing plan or target "
-                "invalidation route"
-                in route
-            ),
-            "complete-denial-consequence": (
-                "a complete denial requires every field above and affirmative evidence "
-                "that no current authorized obligation is violated"
-                in route
-                and "preserve the concern as residual evidence or transfer it only to "
-                "an existing authoritative owner"
-                in route
-            ),
-            "unevaluable-fails-closed": (
-                "missing fields, unavailable required authority, contradictory evidence, "
-                "or a stale identity makes admission unevaluable: leave the phase "
-                "unfinished or incomplete, and do not convert the gap into a denial, "
-                "residual, or mutation"
-                in route
-            ),
-            "embedded-guarantee-repair": (
-                "remove or narrow that guarantee instead of hardening machinery to "
-                "satisfy it"
-                in route
-                and "the finding and current pass remain nonzero; plan mutation requires "
-                "fresh complete critique"
-                in route
-                and "an unsupported proposal not yet present in plan causes no mutation"
-                in route
-            ),
-            "duplicate-remains-nonzero": (
-                "when a prior complete denial remains current, give the complete "
-                "admission record as additive context in the next complete reviewer "
-                "assignment"
-                in review
-                and "the current pass remains nonzero and the bounded attempt finishes "
-                "incomplete without mutation or an automatic retry"
-                in review
-            ),
-            "audit-denial-accounting": (
-                "`fix` — a proposed current correction, not mutation authority"
-                in audit
-                and "a complete runner denial with its recorded residual or "
-                "existing-owner consequence counts as handled for audit accounting"
-                in audit
-                and "missing, stale, unavailable, or contradictory admission evidence "
-                "leaves audit incomplete"
-                in audit
-            ),
-            "post-audit-invalidation": (
-                len(post_audit_rows) == 1
-                and post_audit_rows[0][1:] == (
-                    "Review zero pass and post-audit",
-                    "Review, then a fresh post-audit for Full.",
-                )
-            ),
-        }
-        return [name for name, connected in edges.items() if not connected]
-
-    def test_finding_mutation_admission_source_edges_are_connected(self):
-        sources = {
-            "evidence": self.evidence,
-            "plan": self.plan,
-            "review": self.review,
-            "audit": (SKILL_ROOT / "references" / "audit.md").read_text(
-                encoding="utf-8"
-            ),
-            "triage": (
-                SKILL_ROOT / "references" / "auditors" / "triage.md"
-            ).read_text(encoding="utf-8"),
-        }
-        self.assertEqual(self.admission_source_edge_failures(sources), [])
-
-        variants = (
-            (
-                "review-pre-mutation-handoff",
-                "review",
-                "Immediately before any finding-driven Plan or product mutation",
-                "After any finding-driven Plan or product mutation",
-            ),
-            (
-                "external-authority",
-                "evidence",
-                "or the runner's own\nassertion likewise cannot create authority",
-                "or the runner's own\nassertion can create authority",
-            ),
-            (
-                "admitted-smallest-correction",
-                "evidence",
-                "apply only the\nsmallest correction and follow",
-                "record the\nsmallest correction without following",
-            ),
-            (
-                "unevaluable-fails-closed",
-                "evidence",
-                "and do not convert the\ngap into a denial, residual, or mutation",
-                "and convert the\ngap into a denial, residual, or mutation",
-            ),
-            (
-                "complete-denial-consequence",
-                "evidence",
-                "Preserve the concern as\nresidual evidence or transfer it only",
-                "Describe the concern;\nresidual evidence or transfer it only",
-            ),
-            (
-                "duplicate-remains-nonzero",
-                "review",
-                "the\ncurrent pass remains nonzero and the bounded attempt finishes "
-                "incomplete\nwithout mutation or an automatic retry",
-                "the\ncurrent pass may become zero and the bounded attempt finishes "
-                "complete\nwith mutation or an automatic retry",
-            ),
-            (
-                "post-audit-invalidation",
-                "evidence",
-                "| Implementation or a post-audit FIX changes the target | Review zero "
-                "pass and post-audit | Review, then a fresh post-audit for Full. |",
-                "| Implementation or a post-audit FIX changes the target | Review zero "
-                "pass and post-audit | Continue to Compound. |",
-            ),
+    def test_finding_admission_table_has_four_exact_outcomes(self):
+        header = ("Outcome", "Minimum evidence", "Mutation", "Existing route")
+        rows = markdown_table_with_header(
+            self.evidence, "Completion-Boundary Routing", header
         )
-        for expected_failure, source_name, original, hostile in variants:
-            with self.subTest(hostile_source_edge=expected_failure):
-                self.assertIn(original, sources[source_name])
-                changed = dict(sources)
-                changed[source_name] = sources[source_name].replace(
-                    original, hostile, 1
+        self.assertTrue(rows, "missing canonical finding-admission table")
+        self.assertEqual(len(rows), 5)
+        self.assertEqual(
+            rows[0],
+            ("Outcome", "Minimum evidence", "Mutation", "Existing route"),
+        )
+        self.assertEqual(
+            {row[0]: row[2:] for row in rows[1:]},
+            {
+                "Proven current violation": (
+                    "Exact smallest correction",
+                    "Existing Plan or target invalidation route",
+                ),
+                "Unsupported Plan guarantee": (
+                    "Exact narrowing",
+                    "Plan mutation, target rotation, then fresh complete Critique",
+                ),
+                "No current violation": (
+                    "None",
+                    "Residual evidence or verified existing owner",
+                ),
+                "Insufficient or contradictory evidence": (
+                    "None",
+                    "Phase unfinished or run incomplete",
+                ),
+            },
+        )
+
+        row_text = next(
+            line
+            for line in self.evidence.splitlines()
+            if line.startswith("| No current violation |")
+        )
+        removed = self.evidence.replace(f"{row_text}\n", "", 1)
+        self.assertEqual(
+            len(
+                markdown_table_with_header(
+                    removed, "Completion-Boundary Routing", header
                 )
+            ),
+            4,
+        )
+
+        reversed_effect = self.evidence.replace(
+            "| Proven current violation | Shared identity tuple; independently "
+            "readable non-Plan authority; violated current obligation; exact "
+            "correction identity | Exact smallest correction |",
+            "| Proven current violation | Shared identity tuple; independently "
+            "readable non-Plan authority; violated current obligation; exact "
+            "correction identity | None |",
+            1,
+        )
+        reversed_rows = markdown_table_with_header(
+            reversed_effect, "Completion-Boundary Routing", header
+        )
+        self.assertNotEqual(
+            {row[0]: row[2:] for row in reversed_rows[1:]},
+            {row[0]: row[2:] for row in rows[1:]},
+        )
+
+    def test_finding_admission_locator_has_observation_fallback(self):
+        route = normalized(
+            section_under(self.evidence, "Completion-Boundary Routing")
+        ).casefold()
+        self.assertRegex(
+            route,
+            r"stable (?:independently )?readable locator when the host provides one; "
+            r"otherwise .+ independently readable .+ observation .+ identity binding",
+        )
+
+    def test_finding_admission_freshness_binds_each_effect(self):
+        route = section_under(self.evidence, "Completion-Boundary Routing")
+        paragraphs = [
+            normalized(paragraph).casefold() for paragraph in route.split("\n\n")
+        ]
+        stale_rule = next(
+            paragraph
+            for paragraph in paragraphs
+            if "stale before mutation" in paragraph
+        )
+        for bound_value in (
+            "finding",
+            "target",
+            "plan",
+            "user direction",
+            "governing policy",
+            "cited evidence",
+            "outcome",
+            "route",
+            "correction",
+            "narrowing",
+        ):
+            with self.subTest(bound_value=bound_value):
+                self.assertIn(bound_value, stale_rule)
+
+    def test_known_self_authorization_overrides_are_rejected(self):
+        route = section_under(self.evidence, "Completion-Boundary Routing")
+        self.assertEqual(known_self_authorization_overrides(route), [])
+        for override in KNOWN_SELF_AUTHORIZATION_OVERRIDES:
+            with self.subTest(known_override=override):
+                hostile_route = f"{route} {override}."
                 self.assertEqual(
-                    self.admission_source_edge_failures(changed),
-                    [expected_failure],
+                    known_self_authorization_overrides(hostile_route), [override]
                 )
 
     def test_runtime_and_public_instructions_have_no_project_local_run_path(self):
