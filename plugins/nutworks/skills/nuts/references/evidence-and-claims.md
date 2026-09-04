@@ -230,7 +230,10 @@ decision also binds its correction and correction identity; an unsupported
 Plan guarantee decision also binds its narrowing and narrowing identity. A
 material change to any applicable bound value makes the decision stale before
 mutation. Materially new authority or violation evidence therefore requires a
-fresh evaluation.
+fresh evaluation. Record every reuse, sameness, and materiality judgment with
+the bound values compared and cited evidence; when a bound value changed, name
+that value. If sameness or materiality cannot be established, the prior
+decision is stale and requires a fresh evaluation before mutation.
 
 For a proven current violation, apply only the exact smallest correction and
 follow the existing Plan or target invalidation route. Insufficient,

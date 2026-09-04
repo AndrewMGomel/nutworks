@@ -43,6 +43,14 @@ KNOWN_SELF_AUTHORIZATION_OVERRIDES = (
     "the runner's own assertion establishes a current violation",
 )
 
+FINDING_ADMISSION_TABLE = (
+    ("Outcome", "Minimum evidence", "Mutation", "Existing route"),
+    ("Proven current violation", "Shared identity tuple; independently readable non-Plan authority; violated current obligation; exact correction identity", "Exact smallest correction", "Existing Plan or target invalidation route"),
+    ("Unsupported Plan guarantee", "Shared identity tuple; authoritative completion boundary; exact Plan promise; evidence that its asserted authority is absent or circular; exact narrowing identity", "Exact narrowing", "Plan mutation, target rotation, then fresh complete Critique"),
+    ("No current violation", "Shared identity tuple; authority claims examined; affirmative evidence that none establishes a current violation", "None", "Residual evidence or verified existing owner"),
+    ("Insufficient or contradictory evidence", "Shared identity tuple where available; exact missing, stale, unavailable, or contradictory evidence", "None", "Phase unfinished or run incomplete"),
+)
+
 
 def load_json(relative_path):
     return json.loads((FIXTURES / relative_path).read_text(encoding="utf-8"))
@@ -104,6 +112,37 @@ def known_self_authorization_overrides(text):
     ]
 
 
+def finding_admission_errors(evidence, review, audit, triage):
+    route_source = section_under(evidence, "Completion-Boundary Routing")
+    route = normalized(route_source)
+    folded_route = route.casefold()
+    review = normalized(review)
+    audit = normalized(audit)
+    triage = normalized(triage)
+    freshness = next((normalized(paragraph).casefold() for paragraph in route_source.split("\n\n") if "stale before mutation" in normalized(paragraph).casefold()), "")
+    invalidation = markdown_table_with_header(evidence, "Invalidation Routes", ("Later event", "Stale evidence", "Required route"))
+    checks = {
+        "table": markdown_table_with_header(evidence, "Completion-Boundary Routing", FINDING_ADMISSION_TABLE[0]) == list(FINDING_ADMISSION_TABLE),
+        "locator": re.search(r"stable (?:independently )?readable locator when the host provides one; otherwise .+ independently readable .+ observation .+ identity binding", folded_route) is not None,
+        "self-authorization": not known_self_authorization_overrides(" ".join((route, review, audit, triage))),
+        "reuse record": "Record every reuse, sameness, and materiality judgment with the bound values compared and cited evidence; when a bound value changed, name that value" in route,
+        "reuse fail closed": "If sameness or materiality cannot be established, the prior decision is stale and requires a fresh evaluation before mutation" in route,
+        "freshness bound values": all(value in freshness for value in ("finding", "target", "plan", "user direction", "governing policy", "cited evidence", "outcome", "route", "correction", "narrowing")),
+        "Review handoff": "Immediately before any finding-driven Plan or product mutation, apply the canonical Completion-Boundary Routing in `evidence-and-claims.md`" in review,
+        "Audit handoff": "Before any change, the main runner applies the canonical Completion-Boundary Routing in `evidence-and-claims.md`" in audit,
+        "Audit advisory FIX": "`FIX` — a proposed current correction, not mutation authority" in audit,
+        "Audit denial": "A complete runner `No current violation` outcome with its recorded residual or existing-owner route counts as handled for Audit accounting" in audit,
+        "Audit incomplete": "Missing, stale, unavailable, or contradictory admission evidence leaves Audit incomplete" in audit,
+        "Triage handoff": "Use the canonical Completion-Boundary Routing in `evidence-and-claims.md` before turning a finding into current work" in triage,
+        "post-Audit route": (
+            "Implementation or a post-audit FIX changes the target",
+            "Review zero pass and post-audit",
+            "Review, then a fresh post-audit for Full.",
+        ) in invalidation,
+    }
+    return {name for name, valid in checks.items() if not valid}
+
+
 class KernelContractTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -117,6 +156,12 @@ class KernelContractTests(unittest.TestCase):
         cls.review = (SKILL_ROOT / "references" / "review.md").read_text(
             encoding="utf-8"
         )
+        cls.audit = (SKILL_ROOT / "references" / "audit.md").read_text(
+            encoding="utf-8"
+        )
+        cls.triage = (
+            SKILL_ROOT / "references" / "auditors" / "triage.md"
+        ).read_text(encoding="utf-8")
 
     def test_frontmatter_is_portable_and_activation_focused(self):
         self.assertTrue(self.skill.startswith("---\n"))
@@ -292,13 +337,7 @@ class KernelContractTests(unittest.TestCase):
             with self.subTest(completion_boundary_contract=phrase):
                 self.assertIn(phrase, folded_route)
 
-        for relative in (
-            "references/plan.md",
-            "references/review.md",
-            "references/audit.md",
-            "references/auditors/triage.md",
-        ):
-            text = normalized((SKILL_ROOT / relative).read_text(encoding="utf-8"))
+        for text in map(normalized, (self.plan, self.review, self.audit, self.triage)):
             self.assertIn(
                 "canonical Completion-Boundary Routing in `evidence-and-claims.md`",
                 text,
@@ -321,114 +360,56 @@ class KernelContractTests(unittest.TestCase):
             with self.subTest(forbidden_scope_engine=phrase):
                 self.assertNotIn(phrase, folded_runtime)
 
-    def test_finding_admission_table_has_four_exact_outcomes(self):
-        header = ("Outcome", "Minimum evidence", "Mutation", "Existing route")
-        rows = markdown_table_with_header(
-            self.evidence, "Completion-Boundary Routing", header
-        )
-        self.assertTrue(rows, "missing canonical finding-admission table")
-        self.assertEqual(len(rows), 5)
+    def test_finding_admission_contract_is_source_bound(self):
         self.assertEqual(
-            rows[0],
-            ("Outcome", "Minimum evidence", "Mutation", "Existing route"),
-        )
-        self.assertEqual(
-            {row[0]: row[2:] for row in rows[1:]},
-            {
-                "Proven current violation": (
-                    "Exact smallest correction",
-                    "Existing Plan or target invalidation route",
-                ),
-                "Unsupported Plan guarantee": (
-                    "Exact narrowing",
-                    "Plan mutation, target rotation, then fresh complete Critique",
-                ),
-                "No current violation": (
-                    "None",
-                    "Residual evidence or verified existing owner",
-                ),
-                "Insufficient or contradictory evidence": (
-                    "None",
-                    "Phase unfinished or run incomplete",
-                ),
-            },
-        )
-
-        row_text = next(
-            line
-            for line in self.evidence.splitlines()
-            if line.startswith("| No current violation |")
-        )
-        removed = self.evidence.replace(f"{row_text}\n", "", 1)
-        self.assertEqual(
-            len(
-                markdown_table_with_header(
-                    removed, "Completion-Boundary Routing", header
-                )
+            finding_admission_errors(
+                self.evidence, self.review, self.audit, self.triage
             ),
-            4,
+            set(),
         )
 
-        reversed_effect = self.evidence.replace(
-            "| Proven current violation | Shared identity tuple; independently "
-            "readable non-Plan authority; violated current obligation; exact "
-            "correction identity | Exact smallest correction |",
-            "| Proven current violation | Shared identity tuple; independently "
-            "readable non-Plan authority; violated current obligation; exact "
-            "correction identity | None |",
-            1,
-        )
-        reversed_rows = markdown_table_with_header(
-            reversed_effect, "Completion-Boundary Routing", header
-        )
-        self.assertNotEqual(
-            {row[0]: row[2:] for row in reversed_rows[1:]},
-            {row[0]: row[2:] for row in rows[1:]},
-        )
-
-    def test_finding_admission_locator_has_observation_fallback(self):
-        route = normalized(
-            section_under(self.evidence, "Completion-Boundary Routing")
-        ).casefold()
-        self.assertRegex(
-            route,
-            r"stable (?:independently )?readable locator when the host provides one; "
-            r"otherwise .+ independently readable .+ observation .+ identity binding",
-        )
-
-    def test_finding_admission_freshness_binds_each_effect(self):
-        route = section_under(self.evidence, "Completion-Boundary Routing")
-        paragraphs = [
-            normalized(paragraph).casefold() for paragraph in route.split("\n\n")
-        ]
-        stale_rule = next(
-            paragraph
-            for paragraph in paragraphs
-            if "stale before mutation" in paragraph
-        )
-        for bound_value in (
-            "finding",
-            "target",
-            "plan",
-            "user direction",
-            "governing policy",
-            "cited evidence",
-            "outcome",
-            "route",
-            "correction",
-            "narrowing",
+    def test_triage_fix_is_advisory(self):
+        triage = normalized(self.triage)
+        for phrase in (
+            "`FIX` — propose a current correction",
+            "Triage preserves evidence and recommends a disposition; the main runner applies Completion-Boundary Routing before mutation",
+            "A complete runner denial with its recorded residual or verified-owner route counts as handled for Audit accounting",
         ):
-            with self.subTest(bound_value=bound_value):
-                self.assertIn(bound_value, stale_rule)
+            self.assertIn(phrase, triage)
 
-    def test_known_self_authorization_overrides_are_rejected(self):
-        route = section_under(self.evidence, "Completion-Boundary Routing")
-        self.assertEqual(known_self_authorization_overrides(route), [])
-        for override in KNOWN_SELF_AUTHORIZATION_OVERRIDES:
-            with self.subTest(known_override=override):
-                hostile_route = f"{route} {override}."
+    def test_hostile_finding_admission_sources_fail_the_live_contract(self):
+        cases = [
+            ("table", self.evidence.replace(
+                "independently readable non-Plan authority", "Plan assertion", 1
+            ), self.review, self.audit, self.triage),
+            ("Review handoff", self.evidence, normalized(self.review).replace(
+                "Immediately before any finding-driven Plan or product mutation, apply the canonical Completion-Boundary Routing in `evidence-and-claims.md`",
+                "Before mutation, consider the available findings", 1
+            ), self.audit, self.triage),
+            ("Audit handoff", self.evidence, self.review, normalized(self.audit).replace(
+                "Before any change, the main runner applies the canonical Completion-Boundary Routing in `evidence-and-claims.md`",
+                "Before any change, Triage grants mutation authority", 1
+            ), self.triage),
+            ("post-Audit route", self.evidence.replace(
+                "Review, then a fresh post-audit for Full.",
+                "Continue without Review or post-audit.", 1
+            ), self.review, self.audit, self.triage),
+            ("reuse record", self.evidence.replace("judgment with\nthe bound values compared and cited evidence; when a bound value changed, name\nthat value.", "judgment.", 1), self.review, self.audit, self.triage),
+            ("reuse fail closed", self.evidence.replace("the prior\ndecision is stale and requires a fresh evaluation before mutation.", "the prior\ndecision remains current without a fresh evaluation before mutation.", 1), self.review, self.audit, self.triage),
+            ("freshness bound values", self.evidence.replace("bound finding, target, Plan,", "bound target, Plan,", 1), self.review, self.audit, self.triage),
+        ]
+        cases.extend(
+            ("self-authorization", self.evidence, self.review + suffix if source == "review" else self.review, self.audit + suffix if source == "audit" else self.audit, self.triage + suffix if source == "triage" else self.triage)
+            for source in ("review", "audit", "triage")
+            for override in KNOWN_SELF_AUTHORIZATION_OVERRIDES
+            for suffix in (f"\n{override}.\n",)
+        )
+
+        for expected_error, evidence, review, audit, triage in cases:
+            with self.subTest(hostile_source=expected_error):
                 self.assertEqual(
-                    known_self_authorization_overrides(hostile_route), [override]
+                    finding_admission_errors(evidence, review, audit, triage),
+                    {expected_error},
                 )
 
     def test_runtime_and_public_instructions_have_no_project_local_run_path(self):
