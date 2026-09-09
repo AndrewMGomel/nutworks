@@ -193,16 +193,63 @@ target-kind, current-target binding, or verification is missing.
 
 ## Completion-Boundary Routing
 
-For every actionable concern found during Critique or any later phase, before
-it becomes current work, decide whether the authoritative objective, governing
-policy, safety, or correctness necessary to that objective is violated. A Plan
-assertion is not authority by itself. If the concern exists only because Plan
-added an optional or otherwise unproven guarantee without provenance in user
-direction, governing policy, safety, or correctness necessary to the objective,
-remove or narrow that guarantee instead of hardening machinery to satisfy it.
-The finding and current pass remain nonzero; Plan mutation requires fresh
-complete Critique. A real violation remains actionable when its smallest
-correction stays within the recorded Plan boundaries.
+Every actionable concern found during Critique or any later phase is finding
+evidence, not mutation authority. Immediately before any finding-driven Plan or
+product mutation, the main runner records one outcome from this table beside
+the canonical finding in the current phase evidence:
+
+| Outcome | Minimum evidence | Mutation | Existing route |
+|---|---|---|---|
+| Proven current violation | Shared identity tuple; independently readable non-Plan authority; violated current obligation; exact correction identity | Exact smallest correction | Existing Plan or target invalidation route |
+| Unsupported Plan guarantee | Shared identity tuple; authoritative completion boundary; exact Plan promise; evidence that its asserted authority is absent or circular; exact narrowing identity | Exact narrowing | Plan mutation, target rotation, then fresh complete Critique |
+| No current violation | Shared identity tuple; authority claims examined; affirmative evidence that none establishes a current violation | None | Residual evidence or verified existing owner |
+| Insufficient or contradictory evidence | Shared identity tuple where available; exact missing, stale, unavailable, or contradictory evidence | None | Phase unfinished or run incomplete |
+
+The shared identity tuple binds the canonical finding, current target, Plan,
+user direction, governing policy, and cited evidence. Every outcome also binds
+the outcome and resulting runner route. Keep the record metadata-minimal but
+falsifiable. Record a stable independently readable locator when the host
+provides one; otherwise record the minimum independently readable current-run
+observation plus a non-sensitive identity binding. Never copy raw credentials,
+tokens, secret values, or unnecessary private text. A category or digest alone
+cannot substitute for independently readable evidence.
+
+User direction, applicable repository authority, governing policy, and current
+obligations arising from safety, privacy, credential handling, destructive
+effects, publication, or correctness necessary to the authorized outcome may
+support admission. A Plan assertion is not authority by itself. Reviewer
+repetition, severity language, a Triage disposition, elapsed cost, or the
+runner's own assertion cannot create authority or establish a current violation
+without concrete evidence about the current target.
+
+Each materially distinct obligation changed by a bundled mutation must pass
+separately; split the correction or omit the unadmitted part. Every decision is
+current only while its bound finding, target, Plan, user direction, governing
+policy, cited evidence, outcome, and route are unchanged. A proven-violation
+decision also binds its correction and correction identity; an unsupported
+Plan guarantee decision also binds its narrowing and narrowing identity. A
+material change to any applicable bound value makes the decision stale before
+mutation. Materially new authority or violation evidence therefore requires a
+fresh evaluation. Record every reuse, sameness, and materiality judgment with
+the bound values compared and cited evidence; when a bound value changed, name
+that value. If sameness or materiality cannot be established, the prior
+decision is stale and requires a fresh evaluation before mutation.
+
+For a proven current violation, apply only the exact smallest correction and
+follow the existing Plan or target invalidation route. Insufficient,
+unavailable, stale, or contradictory evidence leaves the phase unfinished or
+the run incomplete; do not convert the gap into a denial, residual, or
+mutation.
+
+If the concern exists only because Plan added an optional or otherwise
+unproven guarantee without provenance in user direction, governing policy,
+safety, or correctness necessary to the objective, remove or narrow that
+guarantee instead of hardening machinery to satisfy it. This exact narrowing is
+the boundary-restoring Plan mutation: rotate the target identity. The finding
+and current pass remain nonzero; Plan mutation requires fresh complete
+Critique. An unsupported proposal not yet present in Plan causes no mutation.
+A real violation remains actionable when its smallest correction stays within
+the recorded Plan boundaries.
 
 When the smallest viable correction must depart from a recorded load-bearing
 objective, success condition, constraint, scope/non-goal, authority basis, or
