@@ -2,6 +2,54 @@
 
 ## Unreleased
 
+## 0.2.1 — Unreleased candidate
+
+### Keep NUTS focused on required work
+
+NUTS could treat a plausible extra safeguard as mandatory work, even when the
+requested result did not need it. That could expand the task and prolong review
+instead of getting the actual fix finished.
+
+This patch strengthens the check before a finding changes the plan or code:
+
+- Proposed work must have evidence that it is necessary and authorized by the
+  task, governing rules, or required correctness.
+- Bundled suggestions are considered separately, so a genuine fix does not
+  bring unrelated safeguards along with it.
+- Suggested fixes remain advice, not automatic permission to edit.
+- Missing or conflicting evidence leaves the decision unresolved rather than
+  inventing permission. Earlier decisions are reconsidered when their evidence
+  changes.
+
+Required fixes and genuine safety, privacy, and policy obligations remain
+actionable. Review stays broad; unnecessary implementation work is narrowed.
+
+### Evidence and remaining qualification
+
+The source correction passed 73 automated tests, package and source-origin
+checks, and the official Codex plugin validator. Independent correctness and
+simplicity review and hostile regression checks also passed.
+A focused exercise fixed a real date-range defect while leaving an unsupported
+record limit or disk-spill suggestion out; all three unchanged tests passed.
+Another exercise supplied two equally authoritative, conflicting retention
+rules. NUTS left the conflict unresolved and made no changes. Verification did
+not run because the sandbox blocked creation of a temporary file, so this
+exercise was inconclusive, not passing.
+
+This candidate is not yet release-ready. The remaining check is to install this
+exact candidate in a separate Codex test environment, verify that NUTS uses it,
+complete and independently review one full NUTS run, and restore `v0.2.0`
+afterward. The focused exercises do not show how the whole workflow behaves.
+Even a successful full-run check will apply to the tested release and host, not guarantee that
+every future model, host, or project avoids unnecessary work. Nutworks remains
+**pilot-unqualified**; matching behavior across different hosts is not claimed.
+
+No new runtime dependency or workflow phase is introduced. The behavior is the
+correction merged in PR #13; this preparation changes release metadata,
+documentation, and release-identity tests only. Version `0.2.0` remains the
+public pilot. Restoring that version still needs to be tested using Codex's
+own plugin management; no automated rollback or migration is added.
+
 ## 0.2.0 — 2026-09-03
 
 The central change in Nutworks 0.2.0 fixes a problem in earlier NUTS versions:
