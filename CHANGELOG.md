@@ -36,12 +36,24 @@ rules. NUTS left the conflict unresolved and made no changes. Verification did
 not run because the sandbox blocked creation of a temporary file, so this
 exercise was inconclusive, not passing.
 
-This candidate is not yet release-ready. The remaining check is to install this
-exact candidate in a separate Codex test environment, verify that NUTS uses it,
-complete and independently review one full NUTS run, and restore `v0.2.0`
-afterward. The focused exercises do not show how the whole workflow behaves.
-Even a successful full-run check will apply to the tested release and host, not guarantee that
-every future model, host, or project avoids unnecessary work. Nutworks remains
+This candidate is not yet release-ready. The remaining checks require a separate
+Codex test environment and proof that NUTS uses the exact candidate. Two full
+NUTS runs are planned: first, replay the original draft-cockpit task on disposable
+local copies, with no real account or provider effects; only if that passes,
+test a smaller file-copy task that must preserve existing data. Each run will
+receive independent review, with `v0.2.0` restored and the normal profile checked
+after every outcome. Neither run has been performed for this qualification.
+
+The replay must exercise late findings, justified plan changes and renewed
+review, then reach implementation without unnecessary new obligations or getting
+stuck rejecting the same finding. Necessary fixes must still be completed. If
+those conditions are not exercised, a successful task alone will not show that
+the original problem is fixed. Each case gets one attempt; an unsuccessful or
+inconclusive result requires a separate decision, not an automatic retry.
+
+The focused exercises do not show how the whole workflow behaves. Any successful
+qualification will apply to the tested candidate and environment, not guarantee
+that every future model, host, or project avoids unnecessary work. Nutworks remains
 **pilot-unqualified**; matching behavior across different hosts is not claimed.
 
 No new runtime dependency or workflow phase is introduced. The behavior is the
