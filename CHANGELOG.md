@@ -36,31 +36,39 @@ rules. NUTS left the conflict unresolved and made no changes. Verification did
 not run because the sandbox blocked creation of a temporary file, so this
 exercise was inconclusive, not passing.
 
-This candidate is not yet release-ready. The remaining checks require a separate
-Codex test environment and proof that NUTS uses the exact candidate. Two full
-NUTS runs are planned: first, replay the original draft-cockpit task on disposable
-local copies, with no real account or provider effects; only if that passes,
-test a smaller file-copy task that must preserve existing data. Each run will
-receive independent review, with `v0.2.0` restored and the normal profile checked
-after every outcome. Neither run has been performed for this qualification.
+The exact candidate was selected in a separate Codex test environment. In a local
+file-copy exercise, NUTS repaired real data-protection defects and passed 15 tests.
+It reported the workflow incomplete when the sandbox blocked a required Git-index
+update. Independent review supports those necessary fixes, not a completed Full
+qualification pass. An earlier launch stopped before model work because the
+model was at capacity; the replacement was separately authorized, not automatic.
 
-The replay must exercise late findings, justified plan changes and renewed
-review, then reach implementation without unnecessary new obligations or getting
-stuck rejecting the same finding. Necessary fixes must still be completed. If
-those conditions are not exercised, a successful task alone will not show that
-the original problem is fixed. Each case gets one attempt; an unsuccessful or
-inconclusive result requires a separate decision, not an automatic retry.
+The original draft-cockpit replay did not supply the required behavioral coverage.
+Its amended attempt violated the offline execution boundary and was rejected;
+successful transfer and wider host effects were not established. Those outcomes
+remain failures or incomplete evidence, not passing qualification. That replay
+route is retired from this campaign; no further run is promised by these notes.
 
-The focused exercises do not show how the whole workflow behaves. Any successful
-qualification will apply to the tested candidate and environment, not guarantee
-that every future model, host, or project avoids unnecessary work. Nutworks remains
-**pilot-unqualified**; matching behavior across different hosts is not claimed.
+These observations do not establish that the full workflow reliably prevents
+scope growth. No organic extra-hardening finding occurred in the file-copy run,
+and no completed Full qualification pass is claimed. The original 64-pass problem
+remains unproven as fixed. Readable reviewer activity and returns were inspected,
+but encrypted assignment text prevented complete verification of reviewer inputs.
+Nutworks remains **pilot-unqualified**: this is a limited pilot update, not a
+guarantee for future projects, models, or hosts.
+
+Codex's native plugin management restored the exact `v0.2.0` predecessor after
+the observations. File comparisons verified the restored payload and the live
+configuration/source/cache endpoints. These checks do not establish continuous
+host isolation, explain earlier configuration changes, or prove general rollback
+support. No private test data or host records are included in the package.
 
 No new runtime dependency or workflow phase is introduced. The behavior is the
 correction merged in PR #13; this preparation changes release metadata,
 documentation, and release-identity tests only. Version `0.2.0` remains the
-public pilot. Restoring that version still needs to be tested using Codex's
-own plugin management; no automated rollback or migration is added.
+public pilot. No automated rollback or migration is added. This successor changes
+only these evidence and qualification notes; it does not change runtime behavior,
+package contents, or the recorded qualification verdicts.
 
 ## 0.2.0 — 2026-09-03
 
