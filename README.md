@@ -36,8 +36,8 @@ broad, risky, or high-stakes work needing independent reviews and audits.
 
 ## Install NUTS
 
-Version `0.2.0` is the current public pilot.
-See the [v0.2.0 release notes](https://github.com/AndrewMGomel/nutworks/releases/tag/v0.2.0)
+Version `0.2.1` is the current public pilot prerelease.
+See the [v0.2.1 release notes](https://github.com/AndrewMGomel/nutworks/releases/tag/v0.2.1)
 for what changed and the exact-tag validation results.
 
 ### Codex
@@ -48,10 +48,10 @@ If an earlier Nutworks pilot is installed, remove it first:
 codex plugin marketplace remove nutworks
 ```
 
-Then install `0.2.0`:
+Then install `0.2.1`:
 
 ```bash
-codex plugin marketplace add AndrewMGomel/nutworks --ref v0.2.0
+codex plugin marketplace add AndrewMGomel/nutworks --ref v0.2.1
 codex plugin add nutworks@nutworks
 ```
 
@@ -71,10 +71,10 @@ If an earlier Nutworks pilot is installed, remove it first:
 claude plugin marketplace remove nutworks
 ```
 
-Then install `0.2.0`:
+Then install `0.2.1`:
 
 ```bash
-claude plugin marketplace add AndrewMGomel/nutworks@v0.2.0 --scope user
+claude plugin marketplace add AndrewMGomel/nutworks@v0.2.1 --scope user
 claude plugin install nutworks@nutworks --scope user
 ```
 
@@ -123,16 +123,17 @@ not guarantee privacy, long-term storage, or a deletion time. Your host controls
 transcript access and retention. Your host and operating system control cleanup
 of temporary copies.
 
-## Development installation
+## Release evidence
 
-The current development candidate is `0.2.1`, not a published release. It
-tightens how NUTS separates required fixes from optional safeguards. One complete,
+Version `0.2.1` tightens how NUTS separates required fixes from optional
+safeguards. One complete,
 source-bound Full run against the exact candidate completed the requested task,
 and a separate controlled component test supplied narrower evidence. See the
-[candidate notes](CHANGELOG.md#021--unreleased-candidate) for the results and
+[release notes](CHANGELOG.md#021--2026-09-16-public-prerelease) for the results and
 limits. These observations do not establish reliability across
-projects, models, or hosts. Public installation commands above remain pinned
-to `0.2.0` until a new release is published.
+projects, models, or hosts.
+
+## Development installation
 
 Maintainers working from a local checkout may substitute its absolute path for
 `AndrewMGomel/nutworks` in the marketplace-add command. Local installation is

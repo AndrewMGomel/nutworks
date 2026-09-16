@@ -11,7 +11,7 @@ from scripts.validate_package import MIT_LICENSE, PackageValidationError, valida
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_VERSION = "0.2.1"
-PUBLISHED_VERSION = "0.2.0"
+PUBLISHED_VERSION = "0.2.1"
 CONTENT_CASES = json.loads(
     (Path(__file__).parent / "fixtures" / "package" / "content-cases.json").read_text(
         encoding="utf-8"
@@ -280,7 +280,7 @@ class CurrentRepositoryPackageTest(unittest.TestCase):
     def test_current_repository_package(self) -> None:
         self.assertEqual(validate_package(ROOT)["status"], "passed")
 
-    def test_candidate_identity_and_install_commands(self) -> None:
+    def test_release_identity_and_install_commands(self) -> None:
         repository = "https://github.com/AndrewMGomel/nutworks"
         codex = json.loads(
             (ROOT / "plugins/nutworks/.codex-plugin/plugin.json").read_text(
@@ -316,8 +316,15 @@ class CurrentRepositoryPackageTest(unittest.TestCase):
         self.assertNotIn("invoke `$nuts`", readme)
         self.assertIn(f"{repository}/issues", readme)
         self.assertIn("pilot-unqualified", readme)
-        self.assertIn(f"development candidate is `{EXPECTED_VERSION}`", readme)
-        self.assertIn("not a published release", readme)
+        self.assertIn(
+            f"Version `{PUBLISHED_VERSION}` is the current public pilot prerelease.",
+            readme,
+        )
+        self.assertIn(f"{repository}/releases/tag/v{PUBLISHED_VERSION}", readme)
+        self.assertNotIn("not a published release", readme)
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        self.assertIn(f"## {PUBLISHED_VERSION} — 2026-09-16 public prerelease", changelog)
+        self.assertNotIn(f"## {PUBLISHED_VERSION} — Unreleased candidate", changelog)
         self.assertIn(
             "do not simulate or qualify model behavior",
             " ".join(readme.casefold().split()),

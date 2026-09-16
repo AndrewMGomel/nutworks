@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## 0.2.1 — Unreleased candidate
+## 0.2.1 — 2026-09-16 public prerelease
 
 ### Keep NUTS focused on required work
 
@@ -82,12 +82,13 @@ data or host records are included in the package.
 
 The behavior change is the correction merged in PR #13; the behavioral NUTS
 instruction tree is unchanged since then. The full `0.2.1`
-candidate also changes version metadata, documentation, and release-identity
+release also changes version metadata, documentation, and release-identity
 tests; its two changed runtime-package descriptors contain version-only changes.
-This README/CHANGELOG reconciliation changes public documentation only. It leaves
-the already-prepared candidate package bytes and behavioral instructions unchanged
-and does not alter historical verdicts. No new runtime dependency, workflow phase,
-automated rollback, or migration is added. Version `0.2.0` remains the public pilot.
+Release finalization updates public documentation, install references, and their
+release-identity test. It leaves the already-prepared package bytes and behavioral
+instructions unchanged and does not alter historical verdicts. No new runtime
+dependency, workflow phase, automated rollback, or migration is added.
+Version `0.2.1` is the current public pilot prerelease.
 
 ## 0.2.0 — 2026-09-03
 
