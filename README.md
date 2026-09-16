@@ -126,10 +126,13 @@ of temporary copies.
 ## Development installation
 
 The current development candidate is `0.2.1`, not a published release. It
-tightens how NUTS separates required fixes from optional safeguards; see the
-[candidate notes](CHANGELOG.md#021--unreleased-candidate). It has not yet been
-tested as an installed plugin in a complete NUTS run. Public installation commands
-above intentionally remain pinned to `0.2.0` until a new release is published.
+tightens how NUTS separates required fixes from optional safeguards. One complete,
+source-bound Full run against the exact candidate completed the requested task,
+and a separate controlled component test supplied narrower evidence. See the
+[candidate notes](CHANGELOG.md#021--unreleased-candidate) for the results and
+limits. These observations do not establish reliability across
+projects, models, or hosts. Public installation commands above remain pinned
+to `0.2.0` until a new release is published.
 
 Maintainers working from a local checkout may substitute its absolute path for
 `AndrewMGomel/nutworks` in the marketplace-add command. Local installation is

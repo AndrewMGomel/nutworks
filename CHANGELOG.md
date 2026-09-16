@@ -24,51 +24,70 @@ This patch strengthens the check before a finding changes the plan or code:
 Required fixes and genuine safety, privacy, and policy obligations remain
 actionable. Review stays broad; unnecessary implementation work is narrowed.
 
-### Evidence and remaining qualification
+### Evidence and limits
 
 The source correction passed 73 automated tests, package and source-origin
 checks, and the official Codex plugin validator. Independent correctness and
 simplicity review and hostile regression checks also passed.
-A focused exercise fixed a real date-range defect while leaving an unsupported
-record limit or disk-spill suggestion out; all three unchanged tests passed.
-Another exercise supplied two equally authoritative, conflicting retention
-rules. NUTS left the conflict unresolved and made no changes. Verification did
-not run because the sandbox blocked creation of a temporary file, so this
-exercise was inconclusive, not passing.
+These checks support the source and package, not model reliability.
 
-The exact candidate was selected in a separate Codex test environment. In a local
-file-copy exercise, NUTS repaired real data-protection defects and passed 15 tests.
-It reported the workflow incomplete when the sandbox blocked a required Git-index
-update. Independent review supports those necessary fixes, not a completed Full
-qualification pass. An earlier launch stopped before model work because the
-model was at capacity; the replacement was separately authorized, not automatic.
+Two separate behavioral observations support narrower claims:
 
-The original draft-cockpit replay did not supply the required behavioral coverage.
-Its amended attempt violated the offline execution boundary and was rejected;
-successful transfer and wider host effects were not established. Those outcomes
-remain failures or incomplete evidence, not passing qualification. That replay
-route is retired from this campaign; no further run is promised by these notes.
+- **A complete Full run:** in one complete, source-bound Full run in a separate
+  Codex test environment, all 23 selected runtime members matched the exact
+  candidate. NUTS repaired a small CSV-report utility. It calculated valid totals and
+  rejected duplicate or malformed records without overwriting an existing report.
+  Six tests and three additional direct checks passed. Audits raised
+  concerns about interrupted writes and memory use. NUTS recorded them as
+  remaining concerns without making them requirements, and completed the work.
+- **A controlled component test:** using the same behavioral NUTS instruction tree, the model
+  knew it was being evaluated for qualification and was explicitly told to apply
+  the rule for deciding whether a review suggestion becomes required work.
+  A supplied proposal bundled a real date-range fix
+  with an unsupported record limit or disk-spill requirement. NUTS applied the
+  real fix and left the extra safeguard out. All three unchanged tests passed,
+  including retention of 5,000 valid records. This was not a Full run or an
+  unprompted reviewer discovery.
 
-These observations do not establish that the full workflow reliably prevents
-scope growth. No organic extra-hardening finding occurred in the file-copy run,
-and no completed Full qualification pass is claimed. The original 64-pass problem
-remains unproven as fixed. Readable reviewer activity and returns were inspected,
-but encrypted assignment text prevented complete verification of reviewer inputs.
-Nutworks remains **pilot-unqualified**: this is a limited pilot update, not a
-guarantee for future projects, models, or hosts.
+Two independent reviews accepted these limited interpretations. The
+observations used different Codex builds and reasoning settings; they are not
+one combined run or evidence of reliability across hosts or models.
 
-Codex's native plugin management restored the exact `v0.2.0` predecessor after
-the observations. File comparisons verified the restored payload and the live
-configuration/source/cache endpoints. These checks do not establish continuous
-host isolation, explain earlier configuration changes, or prove general rollback
-support. No private test data or host records are included in the package.
+The Full run's initial plan already excluded guarantees against interrupted
+writes. No reviewer proposed making those guarantees mandatory. Its original
+**INSUFFICIENT_COVERAGE** verdict under the stronger late-proposal criterion
+therefore remains unchanged. The controlled test does not show that an
+unsuspecting Full runner would reject a persuasive reviewer who wrongly called
+an extra safeguard mandatory. Neither observation establishes that the original 64-pass review
+problem is generally solved. Nutworks remains **pilot-unqualified**.
 
-No new runtime dependency or workflow phase is introduced. The behavior is the
-correction merged in PR #13; this preparation changes release metadata,
-documentation, and release-identity tests only. Version `0.2.0` remains the
-public pilot. No automated rollback or migration is added. This successor changes
-only these evidence and qualification notes; it does not change runtime behavior,
-package contents, or the recorded qualification verdicts.
+Earlier outcomes remain unchanged. A conflicting-retention-rules exercise left
+the conflict unresolved and made no changes, but sandbox restrictions blocked
+verification; it remains **INCONCLUSIVE**. A file-copy exercise fixed real defects
+and passed 15 tests, but a blocked Git-index update left Full incomplete. Its
+earlier capacity-limited launch stopped before model work. The draft-cockpit
+replay lacked the required coverage; its amended attempt violated the offline
+execution boundary and was rejected. None is upgraded by the later observations.
+
+After the Full observation, the separate environment's exact `v0.2.0` predecessor
+payload and selection were restored; candidate source and ambient package remained
+unchanged. This does not establish general rollback support or complete host
+isolation. Encrypted task assignments and additional host-supplied descriptions
+prevented complete reconstruction of every child input. During the Full-run campaign
+interval, the live configuration's reasoning setting changed from medium to low
+with unknown attribution. Native records show the observed parent and children
+continued at medium; exact preservation of live configuration bytes is not
+claimed. Native isolated-fixture trust and log additions remain. No private test
+data or host records are included in the package.
+
+The behavior change is the correction merged in PR #13; the behavioral NUTS
+instruction tree is unchanged since then. The full `0.2.1`
+candidate also changes version metadata, documentation, and release-identity
+tests; its two changed runtime-package descriptors contain version-only changes.
+This README/CHANGELOG reconciliation changes public documentation only. It leaves
+the already-prepared candidate package bytes and behavioral instructions unchanged
+and does not alter historical verdicts. No new runtime dependency, workflow phase,
+automated rollback, or migration is added. Version `0.2.0` remains the public pilot.
 
 ## 0.2.0 — 2026-09-03
 
