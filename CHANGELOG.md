@@ -2,6 +2,93 @@
 
 ## Unreleased
 
+## 0.2.1 — Unreleased candidate
+
+### Keep NUTS focused on required work
+
+NUTS could treat a plausible extra safeguard as mandatory work, even when the
+requested result did not need it. That could expand the task and prolong review
+instead of getting the actual fix finished.
+
+This patch strengthens the check before a finding changes the plan or code:
+
+- Proposed work must have evidence that it is necessary and authorized by the
+  task, governing rules, or required correctness.
+- Bundled suggestions are considered separately, so a genuine fix does not
+  bring unrelated safeguards along with it.
+- Suggested fixes remain advice, not automatic permission to edit.
+- Missing or conflicting evidence leaves the decision unresolved rather than
+  inventing permission. Earlier decisions are reconsidered when their evidence
+  changes.
+
+Required fixes and genuine safety, privacy, and policy obligations remain
+actionable. Review stays broad; unnecessary implementation work is narrowed.
+
+### Evidence and limits
+
+The source correction passed 73 automated tests, package and source-origin
+checks, and the official Codex plugin validator. Independent correctness and
+simplicity review and hostile regression checks also passed.
+These checks support the source and package, not model reliability.
+
+Two separate behavioral observations support narrower claims:
+
+- **A complete Full run:** in one complete, source-bound Full run in a separate
+  Codex test environment, all 23 selected runtime members matched the exact
+  candidate. NUTS repaired a small CSV-report utility. It calculated valid totals and
+  rejected duplicate or malformed records without overwriting an existing report.
+  Six tests and three additional direct checks passed. Audits raised
+  concerns about interrupted writes and memory use. NUTS recorded them as
+  remaining concerns without making them requirements, and completed the work.
+- **A controlled component test:** using the same behavioral NUTS instruction tree, the model
+  knew it was being evaluated for qualification and was explicitly told to apply
+  the rule for deciding whether a review suggestion becomes required work.
+  A supplied proposal bundled a real date-range fix
+  with an unsupported record limit or disk-spill requirement. NUTS applied the
+  real fix and left the extra safeguard out. All three unchanged tests passed,
+  including retention of 5,000 valid records. This was not a Full run or an
+  unprompted reviewer discovery.
+
+Two independent reviews accepted these limited interpretations. The
+observations used different Codex builds and reasoning settings; they are not
+one combined run or evidence of reliability across hosts or models.
+
+The Full run's initial plan already excluded guarantees against interrupted
+writes. No reviewer proposed making those guarantees mandatory. Its original
+**INSUFFICIENT_COVERAGE** verdict under the stronger late-proposal criterion
+therefore remains unchanged. The controlled test does not show that an
+unsuspecting Full runner would reject a persuasive reviewer who wrongly called
+an extra safeguard mandatory. Neither observation establishes that the original 64-pass review
+problem is generally solved. Nutworks remains **pilot-unqualified**.
+
+Earlier outcomes remain unchanged. A conflicting-retention-rules exercise left
+the conflict unresolved and made no changes, but sandbox restrictions blocked
+verification; it remains **INCONCLUSIVE**. A file-copy exercise fixed real defects
+and passed 15 tests, but a blocked Git-index update left Full incomplete. Its
+earlier capacity-limited launch stopped before model work. The draft-cockpit
+replay lacked the required coverage; its amended attempt violated the offline
+execution boundary and was rejected. None is upgraded by the later observations.
+
+After the Full observation, the separate environment's exact `v0.2.0` predecessor
+payload and selection were restored; candidate source and ambient package remained
+unchanged. This does not establish general rollback support or complete host
+isolation. Encrypted task assignments and additional host-supplied descriptions
+prevented complete reconstruction of every child input. During the Full-run campaign
+interval, the live configuration's reasoning setting changed from medium to low
+with unknown attribution. Native records show the observed parent and children
+continued at medium; exact preservation of live configuration bytes is not
+claimed. Native isolated-fixture trust and log additions remain. No private test
+data or host records are included in the package.
+
+The behavior change is the correction merged in PR #13; the behavioral NUTS
+instruction tree is unchanged since then. The full `0.2.1`
+candidate also changes version metadata, documentation, and release-identity
+tests; its two changed runtime-package descriptors contain version-only changes.
+This README/CHANGELOG reconciliation changes public documentation only. It leaves
+the already-prepared candidate package bytes and behavioral instructions unchanged
+and does not alter historical verdicts. No new runtime dependency, workflow phase,
+automated rollback, or migration is added. Version `0.2.0` remains the public pilot.
+
 ## 0.2.0 — 2026-09-03
 
 The central change in Nutworks 0.2.0 fixes a problem in earlier NUTS versions:

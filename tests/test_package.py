@@ -10,7 +10,8 @@ from scripts.validate_package import MIT_LICENSE, PackageValidationError, valida
 
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_VERSION = "0.2.0"
+EXPECTED_VERSION = "0.2.1"
+PUBLISHED_VERSION = "0.2.0"
 CONTENT_CASES = json.loads(
     (Path(__file__).parent / "fixtures" / "package" / "content-cases.json").read_text(
         encoding="utf-8"
@@ -304,17 +305,19 @@ class CurrentRepositoryPackageTest(unittest.TestCase):
 
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn(
-            f"codex plugin marketplace add AndrewMGomel/nutworks --ref v{EXPECTED_VERSION}",
+            f"codex plugin marketplace add AndrewMGomel/nutworks --ref v{PUBLISHED_VERSION}",
             readme,
         )
         self.assertIn(
-            f"claude plugin marketplace add AndrewMGomel/nutworks@v{EXPECTED_VERSION} --scope user",
+            f"claude plugin marketplace add AndrewMGomel/nutworks@v{PUBLISHED_VERSION} --scope user",
             readme,
         )
         self.assertIn("invoke `$nutworks:nuts`", readme)
         self.assertNotIn("invoke `$nuts`", readme)
         self.assertIn(f"{repository}/issues", readme)
         self.assertIn("pilot-unqualified", readme)
+        self.assertIn(f"development candidate is `{EXPECTED_VERSION}`", readme)
+        self.assertIn("not a published release", readme)
         self.assertIn(
             "do not simulate or qualify model behavior",
             " ".join(readme.casefold().split()),
